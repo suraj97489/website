@@ -1,0 +1,45 @@
+.DashBoard {
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--dark);
+  padding-top: 15rem;
+}
+.DashBoard_top {
+  display: grid;
+  width: 90%;
+  height: fit-content;
+  margin: 0 auto;
+  /* background-color: white; */
+  grid-template-rows: auto;
+  grid-template-columns: 25% 25% 25% 25%;
+  justify-items: center;
+  border-radius: 4rem;
+}
+
+.boxLink {
+  width: 95%;
+  height: 15rem;
+  background-color: white;
+  border: 1px solid black;
+  margin: 2rem;
+  border-radius: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
+  text-align: center;
+  text-decoration: none;
+  color: black;
+}
+.DashBoard_top .boxLink:hover,
+.DashBoard_top .boxLink:active {
+  background-color: var(--secondary);
+}
+
+@media (max-width: 600px) {
+  .DashBoard_top {
+    grid-template-rows: 50% 50%;
+    grid-template-columns: 50% 50%;
+  }
+}

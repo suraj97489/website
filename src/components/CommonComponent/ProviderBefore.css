@@ -1,0 +1,109 @@
+.provider-photo-holder {
+  height: 8.1rem;
+  width: 8.1rem;
+  border-radius: 50%;
+  border: 2px solid var(--secondary);
+  position: absolute;
+  left: -1rem;
+  top: -0.1.5rem;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--dark);
+}
+
+.provider-photo-holder > img {
+  width: 8.1rem;
+  height: 8.1rem;
+  object-fit: cover;
+}
+
+.provider-name {
+  color: var(--secondary);
+  font-size: 1.6rem;
+  width: 80%;
+
+  /* border: 1px solid rgb(250, 212, 212); */
+}
+.booking-on {
+  color: white;
+  background-color: green;
+  font-size: 1.2rem;
+  padding: 0.5rem;
+  width: 50%;
+}
+.booking-off {
+  color: white;
+  background-color: rgb(114, 114, 114);
+  font-size: 1.2rem;
+  padding: 0.5rem;
+  width: 50%;
+}
+
+.fa-caret-down {
+  color: var(--secondary);
+  transform: scale(4) translateY(-25%);
+  position: absolute;
+  right: 3.5rem;
+  top: 50%;
+}
+.nameandbooking {
+  /* background-color: rgb(172, 25, 49); */
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 70%;
+  height: 100%;
+}
+
+.provider-before {
+  width: 70vmin;
+  height: 8rem;
+  background-color: var(--dark);
+  border: 2px solid var(--secondary);
+  border-radius: 3rem 1rem 1rem 3rem;
+
+  position: relative;
+  display: flex;
+  z-index: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 600px) {
+  .provider-photo-holder {
+    height: 10.5rem;
+    width: 10.5rem;
+    left: -1.5rem;
+  }
+
+  .provider-photo-holder > img {
+    height: 10.5rem;
+    width: 10.5rem;
+    object-fit: cover;
+  }
+
+  .provider-before {
+    width: 85vmin;
+    height: 10rem;
+    background-color: var(--dark);
+    border: 2px solid var(--secondary);
+    border-radius: 3rem 1rem 1rem 3rem;
+
+    position: relative;
+    display: flex;
+    z-index: 1;
+    justify-content: center;
+    align-items: center;
+  }
+  .provider-name {
+    color: var(--secondary);
+    font-size: 2rem;
+    width: 80%;
+
+    /* border: 1px solid rgb(250, 212, 212); */
+  }
+}

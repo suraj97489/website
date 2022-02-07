@@ -1,0 +1,98 @@
+.SalonReport__Top {
+  height: 15rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 7rem;
+  margin-bottom: 2rem;
+  /* background-color: tomato; */
+}
+.SalonReport__Input {
+  width: 60vmin;
+  height: 5rem;
+}
+.SalonReport__SearchIcon {
+  font-size: 5rem;
+}
+
+.SalonReport__filter__result {
+  height: 7rem;
+  position: relative;
+  bottom: 3rem;
+  width: 100%;
+  background-color: var(--dark);
+  /* margin-bottom: 2rem; */
+  display: flex;
+  color: white;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 2rem;
+}
+
+.SalonReport__wrapper {
+  display: grid;
+  font-size: 2rem;
+  border: 0.6px solid gray;
+  font-family: Arial, Helvetica, sans-serif;
+
+  width: 90vw;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 5rem auto 10rem;
+  margin: auto;
+  margin-bottom: 2rem;
+  box-shadow: 1vw 1vw 3vw #1a1819ad;
+  align-items: center;
+  justify-content: center;
+}
+/* .SalonReport__wrapper:nth-child(even){
+  background-color: #F1EEE7;
+} */
+.SalonReport__NM {
+  display: flex;
+  /* flex-direction: column; */
+  grid-column: 1/-1;
+  background-color: var(--dark);
+  color: white;
+  padding: 2rem 2rem;
+}
+
+.SalonReport__services {
+  display: flex;
+  /* background-color: green; */
+
+  padding: 2rem;
+  padding-left: 4rem;
+  grid-column: 1/4;
+  /* background-color: turquoise; */
+}
+.SalonReport__serviceCharges {
+  justify-self: center;
+  margin-top: 2.5rem;
+}
+
+.SalonReport__providerName {
+  grid-row: 3/4;
+  grid-column: 1/3;
+  margin-left: 1.5rem;
+}
+.SalonReport__Date {
+  grid-row: 3/4;
+}
+.SalonReport__Time {
+  grid-row: 3/4;
+}
+.SalonReport__services li {
+  margin-bottom: 1rem;
+}
+.SalonReport__serviceCharges strong {
+  border-top: 2px solid black;
+  padding-right: 2rem;
+}
+.SalonReport__serviceCharges li {
+  margin-bottom: 1rem;
+}
+.SalonReport__serviceCharges ul {
+  margin-bottom: 2rem;
+}
+
+/* display:"flex",flexDirection:"column",width:"35vw" */

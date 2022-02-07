@@ -1,0 +1,109 @@
+.registration {
+  width: 100%;
+  padding-top: 12rem;
+  padding-bottom: 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.registration > h2 {
+  font-size: 5rem;
+  margin-bottom: 3rem;
+  text-align: center;
+  text-shadow: 0.38vw 0.38vw 0.76vw #1a1819ad;
+}
+.registration_form {
+  background-color: #3a3a3a;
+  width: 40vw;
+  padding: 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #00cbff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.5rem;
+  font-weight: bolder;
+  box-shadow: 1.48vw 1.48vw 1.48vw #1a181942;
+}
+
+.registration_input {
+  width: 25vw;
+  height: 3rem;
+  margin: 2rem 0;
+  background-color: white;
+  border: none;
+  padding-left: 1rem;
+  outline: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.registration_submit {
+  background-color: #00cbff;
+  text-align: center;
+  height: 4rem;
+  border-radius: 5rem;
+  border: none;
+  width: 50%;
+}
+.labelandinput {
+  /* background-color: red; */
+
+  display: flex;
+  flex-direction: column;
+
+  /* justify-content: center; */
+  /* align-items: center; */
+}
+
+@media (max-width: 600px) {
+  .registration {
+    padding-top: 15rem;
+  }
+  .registration_form {
+    width: 90%;
+    font-size: 2.5rem;
+  }
+
+  .registration_input {
+    width: 100%;
+    height: 5rem;
+  }
+
+  .registration_input_captcha {
+    width: 100%;
+    /* margin-top: 1rem; */
+    height: 5rem;
+  }
+  .captcha_div {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-around; */
+
+    /* background-color: red; */
+  }
+  .readonly {
+    background-color: rgb(163, 223, 228);
+  }
+  .labelandinput {
+    /* background-color: red; */
+
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    /* justify-content: center; */
+    /* align-items: center; */
+  }
+  .registration_submit {
+    width: 50vw;
+    height: 7rem;
+    margin-top: 4rem;
+  }
+}

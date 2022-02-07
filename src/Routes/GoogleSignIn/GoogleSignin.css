@@ -1,0 +1,17 @@
+.buttoncontainer{
+    width: 100%;
+    background-color: white;
+    height: 50rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.signin{
+ padding: 2rem;
+ background-color: var(--secondary);
+ border: none;
+ border-radius: 5rem;
+ text-transform: uppercase;
+
+    
+}

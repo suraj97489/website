@@ -1,0 +1,50 @@
+.Modal__container{
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100vw;
+ 
+   background-color:rgba(0, 0, 0, 0.466);
+   z-index: 20;
+   display: flex;
+   justify-content: center;
+ 
+   
+
+}
+.Modal__innercontainer{
+   width: 80vmin;
+   background-color: white;
+    padding: 2.5rem;
+
+display: flex;
+flex-direction: column;
+height: fit-content;
+margin-top: 70rem;
+position: relative;
+
+
+}
+.closeModal{position: absolute;
+            right: 0;
+            top: 0;
+            height: 3rem;
+            width: 3rem;
+            border-radius: 50%;
+           display: flex;
+           justify-content: center;
+           align-items: center;
+            background-color: red;
+            color: white;
+            transform: translate(40%,-40%);
+         
+         }
+
+.Modal__submit{
+    padding: 2rem 2rem;
+    border-radius: 2rem;
+    border: none;
+    margin: 1.5rem;
+    background-color: var(--secondary);
+
+  }

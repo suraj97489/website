@@ -1,0 +1,58 @@
+.main-container{
+    background-color: #F1EEE7; 
+    padding-bottom: 7VW;
+    display: flex; 
+    justify-content: center;}
+  
+  
+  .how-to-book{
+    display: flex;   
+    flex-direction: column; 
+    margin-top: 5vw; }
+  
+  section div h2{
+    font-size: 3.5rem; 
+    font-weight: bolder; 
+    margin: 0 auto 3vw; 
+    text-shadow:0.38vw .38vw .76vw #1a1819ad; 
+    text-decoration: underline;}
+  
+    .inner-container{
+      background-color: #ffffff;
+      width:70vw;padding: 3VW 0; 
+      display: flex;
+      justify-content: center; 
+      border: solid 0.37vw  var(--secondary); 
+      border-radius:3.7vw; 
+      list-style-position: inside; 
+      box-shadow:1.48vw 1.48vw 1.48vw #1a181942;
+    }
+
+  .listing{
+    margin: 2.22 14.8vw;
+  }
+
+  .listing li{
+    margin: 1.48vw 0; 
+    font-weight: bolder; 
+    font-size:2rem;
+  }
+
+  @media (max-width:600px){
+    html{font-size:40%;}
+
+    .inner-container{
+      font-size: 2rem; 
+      padding: 10px 20px;
+      width: 80vw;
+    }
+    .main-container{
+      padding-bottom: 10rem; 
+      padding-top: 5rem;
+    }
+
+    section div h2{ margin: 0 auto 5rem; }
+    .listing li{line-height: 1.5;}
+    
+
+  }

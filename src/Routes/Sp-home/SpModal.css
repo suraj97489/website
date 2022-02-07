@@ -1,0 +1,13 @@
+.SpModal__label__input{
+    display:flex;
+    flex-direction:column;
+    margin-bottom: 2rem;
+}
+.SpModal__label{
+    margin: 1rem 0;
+    font-size: 2rem;
+    
+}
+.SpModal__input{
+    height: 3rem;
+}

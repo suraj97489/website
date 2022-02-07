@@ -1,0 +1,45 @@
+.EditProfile__container {
+  padding-top: 9rem;
+  width: 100%;
+}
+
+.EditProfile__title__div {
+  height: 4rem;
+  width: 75vw;
+  background-color: var(--secondary);
+  color: var(--dark);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+.EditProfile__title__div > button {
+  height: 100%;
+  padding: 0 2rem;
+  border-right: none;
+  border-top: none;
+  border-left: none;
+  width: 20rem;
+}
+.EditProfile__title__div > button:hover {
+  background-color: black;
+  color: white;
+}
+
+.activeStyle {
+  background-color: black;
+  color: white;
+
+  border-bottom: 2px solid var(--secondary);
+  /* border-top: 2px solid red; */
+}
+
+@media (max-width: 600px) {
+  .EditProfile__container {
+    padding: 15rem 0;
+  }
+  .EditProfile__title__div {
+    width: 100%;
+    height: 7rem;
+  }
+}

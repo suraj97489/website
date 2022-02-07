@@ -1,0 +1,24 @@
+:root {
+  --dark: #1a1819;
+  --secondary: #00cbff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif, Times, serif;
+}
+html {
+  font-size: 62.5%;
+}
+
+@media (max-width: 900px) {
+  html {
+    font-size: 50%;
+  }
+
+  /* body{display: flex;
+  flex-direction: column;
+  justify-content: center;}} */
+}

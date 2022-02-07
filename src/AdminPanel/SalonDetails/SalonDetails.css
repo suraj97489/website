@@ -1,0 +1,81 @@
+.SalonDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 10rem;
+  color: white;
+  background-color: var(--dark);
+}
+.SalonDetails_i_salonImg {
+  width: 40vmin;
+  height: 40vmin;
+  border-radius: 2rem;
+  margin-left: 2.2rem;
+}
+
+.SalonDetails__TopDiv {
+  display: flex;
+
+  border-bottom: 1px solid var(--secondary);
+  height: fit-content;
+  padding: 1rem;
+  padding-bottom: 4rem;
+}
+.SalonDetails_NameAndAddressDiv {
+  /* background-color: green; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  font-size: 3rem;
+  justify-content: center;
+  padding: 2rem;
+}
+.SalonDetails_NameAndAddressDiv h3 {
+  margin-bottom: 1rem;
+}
+.SalonDetails_NameAndAddressDiv p {
+  max-width: 80%;
+  font-size: 2rem;
+  line-height: 3rem;
+}
+.SalonDetails__BottomDiv {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  min-height: 80vmin;
+  padding: 3rem;
+  background-color: #ffffff;
+}
+
+.SalonDetails__eachContainer {
+  box-shadow: 1vh 1vh 2vw #525050ad;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+
+  height: 8rem;
+  width: 70%;
+  background-color: var(--secondary);
+
+  border: 1px solid white;
+}
+.SalonDetails__eachContainer > h4 {
+  font-size: 2rem;
+}
+
+.ArrowDropDown {
+  position: absolute;
+  right: 1rem;
+  font-size: xx-large;
+
+  color: red;
+}
+@media (max-width: 600px) {
+  .SalonDetails__eachContainer {
+    width: 100%;
+  }
+}

@@ -1,0 +1,138 @@
+.testimonial-container{
+    position: relative;
+     overflow: hidden;
+    background-color: var(--dark);
+    width: 100%;
+   padding: 5rem 0;
+    border-bottom: 0.2rem solid #00CBFF;
+    color: #FEFAED;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+   
+  }
+  
+  
+  .testimonial-container > h2{
+    font-size: 3.5rem; 
+    font-weight: bolder;  
+    text-shadow:0.38vw .38vw .76vw #1a1819ad; 
+    text-decoration: underline;
+    margin-bottom: 2rem;
+  
+    
+  }
+  .testimonial-inner{ 
+    display: flex;
+    justify-content: center;
+    width: 50%;
+    /* border: red solid .1rem; */
+    position: relative;
+    margin: auto 0 auto 0;
+    overflow: hidden;
+    height: 35rem;
+    
+  }
+  /* .testimonial-container .fas{font-size: 3rem; 
+    color: white;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  z-index: 1;
+  }
+  
+    
+    
+  .fa-caret-square-right{
+  right: 20vw;
+  font-size: 3rem;
+  
+  }
+  .fa-caret-square-left{
+  left: 20vw;
+  font-size: 3rem;
+  
+  } */
+  .testi-hidden{
+    display: flex;
+    position: absolute;
+    left: 0;
+    top: 0;
+   animation: testiHidden 50s linear infinite alternate  ;
+  
+    transition: transform linear 2s;
+  
+   
+  }
+  
+  
+  .box{display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+    width:40rem;
+    border:#00CBFF .1rem solid ;
+    border-radius:1rem;
+    margin: 1rem;
+    padding: 2rem;
+   
+    box-sizing: border-box;
+  }
+  .box p {align-self: center;
+    color: white;
+    text-align: center;
+    /* width: 20rem; */
+    font-size: 1.8rem;
+  
+  }
+  .box strong{
+    text-align: center;
+    margin: .5rem;
+    color:#00CBFF ;
+    font-size: 2rem;}
+  
+
+
+
+
+
+    @media (max-width:600px) {
+      html{font-size:40%;}
+      
+      
+      
+      .testimonial-container{height:75vh; padding: 20px; }
+
+      .testimonial-container > h2{
+        margin-top: 2rem;
+      }
+
+
+      .testimonial-inner{
+        width: 100vw; 
+        height:100vw ; 
+        /* border: solid 1px red; */
+      }
+      .box{
+        width: 60vw; 
+        height: 90vw; 
+      }
+      .box p{ 
+        width: 40vw; 
+        line-height:1.1; 
+        margin: 2rem;
+      }
+    
+      
+      }
+      @keyframes testiHidden {
+        0%{
+            transform: translateX(0px);
+        }
+        50%{
+            transform: translateX(-170rem);
+        }
+        100%{
+            transform: translateX(0px);
+        }
+      }

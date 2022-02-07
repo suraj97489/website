@@ -1,0 +1,107 @@
+.ServicesSection {
+  width: 75vw;
+  height: max-content;
+  margin: 0 auto 4rem;
+  display: grid;
+  grid-template-columns: 80%;
+  grid-template-rows: auto;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--dark);
+  padding: 7rem 0;
+  font-size: 2.5rem;
+  color: white;
+}
+.ServicesSection__serviceDiv {
+  /* background-color: chartreuse; */
+  border-bottom: 1px solid var(--secondary);
+  display: grid;
+  grid-template-columns: 70% 10% 10% 10%;
+  align-items: center;
+  padding: 0 4rem;
+  position: relative;
+  font-size: 1.5rem;
+  height: 5rem;
+}
+.ServicesSection__editservice,
+.ServicesSection__deleteservice {
+  justify-self: center;
+  width: 95%;
+}
+.ServicesSection__editservice:hover,
+.ServicesSection__deleteservice:hover,
+.ServicesSection__SaveButton:hover,
+.ServicesSection__CancelButton:hover {
+  font-size: 1.5rem;
+}
+.ServicesSection__SaveButton,
+.ServicesSection__CancelButton {
+  width: 95%;
+}
+
+.ServicesSection__Input_serviceName,
+.ServicesSection__Input_serviceCharge {
+  border: none;
+  outline: none;
+  margin: 0.1rem;
+}
+.addService {
+  height: 4.5rem;
+  width: 50%;
+  margin: 5rem auto 0;
+  padding: 0 5rem;
+  border: none;
+  border-radius: 3rem;
+  background-color: var(--secondary);
+}
+
+@media (max-width: 600px) {
+  .ServicesSection {
+    width: 100vw;
+    grid-template-columns: 95%;
+    padding-top: 0;
+  }
+
+  .ServicesSection__serviceDiv {
+    /* background-color: red; */
+    height: 15rem;
+    grid-template-rows: 70% auto;
+    grid-template-columns: 25% 25% 25% 25%;
+    font-size: 2.5rem;
+    padding: 1rem;
+  }
+  .ServicesSection__servicename {
+    align-self: flex-start;
+    grid-column: 1/4;
+  }
+  .ServicesSection__deleteservice {
+    grid-column: 4/5;
+    padding: 0 3rem;
+  }
+  .ServicesSection__editservice {
+    grid-column: 3/4;
+    padding: 0 3rem;
+  }
+
+  .ServicesSection__serviceCharge {
+    align-self: flex-start;
+  }
+
+  .ServicesSection__Input_serviceName {
+    align-self: flex-start;
+    grid-column: 1/4;
+  }
+  .ServicesSection__Input_serviceCharge {
+    align-self: flex-start;
+
+    grid-column: 4/5;
+  }
+  .ServicesSection__SaveButton {
+    grid-column: 3/4;
+  }
+  .ServicesSection__CancelButton {
+  }
+  .addService {
+    transform: scale(1.2);
+  }
+}

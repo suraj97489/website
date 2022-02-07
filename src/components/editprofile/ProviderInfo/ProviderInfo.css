@@ -1,0 +1,196 @@
+.ProviderInfo {
+  width: 75vw;
+  min-height: 50rem;
+  margin: 0 auto 4rem;
+  display: flex;
+  /* flex-direction: column;
+    justify-content: space-between;
+    align-items: center;  */
+  background-color: var(--dark);
+  padding-bottom: 2rem;
+  color: white;
+}
+
+.ProviderInfo__SideBar {
+  width: 25%;
+  height: 100%;
+  border-right: 0.1rem solid var(--secondary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* background-color: blue; */
+}
+
+.ProviderInfo__SideBar__ProviderDiv {
+  background-color: rgba(255, 255, 255, 0.815);
+  color: black;
+  font-size: 2rem;
+  text-align: center;
+  padding: 1rem 0;
+  height: 7rem;
+  width: 100%;
+  border-bottom: 0.3rem solid var(--secondary);
+  position: relative;
+}
+
+.ProviderInfo__Right {
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+  padding-top: 4rem;
+}
+.ProviderInfo__ImageWrapper_div {
+  width: 10rem;
+  height: 10rem;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.ProviderInfo__ImageWrapper_div > img {
+  width: 10rem;
+  height: 10rem;
+  object-fit: cover;
+}
+
+.ProviderInfo__details {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  justify-content: space-around;
+  min-height: 20rem;
+  /* background-color: red; */
+  margin-top: 3rem;
+}
+.ProviderInfo__labelAndInput {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  /* flex-direction: column; */
+  /* background-color: rebeccapurple; */
+  font-size: 2rem;
+}
+
+.ProviderInfo__details input {
+  height: 3rem;
+  width: 70%;
+  outline: none;
+  border: none;
+}
+.ProviderInfo__details label {
+  padding-right: 2rem;
+  width: 30%;
+  text-align: end;
+}
+
+.ProviderInfo__Right__ChangePhotoButton {
+  margin: 2rem;
+  padding: 1rem 2rem;
+  background-color: var(--secondary);
+  border: 0.1rem solid black;
+  border-radius: 2rem;
+}
+/* #inputphoto[type="file"]{
+    display: none;
+} */
+
+.ProviderInfo__SaveChanges {
+  width: fit-content;
+  height: fit-content;
+  margin: 0 2rem;
+  padding: 1rem;
+  border: 0.05rem solid var(--dark);
+  border-radius: 1rem;
+  background-color: var(--secondary);
+}
+
+.save_and_delete_div {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.ProviderInfo__addProviderButton {
+  padding: 1rem 4rem;
+  width: 80%;
+  border: 0.1rem solid rgb(184, 181, 181);
+  background-color: black;
+  border-radius: 3rem;
+  margin: 2rem auto;
+  color: white;
+}
+
+.ProviderInfo__active_provider {
+  background-color: white;
+}
+/* .deletIcon{ */
+/* position: absolute; 
+    right: 0;
+    top: 50%;  */
+/* font-size: large;
+    transform: translateY(-50%); */
+/* } */
+
+@media (max-width: 600px) {
+  .ProviderInfo {
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .ProviderInfo__SideBar {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .ProviderInfo__SideBar__ProviderDiv {
+    min-width: 30%;
+  }
+  .ProviderInfo__Right {
+    width: 100%;
+    border-top: 1px solid var(--secondary);
+  }
+  .ProviderInfo__ImageWrapper_div {
+    width: 15rem;
+    height: 15rem;
+  }
+  .ProviderInfo__ImageWrapper_div > img {
+    width: 15rem;
+    height: 15rem;
+  }
+  .ProviderInfo__labelAndInput {
+    flex-direction: column;
+    /* background-color: thistle; */
+    /* border: 1px solid yellow; */
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+  }
+
+  .ProviderInfo__details label {
+    padding-right: 0;
+    width: 100%;
+    /* border: 1px solid red; */
+    text-align: start;
+    margin-bottom: 1rem;
+  }
+  .ProviderInfo__details input {
+    height: 5rem;
+    width: 100%;
+    background-color: white;
+  }
+  .save_and_delete_div {
+    display: flex;
+    /* background-color: yellow; */
+    justify-content: space-around;
+    align-items: center;
+  }
+  .ProviderInfo__SaveChanges {
+    margin: 1rem;
+    display: inline-block;
+  }
+}

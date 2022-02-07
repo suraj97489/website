@@ -1,0 +1,97 @@
+.salonpage-container {
+  width: 100%;
+  margin-top: 4rem;
+  background-color: var(--dark);
+}
+.salonpage-inner {
+  display: flex;
+  flex-wrap: wrap-reverse;
+  width: 100%;
+  justify-content: center;
+}
+.salonpage-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* border: 1px solid white; */
+  color: white;
+  text-align: initial;
+  margin-left: 2rem;
+  width: 25%;
+}
+.salonpage-left > h2 {
+  font-size: 4rem;
+  color: var(--secondary);
+}
+.salonpage-left > p {
+  font-size: 2.5rem;
+  line-height: 1.5;
+  margin: 2rem 0;
+  overflow-wrap: break-word;
+}
+.mobilenumber {
+  font-family: sans-serif;
+  font-size: 2rem;
+}
+.salonpage-bottom > small {
+  font-size: 2rem;
+  color: black;
+  font-weight: bold;
+  margin-left: 2rem;
+}
+
+.salonPhoto {
+  width: 20rem;
+  height: 20rem;
+  object-fit: cover;
+}
+.salonpage-right {
+  /* border: 1px solid yellow; */
+  display: flex;
+  height: 20rem;
+  width: 20rem;
+  border-radius: 10%;
+
+  margin: 10rem 0 10rem 5rem;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.salonpage-bottom {
+  height: 5rem;
+  background-color: var(--secondary);
+  display: flex;
+  align-items: center;
+}
+@media (max-width: 600px) {
+  .salonpage-inner {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .salonpage-left {
+    order: 1;
+    margin-left: 0;
+    width: 90%;
+    /* background-color: green; */
+    display: flex;
+    align-items: center;
+    padding-bottom: 2rem;
+    text-align: center;
+  }
+  .salonpage-right {
+    /* margin-left: 0;
+    margin-top: 5rem; */
+    margin: 8rem 0 0 0;
+    /* width: 25rem; */
+  }
+  /* .salonPhoto {
+  } */
+  .salonpage-left > h2 {
+    width: 100%;
+  }
+  /* .salonpage-left > p {
+    background-color: blue;
+  } */
+}

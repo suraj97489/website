@@ -1,0 +1,149 @@
+:root {
+  --dark: #1a1819;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+header {
+  display: flex;
+
+  align-items: center;
+  width: 100%;
+  height: 4rem;
+  color: #1a1819;
+  background-color: var(--secondary);
+  position: fixed;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  margin-left: 15vw;
+  margin-right: 5rem;
+  text-decoration: none;
+  font-size: 2.5rem;
+  font-weight: 1000;
+  color: #1a1819;
+  cursor: pointer;
+}
+
+header a {
+  text-decoration: none;
+}
+
+.nav-list li a {
+  text-decoration: none;
+  color: #1a1819;
+  font-weight: 1000;
+  font-size: 1.5rem;
+}
+
+.nav-list li {
+  width: fit-content;
+  text-align: center;
+  margin: 0 1vw;
+}
+.nav-list li:hover {
+  background-color: #7ee3fc;
+}
+
+.fa-user-circle {
+  position: absolute;
+  top: 0.45rem;
+  right: 20rem;
+  color: black;
+  cursor: pointer;
+  font-size: 3rem;
+}
+/* header .fa-user-circle:hover{
+    transform: scale(1.2);
+  } */
+.user-active {
+  position: absolute;
+  right: -0.5rem;
+  top: 3.5rem;
+  width: 20rem;
+  height: 15rem;
+
+  border-radius: 1.5rem;
+  background-color: white;
+  transition: all 0.1s ease-in;
+}
+
+.user-active ul {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.user-active ul li {
+  list-style: none;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 4.5rem;
+  width: 100%;
+
+  color: black;
+  font-size: 1.5rem;
+}
+
+.Link {
+  /* height: 4.5rem; */
+  width: 100%;
+}
+
+.user-active ul li:hover {
+  background-color: #ccf5ff;
+  border-radius: 1.5rem;
+}
+
+#sign-out {
+  width: 70%;
+  height: 3rem;
+  border-radius: 1rem;
+  border: 0.1px solid black;
+  margin: 1rem;
+}
+
+.menuIcon {
+  display: none;
+}
+
+.nav-list {
+  display: flex;
+  /* width: fit-content;
+  justify-content: space-around; */
+  text-decoration: none;
+  list-style: none;
+}
+
+@media (max-width: 600px) {
+  html {
+    font-size: 40%;
+  }
+  header {
+    height: 8rem;
+  }
+  .logo {
+    margin-right: 15;
+  }
+  .fa-user-circle {
+    display: none;
+  }
+  .nav-list {
+    display: none;
+  }
+  .menuIcon {
+    display: inline-block;
+    height: 100%;
+    /* border: yellow 1px solid; */
+    /* position: relative; */
+    width: fit-content;
+  }
+}

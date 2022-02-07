@@ -1,0 +1,42 @@
+.AddSalon{
+    min-height: 100vh;
+    background-color: var(--dark);
+    padding-top: 15rem;
+    color: white;
+    display: flex;
+    flex-direction: column;
+   
+    align-items: center;
+}
+.AddSalon form{
+    display: flex;
+    flex-direction: column;
+   
+    /* background-color: green; */
+    font-size: 2rem;
+    width: 80vmin;
+    margin-bottom: 4rem;
+}
+.AddSalon form>label{
+    margin: 1rem;
+    margin-left: 0;
+}
+
+.AddSalon form>input{
+    background-color: white;
+   margin-bottom: 2rem;
+   height: 4rem;
+   border: none;
+   outline: none;
+}
+.Add__Salon__button{
+    width: 80%;
+    height: fit-content;
+    padding: 2rem;
+    border-radius: 2rem;
+    background-color: var(--secondary);
+    margin: 1rem auto;
+}
+.AddSalon form>h4{
+   text-align: center;
+}

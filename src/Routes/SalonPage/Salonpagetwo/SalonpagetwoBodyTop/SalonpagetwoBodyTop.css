@@ -1,0 +1,36 @@
+.salonpagetwo__body__top button {
+  padding: 1rem 2rem;
+  margin: 2rem;
+}
+
+.time {
+  font-family: sans-serif;
+  font-size: 2rem;
+}
+.salonpagetwo__body__top {
+  margin: 2rem;
+  text-align: center;
+}
+.refreshButton {
+  margin-top: 1rem;
+  border-radius: 1rem;
+  border: 3px solid var(--secondary);
+  padding: 0.5rem 3rem;
+  background-color: white;
+}
+.salonpagetwo__body__top > h2 {
+  font-size: 6rem;
+  font-weight: bolder;
+  text-shadow: 0.1rem 0.1rem 0.4rem black;
+}
+.salonpagetwo__body__top strong {
+  font-size: large;
+}
+
+@media (max-width: 600px) {
+  .salonpagetwo__body__top > h2 {
+    font-size: 4rem;
+    font-weight: bolder;
+    text-shadow: 0.1rem 0.1rem 0.4rem black;
+  }
+}

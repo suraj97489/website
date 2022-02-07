@@ -1,0 +1,31 @@
+.Salons {
+  padding-top: 8rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 80vh;
+}
+.Salons__input {
+  margin: 2rem;
+  height: 5rem;
+  width: 70vw;
+}
+
+.Salons_SalonDiv {
+  box-shadow: 1vh 1vh 1vw #1a1819ad;
+  width: 80vw;
+  display: flex;
+  flex-direction: row;
+  border-radius: 2rem;
+  overflow: hidden;
+  align-items: center;
+  margin: 1rem;
+  justify-content: space-between;
+  font-size: 2rem;
+  padding-right: 2rem;
+}
+.Salons_salonImg {
+  height: 10rem;
+  width: 10rem;
+}

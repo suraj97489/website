@@ -1,0 +1,24 @@
+.SalonStatistics {
+  height: fit-content;
+  background-color: gray;
+  width: 100%;
+  margin-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 2rem;
+  font-size: 2rem;
+}
+
+.SalonStatistics_eachDiv {
+  display: grid;
+  border-bottom: 1px solid white;
+  margin-bottom: 1rem;
+  width: 100%;
+  grid-template-columns: 47% 4% 49%;
+  border: 1px solid white;
+  background-color: black;
+  padding: 1rem;
+  color: skyblue;
+}

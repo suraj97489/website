@@ -1,0 +1,27 @@
+
+
+
+.salonpagetwo-body-bottom{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    /* border: tomato 2px solid ; */
+    width: 100%;
+    padding: 3rem 0;
+  
+    position: relative;
+
+   
+}
+
+@media(max-width:600px){
+    .salonpagetwo-body-bottom{
+        flex-direction: column;
+       padding-top: 5rem;
+       align-items:center;
+       /* background-color: blue; */
+
+    }
+   
+}

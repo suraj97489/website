@@ -1,0 +1,73 @@
+.SalonInfo {
+  width: 75vw;
+  height: max-content;
+  margin: 0 auto 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--dark);
+  padding-top: 3rem;
+  font-size: 2.5rem;
+  color: white;
+}
+
+.SalonInfo__image__wrapper {
+  width: 20rem;
+  height: 20rem;
+  overflow: hidden;
+  background-color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+}
+
+.SalonInfo__change__photo {
+  display: block;
+  width: fit-content;
+  height: fit-content;
+  margin: 2rem auto;
+  padding: 1rem;
+  border: 0.05rem solid var(--dark);
+  border-radius: 1rem;
+  background-color: var(--secondary);
+}
+
+.SalonInfo__lAI_Div {
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+.SalonInfo__lAI_Div input {
+  width: 40rem;
+  height: 3rem;
+  outline: none;
+  margin: 1rem 0;
+  background-color: white;
+  border: none;
+}
+.textAndSwitchWrapper {
+  height: fit-content;
+  width: fit-content;
+  border: 1px solid skyblue;
+  display: flex;
+  padding: 2rem;
+  margin: 3rem;
+}
+
+@media (max-width: 600px) {
+  .SalonInfo {
+    width: 100%;
+  }
+  .SalonInfo__lAI_Div input {
+    width: 40rem;
+    height: 5rem;
+    margin: 2rem 0;
+  }
+  .SalonInfo__change__photo {
+    width: 60%;
+    padding: 2rem 2rem;
+    border-radius: 3rem;
+  }
+}
