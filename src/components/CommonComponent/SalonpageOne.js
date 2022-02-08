@@ -5,24 +5,6 @@ import UserContext from "./../../context/UserContext";
 
 function SalonpageOne() {
   const maincontext = useContext(Maincontext);
-  const usercontext = useContext(UserContext);
-
-  useEffect(() => {
-    let cancel = false;
-    function checkAndUpdateSalonProvidersforDisplay() {
-      if (cancel) return;
-      if (
-        maincontext.serviceproviders?.length !==
-        usercontext.salonProvidersfordisplay?.length
-      ) {
-        usercontext.updateSalonProvidersforDisplay();
-      }
-    }
-    checkAndUpdateSalonProvidersforDisplay();
-    return () => {
-      cancel = true;
-    };
-  }, []);
 
   return (
     <>
