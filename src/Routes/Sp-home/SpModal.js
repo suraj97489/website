@@ -3,7 +3,7 @@ import ModalUnstyled from "@mui/core/ModalUnstyled";
 import { styled } from "@mui/system";
 
 import "./SpModal.css";
-import { doc, setDoc, runTransaction } from "@firebase/firestore";
+import { doc, runTransaction } from "@firebase/firestore";
 import { db } from "../../firebaseproduction";
 import ProviderContext from "./../../context/ProviderContext";
 import Maincontext from "./../../context/MainContext";

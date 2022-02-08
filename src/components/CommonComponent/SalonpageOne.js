@@ -1,7 +1,6 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import "./SalonpageOne.css";
 import Maincontext from "./../../context/MainContext";
-import UserContext from "./../../context/UserContext";
 
 function SalonpageOne() {
   const maincontext = useContext(Maincontext);

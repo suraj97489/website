@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import "./Header.css";
 import DrawerComponent from "./DrawerComponent/DrawerComponent";
@@ -12,7 +12,6 @@ import { db } from "../../firebaseproduction";
 function Header() {
   const maincontext = useContext(Maincontext);
   const usercontext = useContext(UserContext);
-  // const [iconHiddenPart, setIconHiddenPart] = useState(false);
 
   async function updateSaloninLocalandcontext() {
     if (usercontext.customer.email !== maincontext.salon.salonUsername) {

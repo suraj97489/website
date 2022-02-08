@@ -6,7 +6,7 @@ function ShopClosed() {
       <div className="ShopClosed__container">
         <img
           style={{ width: "100%", objectFit: "contain" }}
-          src="./images/ShopClosed.jpg"
+          src="./images/ShopClosed.jpg" alt="shop closed"
         ></img>
       </div>
     </>

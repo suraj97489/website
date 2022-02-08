@@ -5,7 +5,7 @@ import "./SalonReport.css";
 import SearchIcon from "@material-ui/icons/Search";
 import UserContext from "../../context/UserContext";
 import CircularProgress from "@mui/material/CircularProgress";
-import { Redirect } from "react-router-dom";
+
 function SalonReport() {
   const maincontext = useContext(Maincontext);
   const usercontext = useContext(UserContext);

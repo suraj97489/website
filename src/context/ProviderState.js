@@ -3,7 +3,6 @@ import { db } from "../firebaseproduction";
 import React, { useContext, useEffect, useState } from "react";
 import Maincontext from "./MainContext";
 import ProviderContext from "./ProviderContext";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 function ProviderState(props) {
   const maincontext = useContext(Maincontext);

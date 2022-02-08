@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import Drawer from "@mui/material/Drawer";
 import { List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import MainContext from "../../../context/MainContext";

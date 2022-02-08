@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
 import Maincontext from "../../context/MainContext";
+
 function SalonDetailsHeading(props) {
   const maincontext = useContext(Maincontext);
   function dropDownDetails() {

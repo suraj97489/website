@@ -1,4 +1,3 @@
-import { getDoc } from "firebase/firestore";
 import React, { useEffect, useContext, useState } from "react";
 import SalonDetailsHeading from "../SalonDetailsHeading";
 import "./LoginCredentials.css";

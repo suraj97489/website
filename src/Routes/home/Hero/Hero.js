@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+
 import { collection, query, where, getDocs } from "firebase/firestore";
 
 import "./Hero.css";

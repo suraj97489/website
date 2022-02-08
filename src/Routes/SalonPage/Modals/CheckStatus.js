@@ -4,7 +4,7 @@ import { styled } from "@mui/system";
 import Maincontext from "../../../context/MainContext";
 import Usercontext from "../../../context/UserContext";
 import { db } from "../../../firebaseproduction";
-import { doc, setDoc, collection, runTransaction } from "@firebase/firestore";
+import { doc, runTransaction } from "@firebase/firestore";
 import ProviderContext from "../../../context/ProviderContext";
 
 const CsModal = styled(ModalUnstyled)`

@@ -1,12 +1,10 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import Serviceproviderslist from "./Serviceproviderslist/Serviceproviderslist";
 import "./SalonpagetwoBodyBottom.css";
 import Maincontext from "../../../../context/MainContext";
-import UserContext from "../../../../context/UserContext";
 
 function SalonpagetwoBodyBottom() {
   const maincontext = useContext(Maincontext);
-  const usercontext = useContext(UserContext);
 
   return (
     <>

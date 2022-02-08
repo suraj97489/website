@@ -57,6 +57,7 @@ function ProviderBefore(props) {
             src={
               props.providerPhoto || process.env.REACT_APP_TEMPORARY_PROFILE_PIC
             }
+            alt="provider pic"
           ></img>
         </div>
         <div className="nameandbooking">

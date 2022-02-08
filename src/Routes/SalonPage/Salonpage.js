@@ -7,10 +7,8 @@ import CircularProgress from "@mui/material/CircularProgress";
 import UserContext from "./../../context/UserContext";
 import Maincontext from "./../../context/MainContext";
 import ProviderContext from "./../../context/ProviderContext";
-import { useHistory } from "react-router";
 
 function Salonpage() {
-  const histry = useHistory();
   const usercontext = useContext(UserContext);
   const maincontext = useContext(Maincontext);
   const providercontext = useContext(ProviderContext);

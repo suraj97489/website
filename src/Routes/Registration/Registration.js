@@ -1,4 +1,4 @@
-import react, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import "./Registration.css";
 import ProviderContext from "../../context/ProviderContext";
 import Maincontext from "../../context/MainContext";
@@ -56,7 +56,7 @@ function Registration() {
       })
       .catch((error) => {
         setClickedOnSubmit(false);
-        const errorCode = error.code;
+        // const errorCode = error.code;
         const errorMessage = error.message;
         if (errorMessage === "Firebase: Error (auth/wrong-password).") {
           // alert("please enter valid password");

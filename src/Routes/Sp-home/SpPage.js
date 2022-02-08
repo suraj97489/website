@@ -1,21 +1,17 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 
 import SpServiceproviderslist from "./SpServiceproviderslist";
 import SpModal from "./SpModal";
 import CircularProgress from "@mui/material/CircularProgress";
 import Maincontext from "./../../context/MainContext";
-import ProviderContext from "./../../context/ProviderContext";
+
 import UserContext from "./../../context/UserContext";
 import SalonpageOne from "./../../components/CommonComponent/SalonpageOne";
 import SalonpagetwoBodyTop from "./../SalonPage/Salonpagetwo/SalonpagetwoBodyTop/SalonpagetwoBodyTop";
 
-import { Redirect } from "react-router-dom";
-
 function SpPage() {
-  const providercontext = useContext(ProviderContext);
   const maincontext = useContext(Maincontext);
   const usercontext = useContext(UserContext);
-
 
   if (maincontext.salon.salonUsername === usercontext.customer?.email) {
     return (

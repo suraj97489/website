@@ -1,16 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import "./EditProfile.css";
 import SalonInfo from "./SalonInfo/SalonInfo";
 import ProviderInfo from "./ProviderInfo/ProviderInfo";
 import ServicesSection from "./ServicesSection/ServicesSection";
-import Maincontext from "../../context/MainContext";
+
 import UserContext from "../../context/UserContext";
 import CircularProgress from "@mui/material/CircularProgress";
-import { Redirect } from "react-router-dom";
+
 import ProviderContext from "./../../context/ProviderContext";
 
 function EditProfile() {
-  const maincontext = useContext(Maincontext);
   const usercontext = useContext(UserContext);
   const providerContext = useContext(ProviderContext);
   const [buttonText, setButtonText] = useState("Salon Info");

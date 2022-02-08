@@ -3,7 +3,7 @@ import React, { useContext, useState } from "react";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
 import "./Custnames.css";
 import scissor from "./../../../../../../images/scissor.png";
-import { doc, setDoc, runTransaction } from "@firebase/firestore";
+import { doc, runTransaction } from "@firebase/firestore";
 import { db } from "../../../../../../firebaseproduction";
 
 import Maincontext from "./../../../../../../context/MainContext";

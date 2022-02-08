@@ -2,18 +2,16 @@ import React, { useContext, useState } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import "./SpCustnames.css";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
-import { doc, setDoc, runTransaction } from "@firebase/firestore";
+import { doc, runTransaction } from "@firebase/firestore";
 import { db } from "../../firebaseproduction";
 import Maincontext from "./../../context/MainContext";
 import ProviderContext from "./../../context/ProviderContext";
-import UserContext from "./../../context/UserContext";
+
 import CallIcon from "@material-ui/icons/Call";
 
 function SpCustnames(props) {
   const providercontext = useContext(ProviderContext);
   const maincontext = useContext(Maincontext);
-
-  const usercontext = useContext(UserContext);
 
   const [custDisplay, setCustDisplay] = useState("none");
 
