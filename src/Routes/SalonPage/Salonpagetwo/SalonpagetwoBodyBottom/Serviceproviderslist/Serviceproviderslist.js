@@ -11,6 +11,14 @@ function Serviceproviderslist(props) {
   const usercontext = useContext(UserContext);
   const providercontext = useContext(ProviderContext);
 
+  useEffect(() => {
+    usercontext.updateSalonProvidersforDisplay();
+
+    return () => {
+      usercontext.updateSalonProvidersforDisplay();
+    };
+  }, []);
+
   function bookname(event, providerId) {
     maincontext.setIsOpen(true);
     maincontext.setIdOfProvider(providerId);
