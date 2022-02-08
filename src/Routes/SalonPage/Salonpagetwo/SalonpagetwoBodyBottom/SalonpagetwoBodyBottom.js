@@ -8,14 +8,6 @@ function SalonpagetwoBodyBottom() {
   const maincontext = useContext(Maincontext);
   const usercontext = useContext(UserContext);
 
-  useEffect(() => {
-    usercontext.updateSalonProvidersforDisplay();
-
-    return () => {
-      usercontext.updateSalonProvidersforDisplay();
-    };
-  }, []);
-
   return (
     <>
       <div className="salonpagetwo-body-bottom">
