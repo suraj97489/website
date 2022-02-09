@@ -23,7 +23,7 @@ const dev = {
   measurementId: process.env.REACT_APP_MEASUREMENT_ID_DEV,
 };
 
-const firebaseConfig = process.env.REACT_APP_ENV === "prod" ? prod : dev;
+const firebaseConfig = process.env.REACT_APP_ENV === "PROD" ? prod : dev;
 
 const firebaseApp = initializeApp(firebaseConfig);
 
