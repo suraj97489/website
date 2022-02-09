@@ -1,11 +1,7 @@
 import { useState, useContext } from "react";
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import Maincontext from "./../../context/MainContext";
-import { collection, addDoc } from "firebase/firestore";
+import { setDoc, doc } from "firebase/firestore";
 import { db } from "../../firebaseproduction";
 
 const auth = getAuth();
@@ -125,8 +121,9 @@ function AddSalonLogic() {
             },
           ],
           registeredAt: date,
+          id: user.uid,
         };
-        addDoc(collection(db, "salon"), updatedSalon)
+        setDoc(doc(db, "salon", user.uid), updatedSalon)
           .then(() => {
             const credentialData = {
               salonUsername: salonLoginData.salonUsername,
@@ -134,7 +131,7 @@ function AddSalonLogic() {
               salonCode: addSalon.salonCode,
             };
 
-            addDoc(collection(db, "loginData"), credentialData)
+            setDoc(doc(db, "loginData", user.uid), credentialData)
               .then(() => {
                 alert("added document successfully");
               })
