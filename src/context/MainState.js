@@ -135,7 +135,13 @@ function MainState(props) {
           email: " ",
         })
       );
-      setGrahak(JSON.parse(grahakavailable));
+      setGrahak({
+        fname: " ",
+        lname: " ",
+        mobile: "",
+        service: [],
+        email: " ",
+      });
     }
   }
 
