@@ -17,7 +17,6 @@ function Footer() {
               />
               <p>1472/21, "D" ward, Shukrawar peth maskuti talav,kolhapur</p>
               <img id="mobile" className="icon" src="img/mobile.png" alt="" />
-              <p> 8484845040</p>
 
               <img id="mail" className="icon" src="img/mail.png" alt="" />
               <p>info@salonkatta.com</p>

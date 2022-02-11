@@ -24,8 +24,6 @@ function Contactus() {
           <div className="contactus__container1__left">
             1472/21,D WARD ,SHUKRAWAR PETH ,MASKUTI TALAV,KOLHAPUR.
             <br />
-            8484845040
-            <br />
             info@salonkatta.com
           </div>
           <div className="contactus__container1__right">
