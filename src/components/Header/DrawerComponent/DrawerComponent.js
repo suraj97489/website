@@ -23,7 +23,7 @@ function DrawerComponent() {
     { path: "/sp-home", buttonName: "My Salon" },
     { path: "/edit-profile", buttonName: "Edit Profile" },
     { path: "/salon-report", buttonName: "Salon Report" },
-    { path: "/", buttonName: "Home" },
+
     { path: "/about", buttonName: "About Us" },
     { path: "/contactus", buttonName: "Contact Us" },
   ];
