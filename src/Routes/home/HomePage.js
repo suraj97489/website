@@ -1,6 +1,6 @@
 import React from "react";
 import Booking from "./booking/Booking";
-import Testimonials from "./Testimonials/Testimonials";
+// import Testimonials from "./Testimonials/Testimonials";
 import Hero from "./Hero/Hero";
 
 function HomePage() {
@@ -8,7 +8,7 @@ function HomePage() {
     <>
       <Hero />
       <Booking />
-      <Testimonials />
+      {/* <Testimonials /> */}
     </>
   );
 }
