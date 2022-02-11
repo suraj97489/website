@@ -183,7 +183,7 @@ function SalonInfo() {
           Save Changes
         </button>
 
-        <div className="textAndSwitchWrapper">
+        {/* <div className="textAndSwitchWrapper">
           <div>
             <p style={{ color: "white" }}>
               ACTIVATE NOTIFICATIONS FOR CUSTOMERS
@@ -201,7 +201,7 @@ function SalonInfo() {
             {...label}
             style={{ alignSelf: "center" }}
           />
-        </div>
+        </div> */}
       </div>
     </>
   );
