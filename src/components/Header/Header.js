@@ -52,7 +52,7 @@ function Header() {
             </li>
 
             <li>
-              <Link to="/">FAQ</Link>
+              <Link to="/">Home</Link>
             </li>
 
             {maincontext.user === "provider" && (
