@@ -51,9 +51,9 @@ function Header() {
               <Link to="/contactus"> Contact Us</Link>
             </li>
 
-            <li>
+            {/* <li>
               <Link to="/">Home</Link>
-            </li>
+            </li> */}
 
             {maincontext.user === "provider" && (
               <li onClick={updateSaloninLocalandcontext}>
