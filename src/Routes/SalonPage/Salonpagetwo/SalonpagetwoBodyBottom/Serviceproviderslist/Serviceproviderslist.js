@@ -5,6 +5,8 @@ import ProviderContext from "./../../../../../context/ProviderContext";
 import UserContext from "./../../../../../context/UserContext";
 import ProviderBefore from "./../../../../../components/CommonComponent/ProviderBefore";
 import Custnames from "./Custnames/Custnames";
+import { secondary } from "../../../../../theme/colors";
+import { Button } from "@mui/material";
 
 function Serviceproviderslist(props) {
   const maincontext = useContext(Maincontext);
@@ -80,14 +82,32 @@ function Serviceproviderslist(props) {
           })}
 
           {!usercontext.userBooked && props.bookingOn && (
-            <button
+            <Button
+              className="bookyourname"
+              style={{
+                backgroundColor: secondary,
+                color: "black",
+                width: "100%",
+                fontSize: "2rem",
+                borderRadius: 20,
+                margin: 10,
+                fontWeight: "bold",
+              }}
               onClick={(event) => {
                 bookname(event, props.id);
               }}
-              className="bookyourname"
+              variant="contained"
             >
               BOOK YOUR NAME
-            </button>
+            </Button>
+            // <button
+            //   onClick={(event) => {
+            //     bookname(event, props.id);
+            //   }}
+            //   className="bookyourname"
+            // >
+            //   BOOK YOUR NAME
+            // </button>
           )}
         </div>
       </div>
