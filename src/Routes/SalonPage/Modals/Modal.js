@@ -57,11 +57,10 @@ function Modal() {
       service: [],
       mobile: "",
     }));
-    maincontext.setIsOpen(false);
-
     providercontext.addingcustomer
       ? usercontext.setUserBooked(false)
       : usercontext.setUserBooked(true);
+    maincontext.setIsOpen(false);
   };
 
   function updateGrahaksMobile(e) {
