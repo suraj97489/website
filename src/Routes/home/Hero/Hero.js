@@ -1,13 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
 
 import { collection, query, where, getDocs } from "firebase/firestore";
-
+import CircularProgress from "@mui/material/CircularProgress";
 import "./Hero.css";
 import { useHistory } from "react-router";
 
 import Maincontext from "./../../../context/MainContext";
 import UserContext from "./../../../context/UserContext";
 import { db } from "../../../firebaseproduction";
+import Button from "@mui/material/Button";
+
+import { secondary } from "../../../theme/colors.js";
 
 function Hero() {
   let history = useHistory();
@@ -15,6 +18,7 @@ function Hero() {
 
   let usercontext = useContext(UserContext);
   let salonCodeArray = JSON.parse(localStorage.getItem("salonHistory"));
+  const [loading, setLoading] = useState(false);
 
   const [salonHistory, setSalonHistory] = useState([]);
 
@@ -44,6 +48,7 @@ function Hero() {
 
   const checkAndRedirect = async () => {
     let findSalon;
+    setLoading(true);
     const q = query(
       collection(db, "salon"),
       where("salonCode", "==", maincontext.salonCode.toLowerCase())
@@ -86,10 +91,18 @@ function Hero() {
 
       //== ===========================updating salon history at loacalStorage==================================
       salonHistoryHandler(findSalon);
-
-      history.push("/sign-in-with-google");
+      function navigatingFunc() {
+        return new Promise((res, rej) => {
+          history.push("/sign-in-with-google");
+          res("pushed");
+        });
+      }
+      navigatingFunc().then((res) => {
+        setLoading(false);
+      });
     } else {
       alert("please enter valid SALON CODE");
+      setLoading(false);
     }
     maincontext.setSalonCode("");
   };
@@ -132,9 +145,29 @@ function Hero() {
             placeholder="type salon code provided at salon"
           />
 
-          <button onClick={checkAndRedirect} className="button" id="enter">
+          {/* <button onClick={checkAndRedirect} className="button" id="enter">
             <b> ENTER</b>
-          </button>
+            {loading ? (
+              <CircularProgress size="2rem" style={{ color: "black" }} />
+            ) : null}
+          </button> */}
+
+          <Button
+            className="button"
+            style={{
+              backgroundColor: secondary,
+              color: "black",
+              fontSize: "2rem",
+            }}
+            onClick={checkAndRedirect}
+            id="enter"
+            variant="contained"
+          >
+            <b> Submit</b>
+            {loading ? (
+              <CircularProgress size="2rem" style={{ color: "black" }} />
+            ) : null}
+          </Button>
 
           {/* <Link className="secondary" to="/registration">
             <button
