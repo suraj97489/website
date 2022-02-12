@@ -59,7 +59,7 @@ function Modal() {
     }));
     maincontext.setIsOpen(false);
 
-    providercontext.addOrEditCustomer
+    providercontext.addingcustomer
       ? usercontext.setUserBooked(false)
       : usercontext.setUserBooked(true);
   };
