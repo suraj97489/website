@@ -58,6 +58,10 @@ function Modal() {
       mobile: "",
     }));
     maincontext.setIsOpen(false);
+
+    providercontext.addOrEditCustomer
+      ? usercontext.setUserBooked(false)
+      : usercontext.setUserBooked(true);
   };
 
   function updateGrahaksMobile(e) {
@@ -70,29 +74,24 @@ function Modal() {
   }
 
   async function changeModalState() {
-    maincontext.setIsOpen(false);
-
     const docRef = doc(db, "salon", maincontext.salon.id);
-    try {
-      await runTransaction(db, async (transaction) => {
-        const thisDoc = await transaction.get(docRef);
-        if (!thisDoc.exists()) {
-          throw "Document does not exist!";
-        }
+    let newCustomer = {
+      name: usercontext.customer.displayName,
+      mobile: maincontext.grahak.mobile,
+      service: maincontext.grahak.service,
+      email: maincontext.grahak.email,
+      checkStatus: false,
+      salonId: maincontext.salon.id,
+      providerId: maincontext.idOfProvider,
+      addedBy: "customer",
+    };
 
-        let arr = thisDoc.data().serviceproviders.map((each) => {
+    try {
+      const addOrEditCustomer = (receivedSalon) => {
+        return receivedSalon.serviceproviders.map((each) => {
           if (each.id === maincontext.idOfProvider) {
             if (providercontext.addingcustomer) {
-              each.customers.push({
-                name: usercontext.customer.displayName,
-                mobile: maincontext.grahak.mobile,
-                service: maincontext.grahak.service,
-                email: maincontext.grahak.email,
-                checkStatus: false,
-                salonId: maincontext.salon.id,
-                providerId: maincontext.idOfProvider,
-                addedBy: "customer",
-              });
+              each.customers.push(newCustomer);
 
               return each;
             } else {
@@ -109,6 +108,20 @@ function Modal() {
             return each;
           }
         });
+      };
+      maincontext.setSalon((salon) => ({
+        ...salon,
+        serviceproviders: addOrEditCustomer(maincontext.salon),
+      }));
+
+      maincontext.setIsOpen(false);
+      await runTransaction(db, async (transaction) => {
+        const thisDoc = await transaction.get(docRef);
+        if (!thisDoc.exists()) {
+          throw "Document does not exist!";
+        }
+
+        let arr = addOrEditCustomer(thisDoc.data());
         transaction.update(docRef, { serviceproviders: arr });
         // maincontext.setSalon({ ...maincontext.salon, serviceproviders: arr });
       });
