@@ -26,6 +26,22 @@ function Custnames(props) {
   async function cancelBooking(refer, customerIndex) {
     const docRef = doc(db, "salon", maincontext.salon.id);
     try {
+      const cancelFunc = (salonValue) => {
+        return salonValue.serviceproviders.map((provider) => {
+          if (provider.id === refer) {
+            provider.customers.splice(customerIndex, 1);
+            return provider;
+          } else {
+            return provider;
+          }
+        });
+      };
+
+      maincontext.setSalon((salon) => ({
+        ...salon,
+        serviceproviders: cancelFunc(maincontext.salon),
+      }));
+
       let updatedArrayofProviders = await runTransaction(
         db,
         async (transaction) => {
@@ -33,14 +49,7 @@ function Custnames(props) {
           if (!thisDoc.exists()) {
             throw "Document does not exist!";
           }
-          let arr = thisDoc.data().serviceproviders.map((provider) => {
-            if (provider.id === refer) {
-              provider.customers.splice(customerIndex, 1);
-              return provider;
-            } else {
-              return provider;
-            }
-          });
+          let arr = cancelFunc(thisDoc.data());
 
           transaction.update(docRef, { serviceproviders: arr });
           return arr;
