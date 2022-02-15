@@ -9,16 +9,8 @@ function Footer() {
           <div className="div1">
             <h2>SALONKATTA</h2>
             <div>
-              <img
-                id="location"
-                className="icon"
-                src="img/location.png"
-                alt=""
-              />
               <p>1472/21, "D" ward, Shukrawar peth maskuti talav,kolhapur</p>
-              <img id="mobile" className="icon" src="img/mobile.png" alt="" />
 
-              <img id="mail" className="icon" src="img/mail.png" alt="" />
               <p>info@salonkatta.com</p>
             </div>
           </div>
