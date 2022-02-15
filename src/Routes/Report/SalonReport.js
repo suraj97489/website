@@ -5,6 +5,7 @@ import "./SalonReport.css";
 import SearchIcon from "@material-ui/icons/Search";
 import UserContext from "../../context/UserContext";
 import CircularProgress from "@mui/material/CircularProgress";
+import { Helmet } from "react-helmet-async";
 
 function SalonReport() {
   const maincontext = useContext(Maincontext);
@@ -12,7 +13,7 @@ function SalonReport() {
   const [items, setItems] = useState();
   const [searchTerm, setSearchTerm] = useState("");
   let report = maincontext.salon?.salonReport;
-  document.title = "Salonkatta- Salon Report";
+
   useEffect(() => {
     function updateReport() {
       let show = report?.filter((report, i) => i <= 100);
@@ -66,6 +67,14 @@ function SalonReport() {
   ) {
     return (
       <>
+        <Helmet>
+          <title>Salonkatta- Salon Report</title>
+          <meta
+            name="description"
+            content="you can check report of your salon by searching provider name,date ,customer's name or customer's mobile."
+          />
+          <link rel="canonical" href="/salon-report" />
+        </Helmet>
         <div className="SalonReport__Top">
           <input
             onChange={(e) => {
