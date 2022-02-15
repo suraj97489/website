@@ -73,7 +73,9 @@ function Modal() {
   }
 
   async function changeModalState() {
+    usercontext.setUserBooked(true);
     const docRef = doc(db, "salon", maincontext.salon.id);
+
     let newCustomer = {
       name: usercontext.customer.displayName,
       mobile: maincontext.grahak.mobile,
