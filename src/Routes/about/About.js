@@ -1,6 +1,7 @@
 import React from "react";
 import "./About.css";
 function About() {
+  document.title = "Salonkatta- About Us";
   return (
     <>
       <div className="about">

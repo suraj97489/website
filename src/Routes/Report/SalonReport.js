@@ -12,7 +12,7 @@ function SalonReport() {
   const [items, setItems] = useState();
   const [searchTerm, setSearchTerm] = useState("");
   let report = maincontext.salon?.salonReport;
-
+  document.title = "Salonkatta- Salon Report";
   useEffect(() => {
     function updateReport() {
       let show = report?.filter((report, i) => i <= 100);

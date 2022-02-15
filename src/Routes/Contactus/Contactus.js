@@ -5,7 +5,7 @@ import "./Contactus.css";
 
 function Contactus() {
   const defaultFormData = { fname: "", lname: "", email: "", message: "" };
-
+  document.title = "Salonkatta- Contact Us";
   const [formData, setFormData] = useState(defaultFormData);
 
   function formSubmitHandler(e) {

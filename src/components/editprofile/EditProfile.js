@@ -10,6 +10,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import ProviderContext from "./../../context/ProviderContext";
 
 function EditProfile() {
+  document.title = "Edit Profile";
   const usercontext = useContext(UserContext);
   const providerContext = useContext(ProviderContext);
   const [buttonText, setButtonText] = useState("Salon Info");

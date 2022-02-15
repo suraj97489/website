@@ -16,6 +16,7 @@ function Salonpage() {
   useEffect(() => {
     let cancel = false;
     if (cancel) return;
+    document.title = "Salonpage";
     maincontext.overAllCustomers?.map((cust) => {
       if (cust.email === usercontext.customer?.email) {
         maincontext.setCheckStatus(cust.checkStatus);

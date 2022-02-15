@@ -4,6 +4,7 @@ import Booking from "./booking/Booking";
 import Hero from "./Hero/Hero";
 
 function HomePage() {
+  document.title = "Salonkatta";
   return (
     <>
       <Hero />

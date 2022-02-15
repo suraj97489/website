@@ -14,6 +14,7 @@ function Registration() {
   const [clickedOnSubmit, setClickedOnSubmit] = useState(false);
   let history = useHistory();
   const auth = getAuth();
+  document.title = "Registration";
 
   function spUpdateHandler(e) {
     let name = e.target.name;

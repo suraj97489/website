@@ -8,6 +8,7 @@ import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 function GoogleSignin() {
+  document.title = "Sign In with google";
   let history = useHistory();
   const maincontext = useContext(Maincontext);
   const usercontext = useContext(UserContext);

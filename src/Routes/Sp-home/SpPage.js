@@ -12,6 +12,7 @@ import SalonpagetwoBodyTop from "./../SalonPage/Salonpagetwo/SalonpagetwoBodyTop
 function SpPage() {
   const maincontext = useContext(Maincontext);
   const usercontext = useContext(UserContext);
+  document.title = "Salonkatta-my salon";
 
   if (maincontext.salon.salonUsername === usercontext.customer?.email) {
     return (
