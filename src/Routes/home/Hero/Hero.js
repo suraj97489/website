@@ -208,7 +208,11 @@ function Hero() {
                         salon?.salonPhoto ||
                         process.env.REACT_APP_TEMPORARY_SALON_PIC
                       }
+                      height="10rem"
+                      width="10rem"
+                      title="salon-pic"
                       alt="salon_photo"
+                      loading="eager"
                     />
                   </div>
                   <p>{salon?.salonName}</p>
