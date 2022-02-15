@@ -8,15 +8,23 @@ import Maincontext from "./../../context/MainContext";
 import UserContext from "./../../context/UserContext";
 import SalonpageOne from "./../../components/CommonComponent/SalonpageOne";
 import SalonpagetwoBodyTop from "./../SalonPage/Salonpagetwo/SalonpagetwoBodyTop/SalonpagetwoBodyTop";
+import { Helmet } from "react-helmet-async";
 
 function SpPage() {
   const maincontext = useContext(Maincontext);
   const usercontext = useContext(UserContext);
-  document.title = "Salonkatta-my salon";
 
   if (maincontext.salon.salonUsername === usercontext.customer?.email) {
     return (
       <>
+        <Helmet>
+          <title>Salonkatta-my salon</title>
+          <meta
+            name="description"
+            content="you can add customers,edit their services,delete any customer,sort customers and you can shop open/close "
+          />
+          <link rel="canonical" href="/sp-home" />
+        </Helmet>
         <SalonpageOne />
         <SalonpagetwoBodyTop provider={true} />
 
