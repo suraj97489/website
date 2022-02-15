@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet-async";
 import Booking from "./booking/Booking";
 // import Testimonials from "./Testimonials/Testimonials";
 import Hero from "./Hero/Hero";

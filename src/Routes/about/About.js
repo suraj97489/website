@@ -1,9 +1,20 @@
 import React from "react";
+import { Helmet } from "react-helmet-async";
 import "./About.css";
 function About() {
-  document.title = "Salonkatta- About Us";
   return (
     <>
+      <Helmet>
+        <title>Salonkatta- About Us</title>
+        <meta
+          name="description"
+          content=" India's first ever salon platform where customers can book their
+          appointment without any payment and customers check ongoing list of
+          service providers customers just by sitting at homejust by using
+          their mobile and this saves most valuable time of customers."
+        />
+        <link rel="canonical" href="/about" />
+      </Helmet>
       <div className="about">
         <h2>About Us</h2>
 
