@@ -7,6 +7,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import UserContext from "./../../context/UserContext";
 import Maincontext from "./../../context/MainContext";
 import ProviderContext from "./../../context/ProviderContext";
+import { Helmet } from "react-helmet-async";
 
 function Salonpage() {
   const usercontext = useContext(UserContext);
@@ -16,7 +17,7 @@ function Salonpage() {
   useEffect(() => {
     let cancel = false;
     if (cancel) return;
-    document.title = "Salonpage";
+
     maincontext.overAllCustomers?.map((cust) => {
       if (cust.email === usercontext.customer?.email) {
         maincontext.setCheckStatus(cust.checkStatus);
@@ -59,6 +60,14 @@ function Salonpage() {
   if (usercontext.customer) {
     return (
       <>
+        <Helmet>
+          <title>Salonpage</title>
+          <meta
+            name="description"
+            content=" if booking is available,you can book your apointment ,edit selected services and cancel your booking."
+          />
+          <link rel="canonical" href="/salonpage" />
+        </Helmet>
         <SalonpageOne />
         <Salonpagetwo />
       </>
