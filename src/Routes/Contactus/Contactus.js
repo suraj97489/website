@@ -1,5 +1,6 @@
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import React, { useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { db } from "../../firebaseproduction";
 import "./Contactus.css";
 
@@ -18,6 +19,14 @@ function Contactus() {
   }
   return (
     <>
+      <Helmet>
+        <title>Salonkatta-Contact Us</title>
+        <meta
+          name="description"
+          content="you can contact us for any enquiry or salon registration."
+        />
+        <link rel="canonical" href="/contactus" />
+      </Helmet>
       <div className="contactus">
         <h2>Contact Us</h2>
         <div className="contactus__container1">
