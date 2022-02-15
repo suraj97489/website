@@ -6,9 +6,9 @@ import "./GoogleSignin.css";
 import CircularProgress from "@mui/material/CircularProgress";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { Helmet } from "react-helmet-async";
 
 function GoogleSignin() {
-  document.title = "Sign In with google";
   let history = useHistory();
   const maincontext = useContext(Maincontext);
   const usercontext = useContext(UserContext);
@@ -69,6 +69,11 @@ function GoogleSignin() {
   } else {
     return (
       <>
+        <Helmet>
+          <title>Sign In with google</title>
+          <meta name="description" content="Sign in with your google acount." />
+          <link rel="canonical" href="/sign-in-with-google" />
+        </Helmet>
         <div className="buttoncontainer">
           {clicked ? (
             <CircularProgress />
