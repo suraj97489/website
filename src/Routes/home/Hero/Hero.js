@@ -135,7 +135,7 @@ function Hero() {
     <>
       <div className="hero">
         <div className="mleft">
-          <h1>ENTER SALONCODE</h1>
+          <h2 className="enterSalonCode">ENTER SALONCODE</h2>
 
           <input
             type="text"
