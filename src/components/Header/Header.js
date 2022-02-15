@@ -29,7 +29,7 @@ function Header() {
     <>
       <header>
         <Link to="/">
-          <h2 className="logo">SALONKATTA</h2>
+          <h1 className="logo">SALONKATTA</h1>
         </Link>
         <nav>
           <ul className="nav-list">
