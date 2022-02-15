@@ -58,6 +58,10 @@ function ProviderBefore(props) {
               props.providerPhoto || process.env.REACT_APP_TEMPORARY_PROFILE_PIC
             }
             alt="provider pic"
+            height=" 8.1rem"
+            width=" 8.1rem"
+            title="provider pic"
+            loading="eager"
           ></img>
         </div>
         <div className="nameandbooking">

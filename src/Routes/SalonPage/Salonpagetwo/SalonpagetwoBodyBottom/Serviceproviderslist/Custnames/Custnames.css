@@ -1,87 +1,82 @@
-.Listnames__dropdown li{
-    border-bottom: 1px solid wheat;
-    list-style: none;
-   max-width: 30rem;
-
+.Listnames__dropdown li {
+  border-bottom: 1px solid wheat;
+  list-style: none;
+  max-width: 30rem;
 }
 
-
-.Listnames__div{
-    height: 4rem;
-   border: 0.1rem solid var(--secondary);
-    width: 100%;
-    display: flex;
-    justify-content: initial;
-    padding-left: 2rem;
-    align-items: center;
-   position: relative;
-    color: white;
-    overflow: hidden;
-    /* background-color: pink; */
+.Listnames__div {
+  height: 4rem;
+  border: 0.1rem solid var(--secondary);
+  width: 100%;
+  display: flex;
+  justify-content: initial;
+  padding-left: 2rem;
+  align-items: center;
+  position: relative;
+  color: white;
+  overflow: hidden;
+  /* background-color: pink; */
 }
 
-.Listnames__name{
+.Listnames__name {
+  font-size: 2rem;
+  max-width: 70%;
+}
+
+.Listnames__dropdown {
+  width: 100%;
+  justify-content: initial;
+  padding: 2rem;
+  /* background-color: chocolate; */
+  border: 1px solid var(--secondary);
+}
+.ListNames__All {
+  /* background-color: green; */
+  width: 100%;
+
+  margin: 0.5rem 0;
+}
+.serviceEditButton {
+  margin: 1rem;
+  padding: 0.3rem 1rem;
+  background-color: var(--secondary);
+  border: none;
+  border-radius: 1rem;
+}
+.serviceCancelBookingButton {
+  margin: 1rem;
+  padding: 0.3rem 1rem;
+  border: none;
+  border-radius: 1rem;
+}
+.scissor {
+  position: absolute;
+  right: 6rem;
+  top: 0.4rem;
+  width: 4rem;
+  height: 3rem;
+}
+
+@media (max-width: 600px) {
+  .Listnames__div {
+    height: 6rem;
+  }
+
+  .Listnames__name {
+    font-size: 2.5rem;
+  }
+  .serviceCancelBookingButton {
+    font-size: 3rem;
+    margin-top: 5rem;
+  }
+  .serviceEditButton {
+    font-size: 3rem;
+  }
+  .Listnames__dropdown li {
     font-size: 2rem;
-    max-width: 70%;
-    
-}
-
-.Listnames__dropdown{
-  
-    
-     width: 100%;
-     justify-content: initial;
-     padding: 2rem ;
-    /* background-color: chocolate; */
-    border: 1px solid var(--secondary);
-    
-}
-.ListNames__All{
-    /* background-color: green; */
-    width: 100%;
-   
-    margin: 0.5rem 0;
-}
-.serviceEditButton{
-    margin: 1rem; 
-    padding: 0.3rem 1rem; 
-    background-color: var(--secondary); 
-    border: none; 
-    border-radius: 1rem;
-}
-.serviceCancelBookingButton{
-    margin: 1rem ;
-    padding: 0.3rem 1rem;
-    border: none;
-    border-radius: 1rem;
-}
-.scissor{
-    position:absolute;
-    right:6rem;
-    top:0.4rem;
-    width:4rem;
-}
-
-
-
-@media(max-width:600px){
-    .Listnames__div{height: 6rem;}
-
-    .Listnames__name{
-        font-size: 2.5rem;
-    }
-    .serviceCancelBookingButton{
-        font-size: 3rem;
-        margin-top: 5rem ;
-    }
-    .serviceEditButton{
-        font-size: 3rem;
-    }
-    .Listnames__dropdown li{
-        font-size: 2rem;
-        max-width: 40rem;
-    }
-    .scissor{
-        top:1.5rem;
-    }
+    max-width: 40rem;
+  }
+  .scissor {
+    top: 1.5rem;
+  }
 }

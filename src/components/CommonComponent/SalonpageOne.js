@@ -22,7 +22,11 @@ function SalonpageOne() {
                 maincontext.salon?.salonPhoto ||
                 process.env.REACT_APP_TEMPORARY_SALON_PIC
               }
-              alt=""
+              height="20rem"
+              width="20rem"
+              alt="salon photo"
+              title="salon photo"
+              loading="eager"
             ></img>
           </div>
         </div>

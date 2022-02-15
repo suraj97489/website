@@ -78,7 +78,15 @@ function Custnames(props) {
         <p className="Listnames__name">{props.custName}</p>
         {props.index === 0 ? (
           <div>
-            <img src={scissor} className="scissor" alt=""></img>
+            <img
+              width="4rem"
+              height="3rem"
+              src={scissor}
+              className="scissor"
+              alt="scissor"
+              title="scissor"
+              loading="eager"
+            ></img>
           </div>
         ) : null}
         <ArrowDropDown
