@@ -4,9 +4,16 @@ import Booking from "./booking/Booking";
 import Hero from "./Hero/Hero";
 
 function HomePage() {
-  document.title = "Salonkatta";
   return (
     <>
+      <Helmet>
+        <title>Salonkatta</title>
+        <meta
+          name="description"
+          content="Salonkatta is a apointments booking platform where customers can book appointments for free and no registration fee is charged from salons."
+        />
+        <link rel="canonical" href="/" />
+      </Helmet>
       <Hero />
       <Booking />
       {/* <Testimonials /> */}
