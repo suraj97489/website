@@ -7,6 +7,7 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import CircularProgress from "@mui/material/CircularProgress";
 import { db } from "../../firebaseproduction";
 import { collection, getDocs } from "firebase/firestore";
+import { Helmet } from "react-helmet-async";
 
 function Registration() {
   const providercontext = useContext(ProviderContext);
@@ -14,7 +15,6 @@ function Registration() {
   const [clickedOnSubmit, setClickedOnSubmit] = useState(false);
   let history = useHistory();
   const auth = getAuth();
-  document.title = "Registration";
 
   function spUpdateHandler(e) {
     let name = e.target.name;
@@ -108,6 +108,14 @@ function Registration() {
   } else {
     return (
       <div className="registration">
+        <Helmet>
+          <title>Registration</title>
+          <meta
+            name="description"
+            content="Enter your salon username and password for login."
+          />
+          <link rel="canonical" href="/registration" />
+        </Helmet>
         <h2>Log in as Service Provider</h2>
         <form className="registration_form">
           <div className="labelandinput">
