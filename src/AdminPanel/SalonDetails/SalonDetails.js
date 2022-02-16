@@ -8,6 +8,7 @@ import SalonStatistics from "./Salon Statistics/SalonStatistics";
 import ServiceProviders from "./Service Providers/ServiceProviders";
 import LoginCredentials from "./Login Credentials/LoginCredentials";
 import UserContext from "../../context/UserContext";
+import { Helmet } from "react-helmet-async";
 
 function SalonDetails() {
   const { salon } = useContext(Maincontext);
@@ -16,6 +17,15 @@ function SalonDetails() {
   if (usercontext.customer?.email === process.env.REACT_APP_ADMIN_USERNAME) {
     return (
       <div className="SalonDetails">
+        <Helmet>
+          <title>Salon Details</title>
+          <meta
+            name="description"
+            content="you can check all detais about perticular salon."
+          />
+          <link rel="canonical" href="/salon-details" />
+          <meta name="robots" content="noindex" />
+        </Helmet>
         <div className="SalonDetails__TopDiv">
           <img
             className="SalonDetails_i_salonImg"
