@@ -8,8 +8,10 @@ import UserContext from "./../../context/UserContext";
 import Maincontext from "./../../context/MainContext";
 import ProviderContext from "./../../context/ProviderContext";
 import { Helmet } from "react-helmet-async";
+import { useSelector } from "react-redux";
 
 function Salonpage() {
+  const salon = useSelector((state) => state.salon.salon);
   const usercontext = useContext(UserContext);
   const maincontext = useContext(Maincontext);
   const providercontext = useContext(ProviderContext);
@@ -26,14 +28,14 @@ function Salonpage() {
     return () => {
       cancel = true;
     };
-  }, [maincontext.overAllCustomers, maincontext.salon]);
+  }, [maincontext.overAllCustomers, salon]);
 
   useEffect(() => {
     let cancel = false;
 
     function func() {
       if (cancel) return;
-      providercontext.setServices(maincontext.salon.services);
+      providercontext.setServices(salon.services);
       usercontext.updateSalonProvidersforDisplay();
     }
 
