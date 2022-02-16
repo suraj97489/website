@@ -2,13 +2,12 @@ import React, { Fragment, useContext, useEffect } from "react";
 import "./AddSalon.css";
 import AddSalonLogic from "./AddSalonLogic";
 
-import Maincontext from "./../../context/MainContext";
 import UserContext from "../../context/UserContext";
 import { Redirect } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-
+import { useSelector } from "react-redux";
 function AddSalon() {
-  const maincontext = useContext(Maincontext);
+  const allSalon = useSelector((state) => state.main.allSalon);
   const usercontext = useContext(UserContext);
 
   const {
@@ -32,9 +31,7 @@ function AddSalon() {
       salonLoginData.salonPassword.length > 5 &&
       addSalon.mobile.length === 10 &&
       addSalon.salonCode.length > 5 &&
-      maincontext.allSalon.every(
-        (salon) => addSalon.salonCode !== salon.salonCode
-      ) &&
+      allSalon.every((salon) => addSalon.salonCode !== salon.salonCode) &&
       addSalon.serviceproviders[0].mobile.length === 10 &&
       addSalon.serviceproviders[0].fname &&
       addSalon.serviceproviders[0].lname
