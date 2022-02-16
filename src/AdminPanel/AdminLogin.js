@@ -47,8 +47,8 @@ function AdminLogin() {
     return (
       <>
         <Helmet>
-          <title>dashboard</title>
-          <meta name="description" content="enter your username and password" />
+          <title>Admin Login</title>
+          <meta name="description" content="enter  username and password" />
           <link rel="canonical" href="/8484" />
           <meta name="robots" content="noindex" />
         </Helmet>
