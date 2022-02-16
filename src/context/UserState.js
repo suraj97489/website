@@ -1,17 +1,18 @@
-import { useState, useContext } from "react";
-import Maincontext from "./MainContext";
+import { useState } from "react";
+
 import UserContext from "./UserContext";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useSelector, useDispatch } from "react-redux";
 import { updateUser } from "../features/mainSlice";
 function UserState(props) {
-  const maincontext = useContext(Maincontext);
   const dispatch = useDispatch();
   const [customer, setCustomer] = useState(null);
   const [userBooked, setUserBooked] = useState(false);
   const [salonProvidersfordisplay, setSalonProvidersfordisplay] = useState([]);
   const serviceproviders = useSelector((state) => state.salon.serviceproviders);
   const auth = getAuth();
+  const allSalon = useSelector((state) => state.main.allSalon);
+  const overAllCustomers = useSelector((state) => state.main.overAllCustomers);
 
   function updateSalonProvidersforDisplay() {
     setSalonProvidersfordisplay(() =>
@@ -23,7 +24,7 @@ function UserState(props) {
 
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      let thisIsprovider = maincontext.allSalon?.some(
+      let thisIsprovider = allSalon?.some(
         (salon) => salon.salonUsername === user.email
       );
 
@@ -45,7 +46,7 @@ function UserState(props) {
 
   function updateUserBookingStatus() {
     setUserBooked(() => {
-      return maincontext.overAllCustomers.some((cust) => {
+      return overAllCustomers.some((cust) => {
         return cust.email === customer?.email;
       });
     });
