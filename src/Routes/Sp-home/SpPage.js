@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import SpServiceproviderslist from "./SpServiceproviderslist";
 import SpModal from "./SpModal";
 import CircularProgress from "@mui/material/CircularProgress";
-import Maincontext from "./../../context/MainContext";
+
 
 import UserContext from "./../../context/UserContext";
 import SalonpageOne from "./../../components/CommonComponent/SalonpageOne";
@@ -13,7 +13,8 @@ import { useSelector } from "react-redux";
 
 function SpPage() {
   const salon = useSelector((state) => state.salon.salon);
-  const maincontext = useContext(Maincontext);
+  const serviceproviders = useSelector((state) => state.salon.serviceproviders);
+ 
   const usercontext = useContext(UserContext);
 
   if (salon.salonUsername === usercontext.customer?.email) {
@@ -31,7 +32,7 @@ function SpPage() {
         <SalonpagetwoBodyTop provider={true} />
 
         <div className="salonpagetwo-body-bottom">
-          {maincontext.serviceproviders?.map((provider, i) => {
+          {serviceproviders?.map((provider, i) => {
             return (
               <div key={provider.id}>
                 <SpServiceproviderslist
