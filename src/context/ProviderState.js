@@ -1,13 +1,13 @@
 import { doc, setDoc } from "@firebase/firestore";
 import { db } from "../firebaseproduction";
-import React, { useContext, useEffect, useState } from "react";
-import Maincontext from "./MainContext";
+import React, { useEffect, useState } from "react";
+
 import ProviderContext from "./ProviderContext";
 import { useSelector } from "react-redux";
 
 function ProviderState(props) {
   const salon = useSelector((state) => state.salon.salon);
-  const maincontext = useContext(Maincontext);
+  const serviceproviders = useSelector((state) => state.salon.serviceproviders);
 
   const [sp, setSp] = useState({ salonUsername: "", salonPassword: "" });
   const [customerName, setCustomerName] = useState("");
@@ -72,7 +72,7 @@ function ProviderState(props) {
 
   function bookingControl(e, providerId) {
     e.stopPropagation();
-    let newprovidersarray = maincontext.serviceproviders.map((provider) => {
+    let newprovidersarray = serviceproviders.map((provider) => {
       if (providerId === provider.id) {
         provider.bookingOn = e.target.checked;
         return provider;
@@ -92,7 +92,7 @@ function ProviderState(props) {
   function done(idOfProvider, e, cust, providerName) {
     e.stopPropagation();
 
-    let newprovidersarray = maincontext.serviceproviders.map((provider) => {
+    let newprovidersarray = serviceproviders.map((provider) => {
       if (provider.id === idOfProvider) {
         let time = new Date().getTime();
         provider.customers = provider.customers.filter((cust, i) => i !== 0);
@@ -148,7 +148,7 @@ function ProviderState(props) {
     }
 
     if (
-      maincontext.serviceproviders?.some(
+      serviceproviders?.some(
         (provider) =>
           provider.customers.length >= 2 &&
           provider.popUpTime <= currentTime &&
@@ -157,7 +157,7 @@ function ProviderState(props) {
           provider.customerResponded === false
       )
     ) {
-      let newprovidersarray = maincontext.serviceproviders?.map((provider) => {
+      let newprovidersarray = serviceproviders?.map((provider) => {
         if (
           provider.customers.length >= 2 &&
           provider.popUpTime < currentTime &&
@@ -196,7 +196,7 @@ function ProviderState(props) {
       return;
     }
     if (
-      maincontext.serviceproviders?.some(
+      serviceproviders?.some(
         (provider) =>
           provider.customers.length >= 3 &&
           provider.customers[2].checkStatus === false &&
@@ -206,7 +206,7 @@ function ProviderState(props) {
           provider.customerResponded === false
       )
     ) {
-      let newprovidersarray = maincontext.serviceproviders.map((provider) => {
+      let newprovidersarray = serviceproviders.map((provider) => {
         if (
           provider.customers.length >= 3 &&
           provider.customers[2].checkStatus === false &&
