@@ -8,12 +8,14 @@ import Maincontext from "./../../context/MainContext";
 import UserContext from "./../../context/UserContext";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebaseproduction";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { updateSalon } from "../../features/salonSlice";
 
 function Header() {
   const maincontext = useContext(Maincontext);
   const usercontext = useContext(UserContext);
   const salon = useSelector((state) => state.salon.salon);
+  const dispatch = useDispatch();
 
   async function updateSaloninLocalandcontext() {
     if (usercontext.customer.email !== salon.salonUsername) {
@@ -21,7 +23,8 @@ function Header() {
       querySnapshot.forEach((doc) => {
         let salonUsername = doc.data().salonUsername;
         if (salonUsername === usercontext.customer.email) {
-          maincontext.setSalon({ ...doc.data(), id: doc.id });
+          dispatch(updateSalon({ ...doc.data(), id: doc.id }));
+
           localStorage.setItem("salon", doc.data().salonCode);
         }
       });
