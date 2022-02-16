@@ -5,14 +5,13 @@ import { getDownloadURL, ref, uploadBytesResumable } from "@firebase/storage";
 import { db, storage } from "../../../firebaseproduction.js";
 import { doc, setDoc } from "@firebase/firestore";
 import Maincontext from "../../../context/MainContext";
-import UserContext from "../../../context/UserContext";
+// import UserContext from "../../../context/UserContext";
 import ProviderContext from "../../../context/ProviderContext";
-import { Switch } from "@mui/material";
-const label = { inputProps: { "aria-label": "Switch demo" } };
+import { Helmet } from "react-helmet-async";
 
 function SalonInfo() {
   const maincontext = useContext(Maincontext);
-  const usercontext = useContext(UserContext);
+
   const providercontext = useContext(ProviderContext);
 
   const dataInfo = [
@@ -108,22 +107,22 @@ function SalonInfo() {
     });
   }
 
-  const salonPopUpActivation = () => {
-    maincontext.setSalon((salon) => {
-      const docRef = doc(db, "salon", maincontext.salon.id);
-      const payLoad = { ...salon, popUpActivated: !salon.popUpActivated };
+  // const salonPopUpActivation = () => {
+  //   maincontext.setSalon((salon) => {
+  //     const docRef = doc(db, "salon", maincontext.salon.id);
+  //     const payLoad = { ...salon, popUpActivated: !salon.popUpActivated };
 
-      setDoc(docRef, payLoad).then(() => {
-        alert(
-          salon.popUpActivated
-            ? "popup deactivated succfully!!"
-            : "popup activated succeffully!!  booking list will affect by customer behavior"
-        );
-      });
+  //     setDoc(docRef, payLoad).then(() => {
+  //       alert(
+  //         salon.popUpActivated
+  //           ? "popup deactivated succfully!!"
+  //           : "popup activated succeffully!!  booking list will affect by customer behavior"
+  //       );
+  //     });
 
-      return { ...salon, popUpActivated: !salon.popUpActivated };
-    });
-  };
+  //     return { ...salon, popUpActivated: !salon.popUpActivated };
+  //   });
+  // };
 
   return (
     <>
@@ -133,6 +132,9 @@ function SalonInfo() {
             width="100%"
             src={maincontext.salon?.salonPhoto}
             alt="salon pic"
+            height="fit-content"
+            title="salon pic"
+            loading="eager"
           ></img>
         </div>
 
