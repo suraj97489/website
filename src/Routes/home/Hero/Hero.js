@@ -5,7 +5,6 @@ import CircularProgress from "@mui/material/CircularProgress";
 import "./Hero.css";
 import { useHistory } from "react-router";
 
-import Maincontext from "./../../../context/MainContext";
 import UserContext from "./../../../context/UserContext";
 import { db } from "../../../firebaseproduction";
 import Button from "@mui/material/Button";
@@ -16,11 +15,14 @@ import {
   updateSalonProvidersfordisplay,
 } from "../../../features/salonSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { updateGrahak, updateSalonCode } from "../../../features/mainSlice";
 
 function Hero() {
   let history = useHistory();
   const user = useSelector((state) => state.main.user);
-  const maincontext = useContext(Maincontext);
+  const salonCode = useSelector((state) => state.main.salonCode);
+  const salonCodeValue = useSelector((state) => state.main.salonCodeValue);
+
   const dispatch = useDispatch();
 
   let usercontext = useContext(UserContext);
@@ -58,12 +60,12 @@ function Hero() {
     setLoading(true);
     const q = query(
       collection(db, "salon"),
-      where("salonCode", "==", maincontext.salonCode.toLowerCase())
+      where("salonCode", "==", salonCode.toLowerCase())
     );
     const querySnapshot = await getDocs(q);
 
     querySnapshot.forEach((doc) => {
-      if (doc.data().salonCode === maincontext.salonCode.toLowerCase()) {
+      if (doc.data().salonCode === salonCode.toLowerCase()) {
         findSalon = { ...doc.data(), id: doc.id };
       }
     });
@@ -92,7 +94,7 @@ function Hero() {
 
           localStorage.setItem("grahak", JSON.stringify(setGrahakInLocal));
 
-          maincontext.setGrahak(setGrahakInLocal);
+          dispatch(updateGrahak(setGrahakInLocal));
         }
       }
 
@@ -111,7 +113,8 @@ function Hero() {
       alert("please enter valid SALON CODE");
       setLoading(false);
     }
-    maincontext.setSalonCode("");
+
+    dispatch(updateSalonCode(""));
   };
 
   async function salonHistoryHandler(findSalon) {
@@ -147,8 +150,8 @@ function Hero() {
 
           <input
             type="text"
-            value={maincontext.salonCode}
-            onChange={maincontext.salonCodeValue}
+            value={salonCode}
+            onChange={salonCodeValue}
             className="hero__input"
             placeholder="type salon code provided at salon"
           />
