@@ -9,7 +9,8 @@ import { db } from "../../../firebaseproduction";
 import ModalUnstyled from "@mui/core/ModalUnstyled";
 import { styled } from "@mui/system";
 import Services from "./../../../components/Services/Services";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { updateSalon } from "../../../features/salonSlice";
 
 const StyledModal = styled(ModalUnstyled)`
   position: fixed;
@@ -48,6 +49,7 @@ const style = {
 
 function Modal() {
   const salon = useSelector((state) => state.salon.salon);
+  const dispatch = useDispatch();
   const maincontext = useContext(Maincontext);
   const usercontext = useContext(UserContext);
   const providercontext = useContext(ProviderContext);
@@ -112,10 +114,12 @@ function Modal() {
           }
         });
       };
-      maincontext.setSalon((salon) => ({
-        ...salon,
-        serviceproviders: addOrEditCustomer(salon),
-      }));
+      dispatch(
+        updateSalon({
+          ...salon,
+          serviceproviders: addOrEditCustomer(salon),
+        })
+      );
 
       maincontext.setIsOpen(false);
       await runTransaction(db, async (transaction) => {
@@ -126,7 +130,6 @@ function Modal() {
 
         let arr = addOrEditCustomer(thisDoc.data());
         transaction.update(docRef, { serviceproviders: arr });
-        // maincontext.setSalon({ ...salon, serviceproviders: arr });
       });
     } catch (e) {
       alert("somethng went wrong");
