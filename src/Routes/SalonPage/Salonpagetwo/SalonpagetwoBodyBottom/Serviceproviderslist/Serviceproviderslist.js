@@ -1,20 +1,26 @@
 import React, { useContext, useEffect } from "react";
 import "./Serviceproviderslist.css";
-import Maincontext from "./../../../../../context/MainContext";
+
 import ProviderContext from "./../../../../../context/ProviderContext";
 import UserContext from "./../../../../../context/UserContext";
 import ProviderBefore from "./../../../../../components/CommonComponent/ProviderBefore";
 import Custnames from "./Custnames/Custnames";
 import { secondary } from "../../../../../theme/colors";
 import { Button } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  updateIdOfProvider,
+  updateIsOpen,
+} from "../../../../../features/mainSlice";
 
 function Serviceproviderslist(props) {
+  const dispatch = useDispatch();
   const salon = useSelector((state) => state.salon.salon);
+  const grahak = useSelector((state) => state.main.grahak);
   const salonProvidersfordisplay = useSelector(
     (state) => state.salon.salonProvidersfordisplay
   );
-  const maincontext = useContext(Maincontext);
+
   const usercontext = useContext(UserContext);
   const providercontext = useContext(ProviderContext);
 
@@ -27,11 +33,12 @@ function Serviceproviderslist(props) {
   }, []);
 
   function bookname(event, providerId) {
-    maincontext.setIsOpen(true);
-    maincontext.setIdOfProvider(providerId);
+    dispatch(updateIsOpen(true));
+    dispatch(updateIdOfProvider(providerId));
+
     providercontext.setAddingcustomer(true);
-    maincontext.grahak.service = [];
-    maincontext.grahak.mobile = "";
+    grahak.service = [];
+    grahak.mobile = "";
   }
 
   useEffect(() => {
