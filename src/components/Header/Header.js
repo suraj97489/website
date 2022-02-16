@@ -4,15 +4,14 @@ import "./Header.css";
 import DrawerComponent from "./DrawerComponent/DrawerComponent";
 import MenuIcon from "@material-ui/icons/Menu";
 
-import Maincontext from "./../../context/MainContext";
 import UserContext from "./../../context/UserContext";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebaseproduction";
 import { useSelector, useDispatch } from "react-redux";
 import { updateSalon } from "../../features/salonSlice";
+import { updateOpenDrawer } from "../../features/mainSlice";
 
 function Header() {
-  const maincontext = useContext(Maincontext);
   const usercontext = useContext(UserContext);
   const salon = useSelector((state) => state.salon.salon);
   const user = useSelector((state) => state.main.user);
@@ -73,7 +72,7 @@ function Header() {
         <div className="menuIcon">
           <MenuIcon
             onClick={() => {
-              maincontext.setOpenDrawer(true);
+              dispatch(updateOpenDrawer(true));
             }}
             style={{
               fontSize: "5rem",
