@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "./components/Header/Header";
 import "./css/index.css";
 import Footer from "./components/Footer/Footer";
@@ -27,7 +27,138 @@ import AddSalon from "./AdminPanel/AddSalon/AddSalon";
 import AdminLogin from "./AdminPanel/AdminLogin";
 import SalonDetails from "./AdminPanel/SalonDetails/SalonDetails";
 
+import { db } from "./firebaseproduction";
+import { collection, onSnapshot } from "@firebase/firestore";
+import { useSelector, useDispatch } from "react-redux";
+import { updateSalon, updateServiceproviders } from "./features/salonSlice";
+import {
+  updateAllSalon,
+  updateOverAllCustomers,
+  updateGrahak,
+  updateShopOpen,
+  updateSalonCode,
+} from "./features/mainSlice";
+
 function App() {
+  const salon = useSelector((state) => state.salon.salon);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dataAfterRefresh();
+    return () => {
+      dataAfterRefresh();
+    };
+  }, []);
+
+  function dataAfterRefresh() {
+    onSnapshot(collection(db, "salon"), (snapshot) => {
+      // ==================================update all salon====================================
+      let allSalonValue = snapshot.docs.map((doc) => {
+        return {
+          salonUsername: doc.data().salonUsername,
+          salonCode: doc.data().salonCode,
+        };
+      });
+      dispatch(updateAllSalon(allSalonValue));
+
+      //======================================Active list=======================================
+
+      let arr = snapshot.docs
+        .map((doc) => {
+          return { ...doc.data(), id: doc.id };
+        })
+        // allSalon
+        .map((salon) => {
+          // let trying;
+
+          let saloncustomers = salon.serviceproviders.map((provider) => {
+            if (provider.customers.length > 0) {
+              return provider.customers;
+            }
+          });
+          return saloncustomers;
+        });
+
+      let flatarray = arr.flat(3).filter((elem) => elem !== undefined);
+      dispatch(updateOverAllCustomers(flatarray));
+
+      //  ======================updating salon from local storage===================================
+
+      let localSalon = localStorage.getItem("salon");
+
+      if (localSalon && localSalon !== "temporarySalonCode") {
+        let foundsalon = snapshot.docs
+          .filter((doc) => {
+            return doc.data().salonCode === localSalon;
+          })
+          .map((onedoc) => {
+            return { ...onedoc.data(), id: onedoc.id };
+          })[0];
+
+        dispatch(updateSalon(foundsalon));
+      } else {
+        localSalon = localStorage.setItem("salon", "temporarySalonCode");
+      }
+    });
+
+    // ======================updating grahak from local storage====================================
+    updateGrahkfromlocalstorage();
+    OnlyFourSalonHistoryLength();
+  }
+  function OnlyFourSalonHistoryLength() {
+    let salonHistory = JSON.parse(localStorage.getItem("salonHistory"));
+    if (salonHistory && salonHistory.length > 4) {
+      let updatedSalonHistory = salonHistory.filter((each, i) => i < 4);
+      localStorage.setItem("salonHistory", JSON.stringify(updatedSalonHistory));
+    }
+  }
+
+  function updateGrahkfromlocalstorage() {
+    let grahakavailable = localStorage.getItem("grahak");
+    if (grahakavailable) {
+      let grahakValue = JSON.parse(grahakavailable);
+      dispatch(updateGrahak(grahakValue));
+    } else {
+      grahakavailable = localStorage.setItem(
+        "grahak",
+        JSON.stringify({
+          fname: " ",
+          lname: " ",
+          mobile: "",
+          service: [],
+          email: " ",
+        })
+      );
+      let grahakValue = {
+        fname: " ",
+        lname: " ",
+        mobile: "",
+        service: [],
+        email: " ",
+      };
+      dispatch(updateGrahak(grahakValue));
+    }
+  }
+
+  useEffect(() => {
+    function updatesetServiceProviders() {
+      if (salon) {
+        dispatch(updateServiceproviders(salon.serviceproviders));
+        dispatch(updateShopOpen(salon.shopOpen));
+      }
+    }
+
+    updatesetServiceProviders();
+
+    return () => {
+      updatesetServiceProviders();
+    };
+  }, [salon]);
+
+  const salonCodeValue = (e) => {
+    let removedSpaces = e.target.value.replace(/ /g, "");
+    dispatch(updateSalonCode(removedSpaces));
+  };
   return (
     <>
       <MainState>

@@ -151,7 +151,11 @@ function Hero() {
           <input
             type="text"
             value={salonCode}
-            onChange={salonCodeValue}
+            onChange={(e) => {
+              let value = e.target.value.toLowerCase();
+              let removedSpaces = value.replace(/ /g, "");
+              dispatch(updateSalonCode(removedSpaces));
+            }}
             className="hero__input"
             placeholder="type salon code provided at salon"
           />
