@@ -11,10 +11,13 @@ import { db } from "../../../firebaseproduction";
 import Button from "@mui/material/Button";
 
 import { secondary } from "../../../theme/colors.js";
+import { updateSalon } from "../../../features/salonSlice";
+import { useDispatch } from "react-redux";
 
 function Hero() {
   let history = useHistory();
   const maincontext = useContext(Maincontext);
+  const dispatch = useDispatch();
 
   let usercontext = useContext(UserContext);
   let salonCodeArray = JSON.parse(localStorage.getItem("salonHistory"));
@@ -63,7 +66,8 @@ function Hero() {
 
     if (findSalon) {
       // ============================setting item in local storage=================================
-      maincontext.setSalon(findSalon);
+
+      dispatch(updateSalon(findSalon));
       localStorage.setItem("salon", findSalon.salonCode);
       usercontext.setSalonProvidersfordisplay(
         findSalon.serviceproviders.map((salon) => {
@@ -124,7 +128,8 @@ function Hero() {
   function navigateToSalonHandler(salon) {
     if (maincontext.user === "customer") {
       history.push("/salonpage");
-      maincontext.setSalon(salon);
+
+      dispatch(updateSalon(salon));
       localStorage.setItem("salon", salon.salonCode);
     } else {
       history.push("/sign-in-with-google");
