@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 
 import "./SalonInfo.css";
 import { getDownloadURL, ref, uploadBytesResumable } from "@firebase/storage";
@@ -7,43 +7,43 @@ import { doc, setDoc } from "@firebase/firestore";
 import Maincontext from "../../../context/MainContext";
 // import UserContext from "../../../context/UserContext";
 import ProviderContext from "../../../context/ProviderContext";
-import { Helmet } from "react-helmet-async";
+import { useSelector } from "react-redux";
 
 function SalonInfo() {
   const maincontext = useContext(Maincontext);
 
   const providercontext = useContext(ProviderContext);
-
+  const salon = useSelector((state) => state.salon.salon);
   const dataInfo = [
     {
       label: "Salon Name",
       inputName: "salonName",
       inputType: "text",
-      value: maincontext.salon?.salonName,
+      value: salon?.salonName,
     },
     {
       label: "Address",
       inputName: "address",
       inputType: "text",
-      value: maincontext.salon?.address,
+      value: salon?.address,
     },
     {
       label: "Mobile Number",
       inputName: "mobile",
       inputType: "number",
-      value: maincontext.salon?.mobile,
+      value: salon?.mobile,
     },
     // {
     //   label: "Salon Code",
     //   inputName: "salonCode",
     //   inputType: "text",
-    //   value: maincontext.salon?.salonCode,
+    //   value: salon?.salonCode,
     // },
     {
       label: "Website",
       inputName: "website",
       inputType: "text",
-      value: maincontext.salon?.website,
+      value: salon?.website,
     },
   ];
 
@@ -56,10 +56,7 @@ function SalonInfo() {
   function uploadPhoto(file) {
     if (!file) return;
     providercontext.setButtonDisabled(false);
-    const storageRef = ref(
-      storage,
-      `/salonImages/${maincontext.salon.id}/${maincontext.salon.id}`
-    );
+    const storageRef = ref(storage, `/salonImages/${salon.id}/${salon.id}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
 
     uploadTask.on(
@@ -74,7 +71,7 @@ function SalonInfo() {
       (err) => console.error(err),
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-          maincontext.setSalon({ ...maincontext.salon, salonPhoto: url });
+          maincontext.setSalon({ ...salon, salonPhoto: url });
         });
       }
     );
@@ -85,16 +82,16 @@ function SalonInfo() {
     let value = e.target.value;
     providercontext.setButtonDisabled(false);
     maincontext.setSalon(() => {
-      return { ...maincontext.salon, [name]: value };
+      return { ...salon, [name]: value };
     });
   }
 
   function SalonInfoHandler() {
     providercontext.setButtonDisabled(true);
 
-    const docRef = doc(db, "salon", maincontext.salon.id);
+    const docRef = doc(db, "salon", salon.id);
 
-    const payLoad = maincontext.salon;
+    const payLoad = salon;
 
     setDoc(docRef, payLoad).then(() => {
       maincontext.setNotify({
@@ -109,7 +106,7 @@ function SalonInfo() {
 
   // const salonPopUpActivation = () => {
   //   maincontext.setSalon((salon) => {
-  //     const docRef = doc(db, "salon", maincontext.salon.id);
+  //     const docRef = doc(db, "salon", salon.id);
   //     const payLoad = { ...salon, popUpActivated: !salon.popUpActivated };
 
   //     setDoc(docRef, payLoad).then(() => {
@@ -130,7 +127,7 @@ function SalonInfo() {
         <div className="SalonInfo__image__wrapper">
           <img
             width="100%"
-            src={maincontext.salon?.salonPhoto}
+            src={salon?.salonPhoto}
             alt="salon pic"
             height="fit-content"
             title="salon pic"
@@ -178,8 +175,7 @@ function SalonInfo() {
           style={{ width: "40%" }}
           className="SalonInfo__change__photo"
           disabled={
-            providercontext.buttonDisabled ||
-            maincontext.salon?.mobile.length !== 10
+            providercontext.buttonDisabled || salon?.mobile.length !== 10
           }
         >
           Save Changes
@@ -196,7 +192,7 @@ function SalonInfo() {
             </p>
           </div>
           <Switch
-            defaultChecked={maincontext.salon?.popUpActivated}
+            defaultChecked={salon?.popUpActivated}
             size="small"
             {...label}
             onClick={salonPopUpActivation}
