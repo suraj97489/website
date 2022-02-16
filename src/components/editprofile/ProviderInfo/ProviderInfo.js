@@ -1,16 +1,16 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 
 import "./ProviderInfo.css";
 
 import { Delete } from "@material-ui/icons";
-import Maincontext from "../../../context/MainContext";
+
 import ProviderInfoLogic from "./ProviderInfoLogic";
 import ProviderContext from "./../../../context/ProviderContext";
+import { useSelector } from "react-redux";
 
 function ProviderInfo() {
-  const maincontext = useContext(Maincontext);
   const providercontext = useContext(ProviderContext);
-
+  const serviceproviders = useSelector((state) => state.salon.serviceproviders);
   const {
     setProvider,
 
@@ -30,9 +30,7 @@ function ProviderInfo() {
     if (cancel) return;
 
     setProvider(() =>
-      maincontext.serviceproviders?.length > 0
-        ? maincontext.serviceproviders[0]
-        : null
+      serviceproviders?.length > 0 ? serviceproviders[0] : null
     );
     return () => {
       cancel = true;
@@ -43,7 +41,7 @@ function ProviderInfo() {
     <>
       <div className="ProviderInfo">
         <div className="ProviderInfo__SideBar">
-          {maincontext.serviceproviders?.map((provider, i) => (
+          {serviceproviders?.map((provider, i) => (
             <div
               key={provider.id}
               id={provider.id}
@@ -169,7 +167,7 @@ function ProviderInfo() {
                 >
                   Save changes
                 </button>
-                {maincontext.serviceproviders?.length > 1 && (
+                {serviceproviders?.length > 1 && (
                   <button
                     onClick={deleteProvider}
                     className="ProviderInfo__SaveChanges"
