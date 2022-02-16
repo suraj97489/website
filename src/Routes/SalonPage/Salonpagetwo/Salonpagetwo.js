@@ -1,20 +1,20 @@
-import React, { useContext } from "react";
+import React from "react";
 import SalonpagetwoBodyTop from "./SalonpagetwoBodyTop/SalonpagetwoBodyTop";
 import SalonpagetwoBodyBottom from "./SalonpagetwoBodyBottom/SalonpagetwoBodyBottom";
 import ShopClosed from "./SalonpagetwoBodyBottom/ShopClosed/ShopClosed";
-import Maincontext from "./../../../context/MainContext";
+
 import Modal from "./../Modals/Modal";
-
+import { useSelector } from "react-redux";
 function Salonpagetwo() {
-  const maincontext = useContext(Maincontext);
-
+  const shopOpen = useSelector((state) => state.main.shopOpen);
+  const isOpen = useSelector((state) => state.main.isOpen);
   return (
     <>
       <div className="salonpagetwo-body">
         <SalonpagetwoBodyTop />
 
-        {maincontext.shopOpen ? <SalonpagetwoBodyBottom /> : <ShopClosed />}
-        {maincontext.isOpen && <Modal />}
+        {shopOpen ? <SalonpagetwoBodyBottom /> : <ShopClosed />}
+        {isOpen && <Modal />}
       </div>
     </>
   );
