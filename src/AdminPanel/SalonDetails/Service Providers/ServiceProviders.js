@@ -1,14 +1,14 @@
-import React, { useContext } from "react";
+import React from "react";
 import ProviderInfo from "../../../components/editprofile/ProviderInfo/ProviderInfo";
-import Maincontext from "../../../context/MainContext";
-import SalonDetailsHeading from "../SalonDetailsHeading";
 
+import SalonDetailsHeading from "../SalonDetailsHeading";
+import { useSelector } from "react-redux";
 function ServiceProviders() {
-  const maincontext = useContext(Maincontext);
+  const detailsHeading = useSelector((state) => state.main.detailsHeading);
   return (
     <>
       <SalonDetailsHeading heading="SERVICE PROVIDERS" />
-      {maincontext.detailsHeading === "SERVICE PROVIDERS" && <ProviderInfo />}
+      {detailsHeading === "SERVICE PROVIDERS" && <ProviderInfo />}
     </>
   );
 }
