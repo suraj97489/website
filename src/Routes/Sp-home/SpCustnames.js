@@ -8,8 +8,10 @@ import Maincontext from "./../../context/MainContext";
 import ProviderContext from "./../../context/ProviderContext";
 
 import CallIcon from "@material-ui/icons/Call";
+import { useSelector } from "react-redux";
 
 function SpCustnames(props) {
+  const salon = useSelector((state) => state.salon.salon);
   const providercontext = useContext(ProviderContext);
   const maincontext = useContext(Maincontext);
 
@@ -24,7 +26,7 @@ function SpCustnames(props) {
   }
 
   async function cancelBooking(providerId, customerIndex) {
-    const docRef = doc(db, "salon", maincontext.salon.id);
+    const docRef = doc(db, "salon", salon.id);
     try {
       let newprovidersarray = await runTransaction(db, async (transaction) => {
         let thisDoc = await transaction.get(docRef);
