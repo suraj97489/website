@@ -8,10 +8,12 @@ import { db } from "../../../../../../firebaseproduction";
 
 import Maincontext from "./../../../../../../context/MainContext";
 import ProviderContext from "./../../../../../../context/ProviderContext";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { updateSalon } from "./../../../../../../features/salonSlice";
 
 function Custnames(props) {
   const salon = useSelector((state) => state.salon.salon);
+  const dispatch = useDispatch();
   const maincontext = useContext(Maincontext);
   const providercontext = useContext(ProviderContext);
 
@@ -39,10 +41,12 @@ function Custnames(props) {
         });
       };
 
-      maincontext.setSalon((salon) => ({
-        ...salon,
-        serviceproviders: cancelFunc(salon),
-      }));
+      dispatch(
+        updateSalon({
+          ...salon,
+          serviceproviders: cancelFunc(salon),
+        })
+      );
 
       let updatedArrayofProviders = await runTransaction(
         db,
@@ -58,10 +62,12 @@ function Custnames(props) {
         }
       );
 
-      maincontext.setSalon({
-        ...salon,
-        serviceproviders: updatedArrayofProviders,
-      });
+      dispatch(
+        updateSalon({
+          ...salon,
+          serviceproviders: updatedArrayofProviders,
+        })
+      );
     } catch (e) {
       console.error("something went wrong");
     }
