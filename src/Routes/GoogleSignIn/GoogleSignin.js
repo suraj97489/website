@@ -7,13 +7,14 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { Helmet } from "react-helmet-async";
+import { useSelector } from "react-redux";
 
 function GoogleSignin() {
   let history = useHistory();
   const maincontext = useContext(Maincontext);
   const usercontext = useContext(UserContext);
   const [clicked, setclicked] = useState(false);
-
+  const user = useSelector((state) => state.main.user);
   function confirmlogin(e) {
     e.preventDefault();
     const provider = new GoogleAuthProvider();
@@ -64,7 +65,7 @@ function GoogleSignin() {
 
   if (!localdata) {
     return <Redirect to="/" />;
-  } else if (maincontext.user === "customer" && localdata) {
+  } else if (user === "customer" && localdata) {
     return <Redirect to="/salonpage" />;
   } else {
     return (
