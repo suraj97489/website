@@ -8,10 +8,12 @@ import Maincontext from "./../../context/MainContext";
 import ProviderContext from "./../../context/ProviderContext";
 import UserContext from "./../../context/UserContext";
 import ProviderBefore from "./../../components/CommonComponent/ProviderBefore";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { updateSalon } from "../../features/salonSlice";
 
 function SpServiceproviderslist(props) {
   const salon = useSelector((state) => state.salon.salon);
+  const dispatch = useDispatch();
   const usercontext = useContext(UserContext);
   const maincontext = useContext(Maincontext);
   const providercontext = useContext(ProviderContext);
@@ -41,10 +43,12 @@ function SpServiceproviderslist(props) {
         return provider;
       }
     });
-    maincontext.setSalon({
-      ...salon,
-      serviceproviders: newprovidersarray,
-    });
+    dispatch(
+      updateSalon({
+        ...salon,
+        serviceproviders: newprovidersarray,
+      })
+    );
     const docRef = doc(db, "salon", salon.id);
     const payLoad = {
       ...salon,
