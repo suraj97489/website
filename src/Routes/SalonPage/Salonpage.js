@@ -5,30 +5,32 @@ import SalonpageOne from "../../components/CommonComponent/SalonpageOne";
 
 import CircularProgress from "@mui/material/CircularProgress";
 import UserContext from "./../../context/UserContext";
-import Maincontext from "./../../context/MainContext";
+
 import ProviderContext from "./../../context/ProviderContext";
 import { Helmet } from "react-helmet-async";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { updateCheckStatus } from "../../features/mainSlice";
 
 function Salonpage() {
   const salon = useSelector((state) => state.salon.salon);
+  const overAllCustomers = useSelector((state) => state.salon.overAllCustomers);
   const usercontext = useContext(UserContext);
-  const maincontext = useContext(Maincontext);
+  const dispatch = useDispatch();
   const providercontext = useContext(ProviderContext);
 
   useEffect(() => {
     let cancel = false;
     if (cancel) return;
 
-    maincontext.overAllCustomers?.map((cust) => {
+    overAllCustomers?.map((cust) => {
       if (cust.email === usercontext.customer?.email) {
-        maincontext.setCheckStatus(cust.checkStatus);
+        dispatch(updateCheckStatus(cust.checkStatus));
       }
     });
     return () => {
       cancel = true;
     };
-  }, [maincontext.overAllCustomers, salon]);
+  }, [overAllCustomers, salon]);
 
   useEffect(() => {
     let cancel = false;
