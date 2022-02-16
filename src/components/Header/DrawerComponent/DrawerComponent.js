@@ -1,18 +1,19 @@
 import React, { useContext } from "react";
 import Drawer from "@mui/material/Drawer";
 import { List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
-import MainContext from "../../../context/MainContext";
+
 import { Link } from "react-router-dom";
 import UserContext from "./../../../context/UserContext";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../../firebaseproduction";
 import { useDispatch, useSelector } from "react-redux";
 import { updateSalon } from "../../../features/salonSlice";
+import { updateOpenDrawer } from "../../../features/mainSlice";
 
 function DrawerComponent() {
-  const maincontext = useContext(MainContext);
   const usercontext = useContext(UserContext);
   const user = useSelector((state) => state.main.user);
+  const openDrawer = useSelector((state) => state.main.openDrawer);
   const dispatch = useDispatch();
   const pStyle = { fontSize: "2.5rem", color: "black" };
   const salon = useSelector((state) => state.salon.salon);
@@ -37,12 +38,8 @@ function DrawerComponent() {
     { path: "/contactus", buttonName: "Contact Us" },
   ];
 
-  // function navigateAdmin(e) {
-  //   maincontext.setOpenDrawer(false);
-  //   maincontext.setDrawerInnerText(e.target.innerText);
-  // }
   function closeDrawer() {
-    maincontext.setOpenDrawer(false);
+    dispatch(updateOpenDrawer(false));
   }
 
   async function updateSaloninLocalandcontext() {
@@ -59,7 +56,7 @@ function DrawerComponent() {
     }
   }
   return (
-    <Drawer anchor="right" open={maincontext.openDrawer} onClose={closeDrawer}>
+    <Drawer anchor="right" open={openDrawer} onClose={closeDrawer}>
       <div style={{ width: "50vw" }}>
         {user === "provider" && (
           <List>
