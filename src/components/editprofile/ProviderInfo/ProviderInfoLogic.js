@@ -2,15 +2,16 @@ import { useState, useContext } from "react";
 import { doc, setDoc } from "@firebase/firestore";
 import { db, storage } from "../../../firebaseproduction";
 import { getDownloadURL, ref, uploadBytesResumable } from "@firebase/storage";
-import Maincontext from "../../../context/MainContext";
+
 import ProviderContext from "./../../../context/ProviderContext";
 
 import { useDispatch, useSelector } from "react-redux";
 import { updateSalon } from "../../../features/salonSlice";
+import { updateNotify } from "../../../features/mainSlice";
 
 function ProviderInfoLogic() {
   const dispatch = useDispatch();
-  const maincontext = useContext(Maincontext);
+
   const providercontext = useContext(ProviderContext);
   const [showAddButton, setShowAddButton] = useState(false);
 
@@ -109,13 +110,15 @@ function ProviderInfoLogic() {
         serviceproviders: serviceproviders,
       };
       setDoc(docRef, payLoad).then(() => {
-        maincontext.setNotify({
-          message: "Provider Added Successfully...!!",
-          style: {
-            backgroundColor: "green",
-            color: "white",
-          },
-        });
+        dispatch(
+          updateNotify({
+            message: "Provider Added Successfully...!!",
+            style: {
+              backgroundColor: "green",
+              color: "white",
+            },
+          })
+        );
       });
 
       let providersdiv = document.getElementsByClassName(
@@ -145,23 +148,27 @@ function ProviderInfoLogic() {
       };
       setDoc(docRef, payLoad)
         .then(() => {
-          maincontext.setNotify({
-            message: "Provider Updated Successfully...!!",
-            style: {
-              backgroundColor: "green",
-              color: "white",
-            },
-          });
+          dispatch(
+            updateNotify({
+              message: "Provider Updated Successfully...!!",
+              style: {
+                backgroundColor: "green",
+                color: "white",
+              },
+            })
+          );
         })
-        .catch((err) =>
-          maincontext.setNotify({
-            message: err.message,
-            style: {
-              backgroundColor: "red",
-              color: "white",
-            },
-          })
-        );
+        .catch((err) => {
+          dispatch(
+            updateNotify({
+              message: err.message,
+              style: {
+                backgroundColor: "red",
+                color: "white",
+              },
+            })
+          );
+        });
 
       setShowAddButton(false);
     }
@@ -179,15 +186,17 @@ function ProviderInfoLogic() {
 
     const docRef = doc(db, "salon", salon.id);
     const payLoad = { ...salon, serviceproviders: newproArray };
-    setDoc(docRef, payLoad).then(() =>
-      maincontext.setNotify({
-        message: "Provider deleted Successfully...!!",
-        style: {
-          backgroundColor: "green",
-          color: "white",
-        },
-      })
-    );
+    setDoc(docRef, payLoad).then(() => {
+      dispatch(
+        updateNotify({
+          message: "Provider deleted Successfully...!!",
+          style: {
+            backgroundColor: "green",
+            color: "white",
+          },
+        })
+      );
+    });
 
     setProvider(resetProvider);
     removeWhiteBackground();
