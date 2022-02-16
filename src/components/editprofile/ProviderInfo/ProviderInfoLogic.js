@@ -4,10 +4,12 @@ import { db, storage } from "../../../firebaseproduction";
 import { getDownloadURL, ref, uploadBytesResumable } from "@firebase/storage";
 import Maincontext from "../../../context/MainContext";
 import ProviderContext from "./../../../context/ProviderContext";
-import UserContext from "./../../../context/UserContext";
-import { useSelector } from "react-redux";
+
+import { useDispatch, useSelector } from "react-redux";
+import { updateSalon } from "../../../features/salonSlice";
 
 function ProviderInfoLogic() {
+  const dispatch = useDispatch();
   const maincontext = useContext(Maincontext);
   const providercontext = useContext(ProviderContext);
   const [showAddButton, setShowAddButton] = useState(false);
@@ -170,12 +172,11 @@ function ProviderInfoLogic() {
     let newproArray = salon.serviceproviders.filter(
       (each) => each.id !== provider.id
     );
-    maincontext.setSalon(() => {
-      return {
-        ...salon,
-        serviceproviders: newproArray,
-      };
-    });
+    const salonpayLoad = {
+      ...salon,
+      serviceproviders: newproArray,
+    };
+    dispatch(updateSalon(salonpayLoad));
 
     const docRef = doc(db, "salon", salon.id);
     const payLoad = { ...salon, serviceproviders: newproArray };
