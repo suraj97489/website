@@ -9,12 +9,14 @@ import UserContext from "./../../context/UserContext";
 import SalonpageOne from "./../../components/CommonComponent/SalonpageOne";
 import SalonpagetwoBodyTop from "./../SalonPage/Salonpagetwo/SalonpagetwoBodyTop/SalonpagetwoBodyTop";
 import { Helmet } from "react-helmet-async";
+import { useSelector } from "react-redux";
 
 function SpPage() {
+  const salon = useSelector((state) => state.salon.salon);
   const maincontext = useContext(Maincontext);
   const usercontext = useContext(UserContext);
 
-  if (maincontext.salon.salonUsername === usercontext.customer?.email) {
+  if (salon.salonUsername === usercontext.customer?.email) {
     return (
       <>
         <Helmet>
