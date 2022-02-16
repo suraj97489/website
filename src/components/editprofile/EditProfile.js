@@ -8,6 +8,7 @@ import UserContext from "../../context/UserContext";
 import CircularProgress from "@mui/material/CircularProgress";
 
 import ProviderContext from "./../../context/ProviderContext";
+import { Helmet } from "react-helmet-async";
 
 function EditProfile() {
   document.title = "Edit Profile";
@@ -30,7 +31,14 @@ function EditProfile() {
     return (
       <>
         <div className="EditProfile__container">
-          {/* <button className="EditProfile__change__photo"> change photo</button> */}
+          <Helmet>
+            <title>Edit Profile</title>
+            <meta
+              name="description"
+              content="you can edit salon information and you can add,edit,delete services/provider."
+            />
+            <link rel="canonical" href="/edit-profile" />
+          </Helmet>
           <div className="EditProfile__title__div">
             <button className="EditProfile__topButtons" onClick={buttonsClick}>
               Provider Info
