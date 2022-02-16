@@ -3,8 +3,10 @@ import { db } from "../firebaseproduction";
 import React, { useContext, useEffect, useState } from "react";
 import Maincontext from "./MainContext";
 import ProviderContext from "./ProviderContext";
+import { useSelector } from "react-redux";
 
 function ProviderState(props) {
+  const salon = useSelector((state) => state.salon.salon);
   const maincontext = useContext(Maincontext);
 
   const [sp, setSp] = useState({ salonUsername: "", salonPassword: "" });
@@ -27,14 +29,14 @@ function ProviderState(props) {
     let cancel = false;
     function updateService() {
       if (cancel) return;
-      setServices(maincontext.salon?.services);
-      setSalonUsername(maincontext.salon?.salonUsername);
+      setServices(salon?.services);
+      setSalonUsername(salon?.salonUsername);
     }
     updateService();
     return () => {
       cancel = true;
     };
-  }, [maincontext.salon]);
+  }, [salon]);
 
   useEffect(() => {
     let cancel = false;
@@ -78,9 +80,9 @@ function ProviderState(props) {
         return provider;
       }
     });
-    const docRef = doc(db, "salon", maincontext.salon.id);
+    const docRef = doc(db, "salon", salon.id);
     const payLoad = {
-      ...maincontext.salon,
+      ...salon,
       serviceproviders: newprovidersarray,
     };
 
@@ -126,12 +128,12 @@ function ProviderState(props) {
       addedBy: cust.addedBy,
     };
 
-    let salonReportUpdatedArray = [report, ...maincontext.salon.salonReport];
+    let salonReportUpdatedArray = [report, ...salon.salonReport];
 
-    const docRef = doc(db, "salon", maincontext.salon.id);
+    const docRef = doc(db, "salon", salon.id);
 
     const payLoad = {
-      ...maincontext.salon,
+      ...salon,
       serviceproviders: newprovidersarray,
       salonReport: salonReportUpdatedArray,
     };
@@ -141,7 +143,7 @@ function ProviderState(props) {
 
   async function firstPopUpHandler() {
     let currentTime = new Date().getTime();
-    if (!maincontext.salon?.popUpActivated) {
+    if (!salon?.popUpActivated) {
       return;
     }
 
@@ -179,9 +181,9 @@ function ProviderState(props) {
         }
       });
 
-      const docRef = doc(db, "salon", maincontext.salon.id);
+      const docRef = doc(db, "salon", salon.id);
       const payLoad = {
-        ...maincontext.salon,
+        ...salon,
         serviceproviders: newprovidersarray,
       };
       setDoc(docRef, payLoad);
@@ -190,7 +192,7 @@ function ProviderState(props) {
 
   function secondPopUpHandler() {
     let currentTime = new Date().getTime();
-    if (!maincontext.salon?.popUpActivated) {
+    if (!salon?.popUpActivated) {
       return;
     }
     if (
@@ -228,9 +230,9 @@ function ProviderState(props) {
         }
       });
 
-      const docRef = doc(db, "salon", maincontext.salon.id);
+      const docRef = doc(db, "salon", salon.id);
       const payLoad = {
-        ...maincontext.salon,
+        ...salon,
         serviceproviders: newprovidersarray,
       };
       setDoc(docRef, payLoad);
