@@ -3,7 +3,7 @@ import "./SalonpagetwoBodyTop.css";
 
 import { doc, setDoc } from "@firebase/firestore";
 import { db } from "../../../../firebaseproduction";
-import Maincontext from "./../../../../context/MainContext";
+
 import AlertProvider from "../../../Sp-home/alert Provider/AlertProvider";
 
 import ProviderContext from "./../../../../context/ProviderContext";
@@ -11,8 +11,8 @@ import { useSelector } from "react-redux";
 
 function SalonpagetwoBodyTop(props) {
   const salon = useSelector((state) => state.salon.salon);
+  const shopOpen = useSelector((state) => state.main.shopOpen);
   const providercontext = useContext(ProviderContext);
-  const maincontext = useContext(Maincontext);
 
   const [shopButtonText, setShopButtonText] = useState();
 
@@ -52,7 +52,7 @@ function SalonpagetwoBodyTop(props) {
         <h2>SERVICE PROVIDERS</h2>
         {props.provider && (
           <div>
-            {maincontext.shopOpen ? (
+            {shopOpen ? (
               <button
                 onClick={(e) => {
                   providercontext.setAlertProvider(true);
