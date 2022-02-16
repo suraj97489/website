@@ -1,7 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  salon: null,
+  salon: {
+    salonName: "Loading...",
+    address: "",
+    website: "",
+    mobile: "",
+    salonPhoto: "Loading....",
+    salonCode: "",
+    salonPassword: "",
+    services: [],
+    salonUsername: false,
+  },
   salonProvidersfordisplay: null,
 };
 
