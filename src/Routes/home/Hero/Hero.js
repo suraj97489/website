@@ -15,10 +15,11 @@ import {
   updateSalon,
   updateSalonProvidersfordisplay,
 } from "../../../features/salonSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 function Hero() {
   let history = useHistory();
+  const user = useSelector((state) => state.main.user);
   const maincontext = useContext(Maincontext);
   const dispatch = useDispatch();
 
@@ -128,7 +129,7 @@ function Hero() {
   }
 
   function navigateToSalonHandler(salon) {
-    if (maincontext.user === "customer") {
+    if (user === "customer") {
       history.push("/salonpage");
 
       dispatch(updateSalon(salon));
