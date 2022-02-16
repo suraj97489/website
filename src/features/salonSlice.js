@@ -26,6 +26,9 @@ export const salonSlice = createSlice({
     updateSalonProvidersfordisplay: (state, action) => {
       state.salonProvidersfordisplay = action.payload;
     },
+    updateServiceproviders: (state, action) => {
+      state.serviceproviders = action.payload;
+    },
   },
 });
 
