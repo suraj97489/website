@@ -7,6 +7,7 @@ import { Redirect } from "react-router-dom";
 
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import UserContext from "../context/UserContext";
+import { Helmet } from "react-helmet-async";
 
 function AdminLogin() {
   const maincontext = useContext(Maincontext);
@@ -45,6 +46,12 @@ function AdminLogin() {
   } else {
     return (
       <>
+        <Helmet>
+          <title>dashboard</title>
+          <meta name="description" content="enter your username and password" />
+          <link rel="canonical" href="/8484" />
+          <meta name="robots" content="noindex" />
+        </Helmet>
         <div onSubmit={checkAdmin} className="Admin__Login">
           <form>
             <label>email</label>
