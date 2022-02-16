@@ -1,14 +1,16 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import Maincontext from "../../context/MainContext";
+
+import { useDispatch } from "react-redux";
+import { updateSalon } from "../../features/salonSlice";
 
 function EachSalon(props) {
-  const maincontext = useContext(Maincontext);
   const history = useHistory();
-
+  const dispatch = useDispatch();
   function navigateToSalonDetails() {
     localStorage.setItem("salon", props.salon.salonCode);
-    maincontext.setSalon(props.salon);
+    dispatch(updateSalon(props.salon));
+
     history.push("/salon-details");
   }
 
