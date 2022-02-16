@@ -1,13 +1,13 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import Maincontext from "./../../context/MainContext";
+
 import { setDoc, doc } from "firebase/firestore";
 import { db } from "../../firebaseproduction";
-
+import { useSelector } from "react-redux";
 const auth = getAuth();
 
 function AddSalonLogic() {
-  const maincontext = useContext(Maincontext);
+  const allSalon = useSelector((state) => state.main.allSalon);
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [alreadyExist, setAlreadyExist] = useState(false);
   const [message, setMessage] = useState();
@@ -61,9 +61,7 @@ function AddSalonLogic() {
       setAddSalon({ ...addSalon, [name]: value });
       if (name === "salonCode") {
         setAlreadyExist(
-          maincontext.allSalon.some(
-            (salon) => salon.salonCode === value.toLowerCase()
-          )
+          allSalon.some((salon) => salon.salonCode === value.toLowerCase())
         );
         let removedSpaces = value.replace(/ /g, "");
 
@@ -142,7 +140,7 @@ function AddSalonLogic() {
           .catch((error) => setMessage("Login Problem :" + error.message));
       })
       .catch((error) => {
-        const errorCode = error.code;
+        // const errorCode = error.code;
         const errorMessage = error.message;
         if (errorMessage === "Firebase: Error (auth/email-already-in-use).") {
           setMessage("Error:Username already in use.");
