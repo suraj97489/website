@@ -7,6 +7,7 @@ import { doc, runTransaction } from "@firebase/firestore";
 import { db } from "../../firebaseproduction";
 import ProviderContext from "./../../context/ProviderContext";
 import Maincontext from "./../../context/MainContext";
+import { useSelector } from "react-redux";
 
 const StyledModal = styled(ModalUnstyled)`
   position: fixed;
@@ -44,6 +45,7 @@ const style = {
 };
 
 function SpModal(props) {
+  const salon = useSelector((state) => state.salon.salon);
   const providercontext = useContext(ProviderContext);
   const maincontext = useContext(Maincontext);
 
@@ -55,7 +57,7 @@ function SpModal(props) {
   };
 
   async function addCustomer() {
-    const docRef = doc(db, "salon", maincontext.salon.id);
+    const docRef = doc(db, "salon", salon.id);
     try {
       let newprovidersarray;
 
