@@ -8,13 +8,15 @@ import Maincontext from "./../../context/MainContext";
 import UserContext from "./../../context/UserContext";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebaseproduction";
+import { useSelector } from "react-redux";
 
 function Header() {
   const maincontext = useContext(Maincontext);
   const usercontext = useContext(UserContext);
+  const salon = useSelector((state) => state.salon.salon);
 
   async function updateSaloninLocalandcontext() {
-    if (usercontext.customer.email !== maincontext.salon.salonUsername) {
+    if (usercontext.customer.email !== salon.salonUsername) {
       const querySnapshot = await getDocs(collection(db, "salon"));
       querySnapshot.forEach((doc) => {
         let salonUsername = doc.data().salonUsername;

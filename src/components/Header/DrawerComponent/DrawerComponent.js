@@ -6,13 +6,14 @@ import { Link } from "react-router-dom";
 import UserContext from "./../../../context/UserContext";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../../firebaseproduction";
+import { useSelector } from "react-redux";
 
 function DrawerComponent() {
   const maincontext = useContext(MainContext);
   const usercontext = useContext(UserContext);
 
   const pStyle = { fontSize: "2.5rem", color: "black" };
-
+  const salon = useSelector((state) => state.salon.salon);
   const adminItems = [
     { path: "/dashboard", buttonName: "Dashboard" },
     { path: "/add-salon", buttonName: "Add Salon" },
@@ -44,7 +45,7 @@ function DrawerComponent() {
 
   async function updateSaloninLocalandcontext() {
     closeDrawer();
-    if (usercontext.customer.email !== maincontext.salon.salonUsername) {
+    if (usercontext.customer.email !== salon.salonUsername) {
       const querySnapshot = await getDocs(collection(db, "salon"));
       querySnapshot.forEach((doc) => {
         let salonUsername = doc.data().salonUsername;
