@@ -1,27 +1,29 @@
 import React, { useContext } from "react";
 import "./Services.css";
+import { useDispatch, useSelector } from "react-redux";
 
-import Maincontext from "./../../context/MainContext";
 import ProviderContext from "./../../context/ProviderContext";
+import { updateGrahak } from "../../features/mainSlice";
 
 function Services() {
-  const maincontext = useContext(Maincontext);
+  const dispatch = useDispatch();
+  const grahak = useSelector((state) => state.main.grahak);
   const providercontext = useContext(ProviderContext);
 
   function collectcheckvalue(e) {
-    maincontext.setGrahak((old) => {
-      if (e.target.checked) {
-        return {
-          ...old,
-          service: [...maincontext.grahak.service, e.target.value],
-        };
-      } else {
-        let unchecked = old.service.filter((service) => {
-          return service !== e.target.value;
-        });
-        return { ...old, service: [...unchecked] };
-      }
-    });
+    let grahakValue;
+    if (e.target.checked) {
+      grahakValue = {
+        ...grahak,
+        service: [...grahak.service, e.target.value],
+      };
+    } else {
+      let unchecked = grahak.service.filter((service) => {
+        return service !== e.target.value;
+      });
+      grahakValue = { ...grahak, service: [...unchecked] };
+    }
+    dispatch(updateGrahak(grahakValue));
   }
   return (
     <>
