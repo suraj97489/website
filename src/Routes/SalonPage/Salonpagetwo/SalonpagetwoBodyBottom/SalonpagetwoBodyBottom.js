@@ -1,15 +1,16 @@
-import React, { useContext } from "react";
+import React from "react";
 import Serviceproviderslist from "./Serviceproviderslist/Serviceproviderslist";
 import "./SalonpagetwoBodyBottom.css";
-import Maincontext from "../../../../context/MainContext";
+
+import { useSelector } from "react-redux";
 
 function SalonpagetwoBodyBottom() {
-  const maincontext = useContext(Maincontext);
+  const serviceproviders = useSelector((state) => state.salon.serviceproviders);
 
   return (
     <>
       <div className="salonpagetwo-body-bottom">
-        {maincontext.serviceproviders.map((provider, i) => {
+        {serviceproviders.map((provider, i) => {
           return (
             <Serviceproviderslist
               key={provider.id}
