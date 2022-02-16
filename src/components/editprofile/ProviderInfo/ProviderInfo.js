@@ -72,7 +72,11 @@ function ProviderInfo() {
                 provider.providerPhoto ||
                 process.env.REACT_APP_TEMPORARY_PROFILE_PIC
               }
-              alt=""
+              alt="provider_photo"
+              title="provider photo"
+              loading="eager"
+              width="10rem"
+              height="10rem"
             ></img>
           </div>
           <p style={{ fontSize: "2rem", color: "orange" }}>
