@@ -13,6 +13,7 @@ import { updateSalon } from "../../features/salonSlice";
 
 function SpServiceproviderslist(props) {
   const salon = useSelector((state) => state.salon.salon);
+  const serviceproviders = useSelector((state) => state.salon.serviceproviders);
   const salonProvidersfordisplay = useSelector(
     (state) => state.salon.salonProvidersfordisplay
   );
@@ -37,7 +38,7 @@ function SpServiceproviderslist(props) {
   function handleDragEnd(e, providerId) {
     if (!e.destination) return;
 
-    let newprovidersarray = maincontext.serviceproviders.map((provider) => {
+    let newprovidersarray = serviceproviders.map((provider) => {
       if (provider.id === providerId) {
         const [removed] = provider.customers.splice(e.source.index, 1);
         provider.customers.splice(e.destination.index, 0, removed);
