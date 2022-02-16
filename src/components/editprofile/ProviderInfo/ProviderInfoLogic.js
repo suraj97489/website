@@ -5,11 +5,14 @@ import { getDownloadURL, ref, uploadBytesResumable } from "@firebase/storage";
 import Maincontext from "../../../context/MainContext";
 import ProviderContext from "./../../../context/ProviderContext";
 import UserContext from "./../../../context/UserContext";
+import { useSelector } from "react-redux";
 
 function ProviderInfoLogic() {
   const maincontext = useContext(Maincontext);
   const providercontext = useContext(ProviderContext);
   const [showAddButton, setShowAddButton] = useState(false);
+
+  const salon = useSelector((state) => state.salon.salon);
 
   const [file, setFile] = useState();
 
@@ -36,7 +39,7 @@ function ProviderInfoLogic() {
     providercontext.setButtonDisabled(false);
     const storageRef = ref(
       storage,
-      `/salonImages/${maincontext.salon.id}/${provider.fname}-${provider.lname}-${provider.mobile}/${provider.id}`
+      `/salonImages/${salon.id}/${provider.fname}-${provider.lname}-${provider.mobile}/${provider.id}`
     );
     const uploadTask = uploadBytesResumable(storageRef, file);
 
@@ -96,16 +99,12 @@ function ProviderInfoLogic() {
       maincontext.serviceproviders.push({
         ...provider,
 
-        id:
-          provider.fname +
-          provider.lname +
-          maincontext.salon.id +
-          provider.mobile,
+        id: provider.fname + provider.lname + salon.id + provider.mobile,
       });
 
-      const docRef = doc(db, "salon", maincontext.salon.id);
+      const docRef = doc(db, "salon", salon.id);
       const payLoad = {
-        ...maincontext.salon,
+        ...salon,
         serviceproviders: maincontext.serviceproviders,
       };
       setDoc(docRef, payLoad).then(() => {
@@ -138,9 +137,9 @@ function ProviderInfoLogic() {
           return each;
         }
       });
-      const docRef = doc(db, "salon", maincontext.salon.id);
+      const docRef = doc(db, "salon", salon.id);
       const payLoad = {
-        ...maincontext.salon,
+        ...salon,
         serviceproviders: newprovidersArray,
       };
       setDoc(docRef, payLoad)
@@ -168,18 +167,18 @@ function ProviderInfoLogic() {
   }
 
   function deleteProvider() {
-    let newproArray = maincontext.salon.serviceproviders.filter(
+    let newproArray = salon.serviceproviders.filter(
       (each) => each.id !== provider.id
     );
     maincontext.setSalon(() => {
       return {
-        ...maincontext.salon,
+        ...salon,
         serviceproviders: newproArray,
       };
     });
 
-    const docRef = doc(db, "salon", maincontext.salon.id);
-    const payLoad = { ...maincontext.salon, serviceproviders: newproArray };
+    const docRef = doc(db, "salon", salon.id);
+    const payLoad = { ...salon, serviceproviders: newproArray };
     setDoc(docRef, payLoad).then(() =>
       maincontext.setNotify({
         message: "Provider deleted Successfully...!!",
