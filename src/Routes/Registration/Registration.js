@@ -8,8 +8,11 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { db } from "../../firebaseproduction";
 import { collection, getDocs } from "firebase/firestore";
 import { Helmet } from "react-helmet-async";
+import { useDispatch } from "react-redux";
+import { updateSalon } from "../../features/salonSlice";
 
 function Registration() {
+  const dispatch = useDispatch();
   const providercontext = useContext(ProviderContext);
   const maincontext = useContext(Maincontext);
   const [clickedOnSubmit, setClickedOnSubmit] = useState(false);
@@ -39,7 +42,7 @@ function Registration() {
         setClickedOnSubmit(false);
         const user = userCredential.user;
         maincontext.setUser("provider");
-        async function updateSalon() {
+        async function updateSalonValue() {
           const querySnapshot = await getDocs(collection(db, "salon"));
           let allSalonArray = querySnapshot.docs.map((doc) => {
             return { ...doc.data(), id: doc.id };
@@ -48,10 +51,11 @@ function Registration() {
           let hisSalon = allSalonArray.find((salon) => {
             return salon.salonUsername === user.email;
           });
-          await maincontext.setSalon(hisSalon);
+          await dispatch(updateSalon(hisSalon));
+
           localStorage.setItem("salon", hisSalon.salonCode);
         }
-        updateSalon().then(() => {
+        updateSalonValue().then(() => {
           history.push("/sp-home");
         });
       })
