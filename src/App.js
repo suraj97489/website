@@ -39,9 +39,6 @@ function App() {
               <Notify />
               <CheckStatusModal />
               <Switch>
-                <Route exact path="/registration">
-                  <Registration />
-                </Route>
                 <Route exact path="/all-salons">
                   <Salons />
                 </Route>
@@ -56,6 +53,9 @@ function App() {
                 </Route>
                 <Route exact path="/add-salon">
                   <AddSalon />
+                </Route>
+                <Route exact path="/registration">
+                  <Registration />
                 </Route>
 
                 <Route exact path="/edit-profile">
