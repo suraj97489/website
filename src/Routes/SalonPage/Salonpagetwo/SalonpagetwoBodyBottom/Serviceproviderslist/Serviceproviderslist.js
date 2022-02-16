@@ -11,6 +11,9 @@ import { useSelector } from "react-redux";
 
 function Serviceproviderslist(props) {
   const salon = useSelector((state) => state.salon.salon);
+  const salonProvidersfordisplay = useSelector(
+    (state) => state.salon.salonProvidersfordisplay
+  );
   const maincontext = useContext(Maincontext);
   const usercontext = useContext(UserContext);
   const providercontext = useContext(ProviderContext);
@@ -53,10 +56,10 @@ function Serviceproviderslist(props) {
 
         <div
           style={
-            usercontext.salonProvidersfordisplay?.length > 0
+            salonProvidersfordisplay?.length > 0
               ? {
-                  display: usercontext.salonProvidersfordisplay[props.index]
-                    ? usercontext.salonProvidersfordisplay[props.index].display
+                  display: salonProvidersfordisplay[props.index]
+                    ? salonProvidersfordisplay[props.index].display
                     : "none",
                 }
               : { display: "none" }
