@@ -7,9 +7,11 @@ import { doc, setDoc } from "@firebase/firestore";
 import Maincontext from "../../../context/MainContext";
 // import UserContext from "../../../context/UserContext";
 import ProviderContext from "../../../context/ProviderContext";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { updateSalon } from "../../../features/salonSlice";
 
 function SalonInfo() {
+  const dispatch = useDispatch();
   const maincontext = useContext(Maincontext);
 
   const providercontext = useContext(ProviderContext);
@@ -71,7 +73,8 @@ function SalonInfo() {
       (err) => console.error(err),
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-          maincontext.setSalon({ ...salon, salonPhoto: url });
+          const salonPayLoad = { ...salon, salonPhoto: url };
+          dispatch(updateSalon(salonPayLoad));
         });
       }
     );
@@ -81,9 +84,7 @@ function SalonInfo() {
     let name = e.target.name;
     let value = e.target.value;
     providercontext.setButtonDisabled(false);
-    maincontext.setSalon(() => {
-      return { ...salon, [name]: value };
-    });
+    dispatch(updateSalon({ ...salon, [name]: value }));
   }
 
   function SalonInfoHandler() {
@@ -104,21 +105,18 @@ function SalonInfo() {
     });
   }
 
-  // const salonPopUpActivation = () => {
-  //   maincontext.setSalon((salon) => {
-  //     const docRef = doc(db, "salon", salon.id);
-  //     const payLoad = { ...salon, popUpActivated: !salon.popUpActivated };
+  // const salonPopUpActivation = async() => {
+  //   const docRef = doc(db, "salon", salon.id);
+  //   const payLoad = { ...salon, popUpActivated: !salon.popUpActivated };
 
-  //     setDoc(docRef, payLoad).then(() => {
-  //       alert(
-  //         salon.popUpActivated
-  //           ? "popup deactivated succfully!!"
-  //           : "popup activated succeffully!!  booking list will affect by customer behavior"
-  //       );
-  //     });
-
-  //     return { ...salon, popUpActivated: !salon.popUpActivated };
+  //   setDoc(docRef, payLoad).then(() => {
+  //     alert(
+  //       salon.popUpActivated
+  //         ? "popup deactivated succfully!!"
+  //         : "popup activated succeffully!!  booking list will affect by customer behavior"
+  //     );
   //   });
+  //    dispatch(updateSalon( { ...salon, popUpActivated: !salon.popUpActivated }))
   // };
 
   return (
