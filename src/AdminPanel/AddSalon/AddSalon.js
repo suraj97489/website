@@ -5,6 +5,7 @@ import AddSalonLogic from "./AddSalonLogic";
 import Maincontext from "./../../context/MainContext";
 import UserContext from "../../context/UserContext";
 import { Redirect } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 function AddSalon() {
   const maincontext = useContext(Maincontext);
@@ -46,6 +47,15 @@ function AddSalon() {
   if (usercontext.customer?.email === process.env.REACT_APP_ADMIN_USERNAME) {
     return (
       <div className="AddSalon">
+        <Helmet>
+          <title>Add Salon</title>
+          <meta
+            name="description"
+            content="Enter form details and Add salon."
+          />
+          <link rel="canonical" href="/add-salon" />
+          <meta name="robots" content="noindex" />
+        </Helmet>
         <form>
           {addSalonFormArray.map((each, i) => {
             return (
