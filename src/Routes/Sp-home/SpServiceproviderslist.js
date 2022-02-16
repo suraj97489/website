@@ -13,6 +13,9 @@ import { updateSalon } from "../../features/salonSlice";
 
 function SpServiceproviderslist(props) {
   const salon = useSelector((state) => state.salon.salon);
+  const salonProvidersfordisplay = useSelector(
+    (state) => state.salon.salonProvidersfordisplay
+  );
   const dispatch = useDispatch();
   const usercontext = useContext(UserContext);
   const maincontext = useContext(Maincontext);
@@ -72,10 +75,10 @@ function SpServiceproviderslist(props) {
         />
         <div
           style={
-            usercontext.salonProvidersfordisplay?.length > 0
+            salonProvidersfordisplay?.length > 0
               ? {
-                  display: usercontext.salonProvidersfordisplay[props.index]
-                    ? usercontext.salonProvidersfordisplay[props.index].display
+                  display: salonProvidersfordisplay[props.index]
+                    ? salonProvidersfordisplay[props.index].display
                     : "none",
                 }
               : { display: "none" }
