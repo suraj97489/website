@@ -2,10 +2,11 @@ import { useState, useContext } from "react";
 import Maincontext from "./MainContext";
 import UserContext from "./UserContext";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { updateUser } from "../features/mainSlice";
 function UserState(props) {
   const maincontext = useContext(Maincontext);
-
+  const dispatch = useDispatch();
   const [customer, setCustomer] = useState(null);
   const [userBooked, setUserBooked] = useState(false);
   const [salonProvidersfordisplay, setSalonProvidersfordisplay] = useState([]);
@@ -27,17 +28,17 @@ function UserState(props) {
       );
 
       if (thisIsprovider) {
-        maincontext.setUser("provider");
+        dispatch(updateUser("provider"));
         setCustomer(user);
       } else if (user.email === process.env.REACT_APP_ADMIN_USERNAME) {
-        maincontext.setUser("admin");
+        dispatch(updateUser("admin"));
         setCustomer(user);
       } else {
-        maincontext.setUser("customer");
+        dispatch(updateUser("customer"));
         setCustomer(user);
       }
     } else {
-      maincontext.setUser();
+      dispatch(updateUser("customer"));
       setCustomer();
     }
   });
