@@ -1,26 +1,30 @@
-import React, { useContext, useEffect } from "react";
-import Maincontext from "../../context/MainContext";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { updateNotify } from "../../features/mainSlice";
 import "./Notify.css";
 
 function Notify() {
-  const maincontext = useContext(Maincontext);
+  const dispatch = useDispatch();
+  const notify = useSelector((state) => state.main.notify);
   useEffect(() => {
     function updatenotify() {
-      maincontext.setNotify({
-        message: "",
-        style: { backgroundColor: "green" },
-      });
+      dispatch(
+        updateNotify({
+          message: "",
+          style: { backgroundColor: "green" },
+        })
+      );
     }
     setTimeout(updatenotify, 2500);
     return () => {
       clearTimeout(updatenotify);
     };
-  }, [maincontext.notify.message]);
+  }, [notify.message]);
 
-  if (maincontext.notify.message !== "") {
+  if (notify.message !== "") {
     return (
-      <div className="Notify" style={maincontext.notify.style}>
-        {maincontext.notify.message}
+      <div className="Notify" style={notify.style}>
+        {notify.message}
       </div>
     );
   } else {
