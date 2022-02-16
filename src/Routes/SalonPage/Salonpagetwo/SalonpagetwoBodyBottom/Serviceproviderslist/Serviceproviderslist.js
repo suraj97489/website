@@ -7,8 +7,10 @@ import ProviderBefore from "./../../../../../components/CommonComponent/Provider
 import Custnames from "./Custnames/Custnames";
 import { secondary } from "../../../../../theme/colors";
 import { Button } from "@mui/material";
+import { useSelector } from "react-redux";
 
 function Serviceproviderslist(props) {
+  const salon = useSelector((state) => state.salon.salon);
   const maincontext = useContext(Maincontext);
   const usercontext = useContext(UserContext);
   const providercontext = useContext(ProviderContext);
@@ -34,7 +36,7 @@ function Serviceproviderslist(props) {
     return () => {
       usercontext.updateUserBookingStatus();
     };
-  }, [maincontext.salon]);
+  }, [salon]);
 
   return (
     <>
