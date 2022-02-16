@@ -3,18 +3,20 @@ import React, { useContext, useState } from "react";
 
 import { db } from "../../../firebaseproduction";
 import "./ServicesSection.css";
-import Maincontext from "../../../context/MainContext";
+
 import ProviderContext from "../../../context/ProviderContext";
+import { useSelector } from "react-redux";
 
 function ServicesSection() {
   const providercontext = useContext(ProviderContext);
-  const maincontext = useContext(Maincontext);
+
   const [serviceIndex, setServiceIndex] = useState();
   const [updatedService, setUpdatedService] = useState({
     name: "",
     charges: "",
   });
   const [addingService, setAddingService] = useState(false);
+  const salon = useSelector((state) => state.salon.salon);
 
   function serviceUpdateHandler(e) {
     let name = e.target.name;
@@ -34,8 +36,8 @@ function ServicesSection() {
     providercontext.setServices((services) => {
       let newServicesarr = services.filter((service, index) => index !== i);
 
-      const docRef = doc(db, "salon", maincontext.salon.id);
-      const payLoad = { ...maincontext.salon, services: newServicesarr };
+      const docRef = doc(db, "salon", salon.id);
+      const payLoad = { ...salon, services: newServicesarr };
       setDoc(docRef, payLoad);
 
       return newServicesarr;
@@ -60,8 +62,8 @@ function ServicesSection() {
           return service;
         }
       });
-      const docRef = doc(db, "salon", maincontext.salon.id);
-      const payLoad = { ...maincontext.salon, services: newServicesArray };
+      const docRef = doc(db, "salon", salon.id);
+      const payLoad = { ...salon, services: newServicesArray };
       setDoc(docRef, payLoad);
       return newServicesArray;
     });
@@ -127,7 +129,7 @@ function ServicesSection() {
                     >
                       edit
                     </button>
-                    {maincontext.salon.services?.length > 1 && (
+                    {salon.services?.length > 1 && (
                       <button
                         onClick={() => ClickedOnDeleteService(i)}
                         className="ServicesSection__deleteservice"
