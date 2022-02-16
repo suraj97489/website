@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
-import MainContext from "./../context/MainContext";
+
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebaseproduction";
 import "./DashBoard.css";
 import { Link, Redirect } from "react-router-dom";
 import UserContext from "../context/UserContext";
 import { Helmet } from "react-helmet-async";
-
+import { useSelector } from "react-redux";
 function DashBoard() {
-  const maincontext = useContext(MainContext);
+  const overAllCustomers = useSelector((state) => state.main.overAllCustomers);
   const usercontext = useContext(UserContext);
   const [salonsLength, setSalonsLength] = useState();
 
@@ -49,7 +49,7 @@ function DashBoard() {
           </Link>
           <Link className="boxLink" to="/salon-report">
             <p> ACTIVE USERS</p>
-            <p>{maincontext.overAllCustomers?.length}</p>
+            <p>{overAllCustomers?.length}</p>
           </Link>
           <Link className="boxLink" to="/salon-report">
             <p> I DONT KNOW YET </p>
