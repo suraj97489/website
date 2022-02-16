@@ -1,11 +1,17 @@
 import React, { useContext } from "react";
 import ModalUnstyled from "@mui/core/ModalUnstyled";
 import { styled } from "@mui/system";
-import Maincontext from "../../../context/MainContext";
+
 import Usercontext from "../../../context/UserContext";
 import { db } from "../../../firebaseproduction";
 import { doc, runTransaction } from "@firebase/firestore";
-import ProviderContext from "../../../context/ProviderContext";
+
+import { useDispatch, useSelector } from "react-redux";
+import {
+  updateCheckStatus,
+  updateCustResponce,
+  updateOverAllCustomers,
+} from "../../../features/mainSlice";
 
 const CsModal = styled(ModalUnstyled)`
   position: fixed;
@@ -43,13 +49,16 @@ const style = {
 };
 
 function CheckStatusModal() {
-  const maincontext = useContext(Maincontext);
+  const overAllCustomers = useSelector((state) => state.main.overAllCustomers);
+  const dispatch = useDispatch();
   const usercontext = useContext(Usercontext);
-  const providercontext = useContext(ProviderContext);
+
+  const checkStatus = useSelector((state) => state.main.checkStatus);
+  const custResponce = useSelector((state) => state.main.custResponce);
 
   function CheckStatusModalClosing() {
-    maincontext.setCheckStatus(false);
-    maincontext.setCustResponce();
+    dispatch(updateCheckStatus(false));
+    dispatch(updateCustResponce(null));
   }
 
   const responceArr = [
@@ -62,10 +71,11 @@ function CheckStatusModal() {
   ];
 
   async function updateResponce(custAnswer) {
-    maincontext.setCheckStatus(false);
+    dispatch(updateCheckStatus(false));
+
     try {
       await runTransaction(db, async (transaction) => {
-        let thisCustomer = maincontext.overAllCustomers.find(
+        let thisCustomer = overAllCustomers.find(
           (currentCust) => usercontext.customer?.email === currentCust.email
         );
 
@@ -78,7 +88,7 @@ function CheckStatusModal() {
           throw "Document does not exist!";
         }
 
-        maincontext.overAllCustomers.map((activecust) => {
+        overAllCustomers.map((activecust) => {
           if (usercontext.customer?.email === activecust.email) {
             let thisSalon = thisDoc.data();
 
@@ -157,8 +167,10 @@ function CheckStatusModal() {
           }
         });
       });
-      maincontext.setCustResponce();
-      maincontext.setOverAllCustomers();
+
+      dispatch(updateCustResponce(null));
+
+      dispatch(updateOverAllCustomers(null));
     } catch (e) {
       console.error("something went wrong");
     }
@@ -169,7 +181,7 @@ function CheckStatusModal() {
         <CsModal
           aria-labelledby="unstyled-modal-title"
           aria-describedby="unstyled-modal-description"
-          open={maincontext.checkStatus}
+          open={checkStatus}
           onClose={CheckStatusModalClosing}
           BackdropComponent={Backdrop}
         >
@@ -177,7 +189,7 @@ function CheckStatusModal() {
             <div
               className="closeModal"
               onClick={() => {
-                maincontext.setCheckStatus(false);
+                dispatch(updateCheckStatus(false));
               }}
             >
               X
@@ -201,7 +213,7 @@ function CheckStatusModal() {
                   type="radio"
                   name="checkStatus"
                   onChange={(e) => {
-                    maincontext.setCustResponce(e.target.value);
+                    dispatch(updateCustResponce(e.target.value));
                   }}
                 />
                 <p style={{ marginLeft: "1.5rem" }} className="service__name">
@@ -210,8 +222,8 @@ function CheckStatusModal() {
               </div>
             ))}
             <button
-              disabled={!maincontext.custResponce}
-              onClick={() => updateResponce(maincontext.custResponce)}
+              disabled={!custResponce}
+              onClick={() => updateResponce(custResponce)}
               className="Modal__submit"
             >
               submit
