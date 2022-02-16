@@ -1,6 +1,6 @@
 import { doc, runTransaction } from "@firebase/firestore";
 import React, { useContext } from "react";
-import Maincontext from "../../../context/MainContext";
+
 import ProviderContext from "../../../context/ProviderContext";
 import UserContext from "../../../context/UserContext";
 import "./Modal.css";
@@ -11,6 +11,7 @@ import { styled } from "@mui/system";
 import Services from "./../../../components/Services/Services";
 import { useDispatch, useSelector } from "react-redux";
 import { updateSalon } from "../../../features/salonSlice";
+import { updateGrahak, updateIsOpen } from "../../../features/mainSlice";
 
 const StyledModal = styled(ModalUnstyled)`
   position: fixed;
@@ -49,31 +50,37 @@ const style = {
 
 function Modal() {
   const salon = useSelector((state) => state.salon.salon);
+  const grahak = useSelector((state) => state.main.grahak);
+  const idOfProvider = useSelector((state) => state.main.idOfProvider);
+  const isOpen = useSelector((state) => state.main.isOpen);
   const dispatch = useDispatch();
-  const maincontext = useContext(Maincontext);
+
   const usercontext = useContext(UserContext);
   const providercontext = useContext(ProviderContext);
 
   const closeCustomerModal = () => {
-    // maincontext.grahak.service = [];
-    maincontext.setGrahak((grahak) => ({
+    let grahakValue = {
       ...grahak,
       service: [],
       mobile: "",
-    }));
+    };
+    dispatch(updateGrahak(grahakValue));
+
     providercontext.addingcustomer
       ? usercontext.setUserBooked(false)
       : usercontext.setUserBooked(true);
-    maincontext.setIsOpen(false);
+
+    dispatch(updateIsOpen(false));
   };
 
   function updateGrahaksMobile(e) {
     let value = e.target.value;
     if (value.includes(".")) return;
-    maincontext.setGrahak((grahak) => ({
+    let grahakValue = {
       ...grahak,
       mobile: value.length > 10 ? grahak.mobile : value,
-    }));
+    };
+    dispatch(updateGrahak(grahakValue));
   }
 
   async function changeModalState() {
@@ -82,19 +89,19 @@ function Modal() {
 
     let newCustomer = {
       name: usercontext.customer.displayName,
-      mobile: maincontext.grahak.mobile,
-      service: maincontext.grahak.service,
-      email: maincontext.grahak.email,
+      mobile: grahak.mobile,
+      service: grahak.service,
+      email: grahak.email,
       checkStatus: false,
       salonId: salon.id,
-      providerId: maincontext.idOfProvider,
+      providerId: idOfProvider,
       addedBy: "customer",
     };
 
     try {
       const addOrEditCustomer = (receivedSalon) => {
         return receivedSalon.serviceproviders.map((each) => {
-          if (each.id === maincontext.idOfProvider) {
+          if (each.id === idOfProvider) {
             if (providercontext.addingcustomer) {
               each.customers.push(newCustomer);
 
@@ -102,7 +109,7 @@ function Modal() {
             } else {
               let updatedCustomers = each.customers.map((cust, i) => {
                 if (providercontext.custIndex === i) {
-                  return { ...cust, service: maincontext.grahak.service };
+                  return { ...cust, service: grahak.service };
                 } else {
                   return cust;
                 }
@@ -121,7 +128,7 @@ function Modal() {
         })
       );
 
-      maincontext.setIsOpen(false);
+      dispatch(updateIsOpen(false));
       await runTransaction(db, async (transaction) => {
         const thisDoc = await transaction.get(docRef);
         if (!thisDoc.exists()) {
@@ -141,7 +148,7 @@ function Modal() {
       <StyledModal
         aria-labelledby="unstyled-modal-title"
         aria-describedby="unstyled-modal-description"
-        open={maincontext.isOpen}
+        open={isOpen}
         onClose={closeCustomerModal}
         BackdropComponent={Backdrop}
       >
@@ -155,7 +162,7 @@ function Modal() {
               <input
                 style={{ height: "5rem", margin: "1rem 0" }}
                 placeholder="enter your mobile..."
-                value={maincontext.grahak.mobile}
+                value={grahak.mobile}
                 type="number"
                 onChange={updateGrahaksMobile}
               ></input>
@@ -165,9 +172,8 @@ function Modal() {
           <button
             disabled={
               providercontext.addingcustomer
-                ? maincontext.grahak.service.length === 0 ||
-                  maincontext.grahak.mobile?.length !== 10
-                : maincontext.grahak.service.length === 0
+                ? grahak.service.length === 0 || grahak.mobile?.length !== 10
+                : grahak.service.length === 0
             }
             id="ModalSubmit"
             onClick={(e) => changeModalState(e)}
