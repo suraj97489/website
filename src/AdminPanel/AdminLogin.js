@@ -2,15 +2,16 @@ import React, { useContext, useState } from "react";
 import "./AdminLogin.css";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
-import Maincontext from "./../context/MainContext";
 import { Redirect } from "react-router-dom";
 
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import UserContext from "../context/UserContext";
 import { Helmet } from "react-helmet-async";
+import { useDispatch } from "react-redux";
+import { updateUser } from "../features/mainSlice";
 
 function AdminLogin() {
-  const maincontext = useContext(Maincontext);
+  const dispatch = useDispatch();
   const usercontext = useContext(UserContext);
   const [admin, setAdmin] = useState({ email: "", password: "" });
   const [message, setMessage] = useState();
@@ -29,14 +30,15 @@ function AdminLogin() {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        maincontext.setUser("admin");
+
+        dispatch(updateUser("admin"));
         usercontext.setCustomer(user);
         history.push("/dashboard");
 
         // ...
       })
       .catch((error) => {
-        const errorCode = error.code;
+        // const errorCode = error.code;
         const errorMessage = error.message;
         setMessage(errorMessage);
       });
