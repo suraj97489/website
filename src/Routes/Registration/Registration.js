@@ -10,6 +10,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { Helmet } from "react-helmet-async";
 import { useDispatch } from "react-redux";
 import { updateSalon } from "../../features/salonSlice";
+import { updateUser } from "../../features/mainSlice";
 
 function Registration() {
   const dispatch = useDispatch();
@@ -41,7 +42,8 @@ function Registration() {
       .then((userCredential) => {
         setClickedOnSubmit(false);
         const user = userCredential.user;
-        maincontext.setUser("provider");
+
+        dispatch(updateUser("provider"));
         async function updateSalonValue() {
           const querySnapshot = await getDocs(collection(db, "salon"));
           let allSalonArray = querySnapshot.docs.map((doc) => {
