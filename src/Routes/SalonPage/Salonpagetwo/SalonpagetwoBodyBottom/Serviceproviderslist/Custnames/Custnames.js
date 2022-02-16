@@ -8,8 +8,10 @@ import { db } from "../../../../../../firebaseproduction";
 
 import Maincontext from "./../../../../../../context/MainContext";
 import ProviderContext from "./../../../../../../context/ProviderContext";
+import { useSelector } from "react-redux";
 
 function Custnames(props) {
+  const salon = useSelector((state) => state.salon.salon);
   const maincontext = useContext(Maincontext);
   const providercontext = useContext(ProviderContext);
 
