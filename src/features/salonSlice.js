@@ -12,7 +12,8 @@ const initialState = {
     services: [],
     salonUsername: false,
   },
-  salonProvidersfordisplay: null,
+  salonProvidersfordisplay: [],
+  serviceproviders: [],
 };
 
 export const salonSlice = createSlice({
@@ -29,7 +30,10 @@ export const salonSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { updateSalon, updateSalonProvidersfordisplay } =
-  salonSlice.actions;
+export const {
+  updateSalon,
+  updateSalonProvidersfordisplay,
+  updateServiceproviders,
+} = salonSlice.actions;
 
 export default salonSlice.reducer;
