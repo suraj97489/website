@@ -12,6 +12,7 @@ import { updateSalon } from "../../../features/salonSlice";
 function DrawerComponent() {
   const maincontext = useContext(MainContext);
   const usercontext = useContext(UserContext);
+  const user = useSelector((state) => state.main.user);
   const dispatch = useDispatch();
   const pStyle = { fontSize: "2.5rem", color: "black" };
   const salon = useSelector((state) => state.salon.salon);
@@ -60,7 +61,7 @@ function DrawerComponent() {
   return (
     <Drawer anchor="right" open={maincontext.openDrawer} onClose={closeDrawer}>
       <div style={{ width: "50vw" }}>
-        {maincontext.user === "provider" && (
+        {user === "provider" && (
           <List>
             {providerItems.map((element, i) => (
               <Link
@@ -81,7 +82,7 @@ function DrawerComponent() {
           </List>
         )}
 
-        {maincontext.user === "admin" && (
+        {user === "admin" && (
           <List>
             {adminItems.map((element, i) => (
               <Link
@@ -102,7 +103,7 @@ function DrawerComponent() {
           </List>
         )}
 
-        {maincontext.user !== "provider" && maincontext.user !== "admin" && (
+        {user !== "provider" && user !== "admin" && (
           <List>
             {customerItems.map((element, i) => (
               <Link
