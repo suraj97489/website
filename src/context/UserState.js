@@ -2,19 +2,19 @@ import { useState, useContext } from "react";
 import Maincontext from "./MainContext";
 import UserContext from "./UserContext";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-
+import { useSelector } from "react-redux";
 function UserState(props) {
   const maincontext = useContext(Maincontext);
 
   const [customer, setCustomer] = useState(null);
   const [userBooked, setUserBooked] = useState(false);
   const [salonProvidersfordisplay, setSalonProvidersfordisplay] = useState([]);
-
+  const serviceproviders = useSelector((state) => state.salon.serviceproviders);
   const auth = getAuth();
 
   function updateSalonProvidersforDisplay() {
     setSalonProvidersfordisplay(() =>
-      maincontext.serviceproviders?.map((provider) => {
+      serviceproviders?.map((provider) => {
         return { ...provider, display: "none" };
       })
     );
