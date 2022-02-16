@@ -4,7 +4,7 @@ import SpCustnames from "./SpCustnames";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { doc, setDoc } from "@firebase/firestore";
 import { db } from "../../firebaseproduction";
-import Maincontext from "./../../context/MainContext";
+
 import ProviderContext from "./../../context/ProviderContext";
 import UserContext from "./../../context/UserContext";
 import ProviderBefore from "./../../components/CommonComponent/ProviderBefore";
@@ -13,13 +13,14 @@ import { updateSalon } from "../../features/salonSlice";
 
 function SpServiceproviderslist(props) {
   const salon = useSelector((state) => state.salon.salon);
+  const shopOpen = useSelector((state) => state.main.shopOpen);
   const serviceproviders = useSelector((state) => state.salon.serviceproviders);
   const salonProvidersfordisplay = useSelector(
     (state) => state.salon.salonProvidersfordisplay
   );
   const dispatch = useDispatch();
   const usercontext = useContext(UserContext);
-  const maincontext = useContext(Maincontext);
+
   const providercontext = useContext(ProviderContext);
 
   useEffect(() => {
@@ -119,7 +120,7 @@ function SpServiceproviderslist(props) {
             </Droppable>
           </DragDropContext>
 
-          {maincontext.shopOpen && (
+          {shopOpen && (
             <button
               id={props.id + props.fname + props.lname}
               onClick={() => providercontext.handleOpen(props.id)}

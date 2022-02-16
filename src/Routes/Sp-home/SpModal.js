@@ -47,7 +47,6 @@ const style = {
 function SpModal(props) {
   const salon = useSelector((state) => state.salon.salon);
   const providercontext = useContext(ProviderContext);
-  const maincontext = useContext(Maincontext);
 
   const handleClose = () => {
     providercontext.setOpen(false);
