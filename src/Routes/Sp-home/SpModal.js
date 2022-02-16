@@ -115,7 +115,6 @@ function SpModal(props) {
       });
 
       handleClose();
-      maincontext.setServiceProviders(newprovidersarray);
     } catch (e) {
       console.error("something went wrong");
     }
