@@ -1,46 +1,35 @@
 import React, { useContext } from "react";
 import "./ProviderBefore.css";
-import Maincontext from "./../../context/MainContext";
+
 import ProviderContext from "./../../context/ProviderContext";
 import UserContext from "./../../context/UserContext";
 import { Switch } from "@mui/material";
+import { updateSalonProvidersfordisplay } from "../../features/salonSlice";
+import { useDispatch, useSelector } from "react-redux";
 const label = { inputProps: { "aria-label": "Switch demo" } };
 
 function ProviderBefore(props) {
-  const maincontext = useContext(Maincontext);
   const providercontext = useContext(ProviderContext);
   const usercontext = useContext(UserContext);
+  const salonProvidersfordisplay = useSelector(
+    (state) => state.salon.salonProvidersfordisplay
+  );
+  const dispatch = useDispatch();
 
   function providerdropdown(e, id) {
-    usercontext.setSalonProvidersfordisplay((old) => {
-      if (old) {
-        return old.map((each) => {
-          if (each.id === id) {
-            if (each.display === "none") {
-              return { ...each, display: "flex" };
-            } else {
-              return { ...each, display: "none" };
-            }
-          } else {
-            each.display = "none";
-            return each;
-          }
-        });
+    let array = salonProvidersfordisplay.map((each) => {
+      if (each.id === id) {
+        if (each.display === "none") {
+          return { ...each, display: "flex" };
+        } else {
+          return { ...each, display: "none" };
+        }
       } else {
-        maincontext.serviceproviders.map((each) => {
-          if (each.id === id) {
-            if (each.display === "none") {
-              return { ...each, display: "flex" };
-            } else {
-              return { ...each, display: "none" };
-            }
-          } else {
-            each.display = "none";
-            return each;
-          }
-        });
+        each.display = "none";
+        return each;
       }
     });
+    dispatch(updateSalonProvidersfordisplay(array));
     usercontext.updateUserBookingStatus();
     providercontext.firstPopUpHandler();
     providercontext.secondPopUpHandler();
