@@ -15,6 +15,7 @@ function ProviderInfoLogic() {
   const [showAddButton, setShowAddButton] = useState(false);
 
   const salon = useSelector((state) => state.salon.salon);
+  const serviceproviders = useSelector((state) => state.salon.serviceproviders);
 
   const [file, setFile] = useState();
 
@@ -64,9 +65,7 @@ function ProviderInfoLogic() {
   }
 
   function changeprovider(e) {
-    setProvider(() =>
-      maincontext.serviceproviders.find((each) => each.id === e.target.id)
-    );
+    setProvider(() => serviceproviders.find((each) => each.id === e.target.id));
 
     setShowAddButton(false);
     removeWhiteBackground();
@@ -98,7 +97,7 @@ function ProviderInfoLogic() {
   function saveChanges() {
     providercontext.setButtonDisabled(true);
     if (showAddButton) {
-      maincontext.serviceproviders.push({
+      serviceproviders.push({
         ...provider,
 
         id: provider.fname + provider.lname + salon.id + provider.mobile,
@@ -107,7 +106,7 @@ function ProviderInfoLogic() {
       const docRef = doc(db, "salon", salon.id);
       const payLoad = {
         ...salon,
-        serviceproviders: maincontext.serviceproviders,
+        serviceproviders: serviceproviders,
       };
       setDoc(docRef, payLoad).then(() => {
         maincontext.setNotify({
@@ -132,7 +131,7 @@ function ProviderInfoLogic() {
       removeWhiteBackground();
       setShowAddButton(true);
     } else {
-      let newprovidersArray = maincontext.serviceproviders.map((each) => {
+      let newprovidersArray = serviceproviders.map((each) => {
         if (each.id === provider.id) {
           return provider;
         } else {
