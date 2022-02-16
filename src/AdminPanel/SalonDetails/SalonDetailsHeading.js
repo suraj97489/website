@@ -1,34 +1,38 @@
-import React, { useContext } from "react";
+import React from "react";
 
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
-import Maincontext from "../../context/MainContext";
 
+import { useSelector, useDispatch } from "react-redux";
+import { updateDetailsHeading } from "../../features/mainSlice";
 function SalonDetailsHeading(props) {
-  const maincontext = useContext(Maincontext);
+  const dispatch = useDispatch();
+
+  const detailsHeading = useSelector((state) => state.main.detailsHeading);
+
   function dropDownDetails() {
     if (props.heading === "SALON INFORMATION") {
-      if (maincontext.detailsHeading !== "SALON INFORMATION") {
-        maincontext.setDetailsHeading("SALON INFORMATION");
+      if (detailsHeading !== "SALON INFORMATION") {
+        dispatch(updateDetailsHeading("SALON INFORMATION"));
       } else {
-        maincontext.setDetailsHeading();
+        dispatch(updateDetailsHeading(null));
       }
     } else if (props.heading === "Login CREDENTIAL") {
-      if (maincontext.detailsHeading !== "Login CREDENTIAL") {
-        maincontext.setDetailsHeading("Login CREDENTIAL");
+      if (detailsHeading !== "Login CREDENTIAL") {
+        dispatch(updateDetailsHeading("Login CREDENTIAL"));
       } else {
-        maincontext.setDetailsHeading();
+        dispatch(updateDetailsHeading(null));
       }
     } else if (props.heading === "SALON STATISTICS") {
-      if (maincontext.detailsHeading !== "SALON STATISTICS") {
-        maincontext.setDetailsHeading("SALON STATISTICS");
+      if (detailsHeading !== "SALON STATISTICS") {
+        dispatch(updateDetailsHeading("SALON STATISTICS"));
       } else {
-        maincontext.setDetailsHeading();
+        dispatch(updateDetailsHeading(null));
       }
     } else if (props.heading === "SERVICE PROVIDERS") {
-      if (maincontext.detailsHeading !== "SERVICE PROVIDERS") {
-        maincontext.setDetailsHeading("SERVICE PROVIDERS");
+      if (detailsHeading !== "SERVICE PROVIDERS") {
+        dispatch(updateDetailsHeading("SERVICE PROVIDERS"));
       } else {
-        maincontext.setDetailsHeading();
+        dispatch(updateDetailsHeading(null));
       }
     }
   }
