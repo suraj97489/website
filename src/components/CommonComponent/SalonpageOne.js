@@ -24,7 +24,7 @@ function SalonpageOne() {
               }
               height="20rem"
               width="20rem"
-              alt="salon photo"
+              alt="salon_photo"
               title="salon photo"
               loading="eager"
             ></img>
