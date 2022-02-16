@@ -4,15 +4,16 @@ import "./SalonInfo.css";
 import { getDownloadURL, ref, uploadBytesResumable } from "@firebase/storage";
 import { db, storage } from "../../../firebaseproduction.js";
 import { doc, setDoc } from "@firebase/firestore";
-import Maincontext from "../../../context/MainContext";
+import { useDispatch, useSelector } from "react-redux";
+
 // import UserContext from "../../../context/UserContext";
 import ProviderContext from "../../../context/ProviderContext";
-import { useDispatch, useSelector } from "react-redux";
+
 import { updateSalon } from "../../../features/salonSlice";
+import { updateNotify } from "../../../features/mainSlice";
 
 function SalonInfo() {
   const dispatch = useDispatch();
-  const maincontext = useContext(Maincontext);
 
   const providercontext = useContext(ProviderContext);
   const salon = useSelector((state) => state.salon.salon);
@@ -95,13 +96,15 @@ function SalonInfo() {
     const payLoad = salon;
 
     setDoc(docRef, payLoad).then(() => {
-      maincontext.setNotify({
-        message: "Salon Updated Successfully...!!",
-        style: {
-          backgroundColor: "green",
-          color: "white",
-        },
-      });
+      dispatch(
+        updateNotify({
+          message: "Salon Updated Successfully...!!",
+          style: {
+            backgroundColor: "green",
+            color: "white",
+          },
+        })
+      );
     });
   }
 
