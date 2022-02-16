@@ -4,16 +4,17 @@ import "./SpCustnames.css";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
 import { doc, runTransaction } from "@firebase/firestore";
 import { db } from "../../firebaseproduction";
-import Maincontext from "./../../context/MainContext";
+
 import ProviderContext from "./../../context/ProviderContext";
+import { updateSalon } from "./../../features/salonSlice";
 
 import CallIcon from "@material-ui/icons/Call";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 function SpCustnames(props) {
   const salon = useSelector((state) => state.salon.salon);
+  const dispatch = useDispatch();
   const providercontext = useContext(ProviderContext);
-  const maincontext = useContext(Maincontext);
 
   const [custDisplay, setCustDisplay] = useState("none");
 
@@ -47,10 +48,12 @@ function SpCustnames(props) {
         return arr;
       });
 
-      maincontext.setSalon((salon) => ({
-        ...salon,
-        serviceproviders: newprovidersarray,
-      }));
+      dispatch(
+        updateSalon({
+          ...salon,
+          serviceproviders: newprovidersarray,
+        })
+      );
     } catch (e) {
       console.error("something went wrong");
     }
