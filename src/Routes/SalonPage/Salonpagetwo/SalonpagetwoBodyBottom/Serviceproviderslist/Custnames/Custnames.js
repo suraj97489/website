@@ -6,23 +6,29 @@ import scissor from "./../../../../../../images/scissor.png";
 import { doc, runTransaction } from "@firebase/firestore";
 import { db } from "../../../../../../firebaseproduction";
 
-import Maincontext from "./../../../../../../context/MainContext";
 import ProviderContext from "./../../../../../../context/ProviderContext";
 import { useDispatch, useSelector } from "react-redux";
 import { updateSalon } from "./../../../../../../features/salonSlice";
+import {
+  updateIdOfProvider,
+  updateIsOpen,
+} from "../../../../../../features/mainSlice";
 
 function Custnames(props) {
   const salon = useSelector((state) => state.salon.salon);
+  const grahak = useSelector((state) => state.main.grahak);
   const dispatch = useDispatch();
-  const maincontext = useContext(Maincontext);
+
   const providercontext = useContext(ProviderContext);
 
   const [custDisplay, setCustDisplay] = useState("none");
 
   function editServices(refer, customerIndex) {
-    maincontext.setIsOpen(true);
-    maincontext.grahak.service = [];
-    maincontext.setIdOfProvider(refer);
+    dispatch(updateIsOpen(true));
+
+    grahak.service = [];
+    dispatch(updateIdOfProvider(refer));
+
     providercontext.setCustIndex(customerIndex);
     providercontext.setAddingcustomer(false);
   }
@@ -109,7 +115,7 @@ function Custnames(props) {
           })}
         </ul>
 
-        {props.email === maincontext.grahak.email && props.index !== 0 && (
+        {props.email === grahak.email && props.index !== 0 && (
           <>
             <button
               onClick={() => editServices(props.refer, props.index)}

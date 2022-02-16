@@ -70,7 +70,6 @@ function Serviceproviderslist(props) {
                     : "none",
                 }
               : { display: "none" }
-            // { display: maincontext.listnamesDisplay }
           }
           className="provider-after"
         >
