@@ -11,7 +11,10 @@ import { db } from "../../../firebaseproduction";
 import Button from "@mui/material/Button";
 
 import { secondary } from "../../../theme/colors.js";
-import { updateSalon } from "../../../features/salonSlice";
+import {
+  updateSalon,
+  updateSalonProvidersfordisplay,
+} from "../../../features/salonSlice";
 import { useDispatch } from "react-redux";
 
 function Hero() {
@@ -69,11 +72,10 @@ function Hero() {
 
       dispatch(updateSalon(findSalon));
       localStorage.setItem("salon", findSalon.salonCode);
-      usercontext.setSalonProvidersfordisplay(
-        findSalon.serviceproviders.map((salon) => {
-          return { ...salon, display: "none" };
-        })
-      );
+      let arr = findSalon.serviceproviders.map((salon) => {
+        return { ...salon, display: "none" };
+      });
+      dispatch(updateSalonProvidersfordisplay(arr));
 
       let grahakEmail = localStorage.getItem("grahak").email;
 
