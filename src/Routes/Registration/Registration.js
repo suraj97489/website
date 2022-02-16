@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import "./Registration.css";
 import ProviderContext from "../../context/ProviderContext";
-import Maincontext from "../../context/MainContext";
+
 import { useHistory } from "react-router";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -10,12 +10,12 @@ import { collection, getDocs } from "firebase/firestore";
 import { Helmet } from "react-helmet-async";
 import { useDispatch } from "react-redux";
 import { updateSalon } from "../../features/salonSlice";
-import { updateUser } from "../../features/mainSlice";
+import { updateNotify, updateUser } from "../../features/mainSlice";
 
 function Registration() {
   const dispatch = useDispatch();
   const providercontext = useContext(ProviderContext);
-  const maincontext = useContext(Maincontext);
+
   const [clickedOnSubmit, setClickedOnSubmit] = useState(false);
   let history = useHistory();
   const auth = getAuth();
@@ -67,31 +67,39 @@ function Registration() {
         const errorMessage = error.message;
         if (errorMessage === "Firebase: Error (auth/wrong-password).") {
           // alert("please enter valid password");
-          maincontext.setNotify({
-            message: "please enter valid password",
-            style: {
-              backgroundColor: "red",
-              color: "white",
-            },
-          });
+
+          dispatch(
+            updateNotify({
+              message: "please enter valid password",
+              style: {
+                backgroundColor: "red",
+                color: "white",
+              },
+            })
+          );
         } else if (errorMessage === "Firebase: Error (auth/user-not-found).") {
           // alert("please enter valid Username");
-          maincontext.setNotify({
-            message: "please enter valid Username",
-            style: {
-              backgroundColor: "red",
-              color: "white",
-            },
-          });
+          dispatch(
+            updateNotify({
+              message: "please enter valid Username",
+              style: {
+                backgroundColor: "red",
+                color: "white",
+              },
+            })
+          );
+
           // alert(errorMessage);
         } else {
-          maincontext.setNotify({
-            message: errorMessage,
-            style: {
-              backgroundColor: "red",
-              color: "white",
-            },
-          });
+          dispatch(
+            updateNotify({
+              message: errorMessage,
+              style: {
+                backgroundColor: "red",
+                color: "white",
+              },
+            })
+          );
         }
       });
   }
