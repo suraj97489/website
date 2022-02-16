@@ -35,6 +35,7 @@ function DashBoard() {
             content="you can check statistics of salons"
           />
           <link rel="canonical" href="/dashboard" />
+          <meta name="robots" content="noindex" />
         </Helmet>
         <div className="DashBoard_top">
           <Link className="boxLink" to="/all-salons">

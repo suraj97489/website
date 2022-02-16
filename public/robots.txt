@@ -1,3 +1,8 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow:
+Disallow:https://salonkatta.com/dashboard
+Disallow:https://salonkatta.com/8484
+Disallow:https://salonkatta.com/salon-details
+Disallow:https://salonkatta.com/all-salons
+Disallow:https://salonkatta.com/add-salon
+
