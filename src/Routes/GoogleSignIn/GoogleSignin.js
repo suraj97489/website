@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Redirect } from "react-router";
-import Maincontext from "../../context/MainContext";
+
 import UserContext from "../../context/UserContext";
 import "./GoogleSignin.css";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -8,12 +8,12 @@ import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { Helmet } from "react-helmet-async";
 import { useSelector, useDispatch } from "react-redux";
-import { updateUser } from "../../features/mainSlice";
+import { updateGrahak, updateUser } from "../../features/mainSlice";
 
 function GoogleSignin() {
   let history = useHistory();
   const dispatch = useDispatch();
-  const maincontext = useContext(Maincontext);
+
   const usercontext = useContext(UserContext);
   const [clicked, setclicked] = useState(false);
   const user = useSelector((state) => state.main.user);
@@ -40,7 +40,8 @@ function GoogleSignin() {
           service: [],
           email: user.email,
         };
-        maincontext.setGrahak(customerdata);
+        dispatch(updateGrahak(customerdata));
+
         localStorage.setItem("grahak", JSON.stringify(customerdata));
         usercontext.setCustomer(user);
 
