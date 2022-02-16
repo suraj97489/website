@@ -7,10 +7,12 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { Helmet } from "react-helmet-async";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { updateUser } from "../../features/mainSlice";
 
 function GoogleSignin() {
   let history = useHistory();
+  const dispatch = useDispatch();
   const maincontext = useContext(Maincontext);
   const usercontext = useContext(UserContext);
   const [clicked, setclicked] = useState(false);
@@ -42,7 +44,7 @@ function GoogleSignin() {
         localStorage.setItem("grahak", JSON.stringify(customerdata));
         usercontext.setCustomer(user);
 
-        maincontext.setUser("customer");
+        dispatch(updateUser("customer"));
 
         history.push("/salonpage");
 
