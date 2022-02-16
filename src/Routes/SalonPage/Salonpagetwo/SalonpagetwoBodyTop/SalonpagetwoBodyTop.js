@@ -7,8 +7,10 @@ import Maincontext from "./../../../../context/MainContext";
 import AlertProvider from "../../../Sp-home/alert Provider/AlertProvider";
 
 import ProviderContext from "./../../../../context/ProviderContext";
+import { useSelector } from "react-redux";
 
 function SalonpagetwoBodyTop(props) {
+  const salon = useSelector((state) => state.salon.salon);
   const providercontext = useContext(ProviderContext);
   const maincontext = useContext(Maincontext);
 
@@ -36,9 +38,9 @@ function SalonpagetwoBodyTop(props) {
   }, []);
 
   function shopOpenCloseHandler(e) {
-    const docRef = doc(db, "salon", maincontext.salon.id);
+    const docRef = doc(db, "salon", salon.id);
     const payLoad = {
-      ...maincontext.salon,
+      ...salon,
       shopOpen: shopButtonText === "shop is open" ? false : true,
     };
     setDoc(docRef, payLoad);
