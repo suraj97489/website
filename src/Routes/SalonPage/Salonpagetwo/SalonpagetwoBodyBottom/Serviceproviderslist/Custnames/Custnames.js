@@ -26,7 +26,7 @@ function Custnames(props) {
   }
 
   async function cancelBooking(refer, customerIndex) {
-    const docRef = doc(db, "salon", maincontext.salon.id);
+    const docRef = doc(db, "salon", salon.id);
     try {
       const cancelFunc = (salonValue) => {
         return salonValue.serviceproviders.map((provider) => {
@@ -41,7 +41,7 @@ function Custnames(props) {
 
       maincontext.setSalon((salon) => ({
         ...salon,
-        serviceproviders: cancelFunc(maincontext.salon),
+        serviceproviders: cancelFunc(salon),
       }));
 
       let updatedArrayofProviders = await runTransaction(
@@ -59,7 +59,7 @@ function Custnames(props) {
       );
 
       maincontext.setSalon({
-        ...maincontext.salon,
+        ...salon,
         serviceproviders: updatedArrayofProviders,
       });
     } catch (e) {
