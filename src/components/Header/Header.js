@@ -15,6 +15,7 @@ function Header() {
   const maincontext = useContext(Maincontext);
   const usercontext = useContext(UserContext);
   const salon = useSelector((state) => state.salon.salon);
+  const user = useSelector((state) => state.main.user);
   const dispatch = useDispatch();
 
   async function updateSaloninLocalandcontext() {
@@ -42,7 +43,7 @@ function Header() {
               <Link to="/"> Home</Link>
             </li>
 
-            {maincontext.user === "provider" && (
+            {user === "provider" && (
               <li onClick={updateSaloninLocalandcontext}>
                 <Link to="/salon-report"> report</Link>
               </li>
@@ -60,7 +61,7 @@ function Header() {
               <Link to="/">Home</Link>
             </li> */}
 
-            {maincontext.user === "provider" && (
+            {user === "provider" && (
               <li onClick={updateSaloninLocalandcontext}>
                 <Link to="/edit-profile">edit profile</Link>
               </li>
