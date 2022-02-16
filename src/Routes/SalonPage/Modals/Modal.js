@@ -9,6 +9,7 @@ import { db } from "../../../firebaseproduction";
 import ModalUnstyled from "@mui/core/ModalUnstyled";
 import { styled } from "@mui/system";
 import Services from "./../../../components/Services/Services";
+import { useSelector } from "react-redux";
 
 const StyledModal = styled(ModalUnstyled)`
   position: fixed;
@@ -46,6 +47,7 @@ const style = {
 };
 
 function Modal() {
+  const salon = useSelector((state) => state.salon.salon);
   const maincontext = useContext(Maincontext);
   const usercontext = useContext(UserContext);
   const providercontext = useContext(ProviderContext);
@@ -74,7 +76,7 @@ function Modal() {
 
   async function changeModalState() {
     usercontext.setUserBooked(true);
-    const docRef = doc(db, "salon", maincontext.salon.id);
+    const docRef = doc(db, "salon", salon.id);
 
     let newCustomer = {
       name: usercontext.customer.displayName,
@@ -82,7 +84,7 @@ function Modal() {
       service: maincontext.grahak.service,
       email: maincontext.grahak.email,
       checkStatus: false,
-      salonId: maincontext.salon.id,
+      salonId: salon.id,
       providerId: maincontext.idOfProvider,
       addedBy: "customer",
     };
@@ -112,7 +114,7 @@ function Modal() {
       };
       maincontext.setSalon((salon) => ({
         ...salon,
-        serviceproviders: addOrEditCustomer(maincontext.salon),
+        serviceproviders: addOrEditCustomer(salon),
       }));
 
       maincontext.setIsOpen(false);
@@ -124,7 +126,7 @@ function Modal() {
 
         let arr = addOrEditCustomer(thisDoc.data());
         transaction.update(docRef, { serviceproviders: arr });
-        // maincontext.setSalon({ ...maincontext.salon, serviceproviders: arr });
+        // maincontext.setSalon({ ...salon, serviceproviders: arr });
       });
     } catch (e) {
       alert("somethng went wrong");
