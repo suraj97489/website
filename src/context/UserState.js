@@ -15,13 +15,6 @@ function UserState(props) {
   const allSalon = useSelector((state) => state.main.allSalon);
   const overAllCustomers = useSelector((state) => state.main.overAllCustomers);
 
-  function updateSalonProvidersforDisplay() {
-    let arr = serviceproviders?.map((provider) => {
-      return { ...provider, display: "none" };
-    });
-    dispatch(updateSalonProvidersfordisplay(arr));
-  }
-
   onAuthStateChanged(auth, (user) => {
     if (user) {
       let thisIsprovider = allSalon?.some(
@@ -44,14 +37,6 @@ function UserState(props) {
     }
   });
 
-  function updateUserBookingStatus() {
-    setUserBooked(() => {
-      return overAllCustomers.some((cust) => {
-        return cust.email === customer?.email;
-      });
-    });
-  }
-
   return (
     <UserContext.Provider
       value={{
@@ -61,8 +46,6 @@ function UserState(props) {
         setUserBooked,
         salonProvidersfordisplay,
         setSalonProvidersfordisplay,
-        updateSalonProvidersforDisplay,
-        updateUserBookingStatus,
       }}
     >
       {props.children}
