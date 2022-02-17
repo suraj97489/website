@@ -79,7 +79,7 @@ export const {
   updateCustomerName,
   updateCustomerMobile,
   updateAddingcustomer,
-  updateProviderIdproviderId,
+  updateProviderId,
   updateServices,
   updateSelectedServices,
   updateOpen,

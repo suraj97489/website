@@ -6,13 +6,16 @@ import { db } from "../../../../firebaseproduction";
 
 import AlertProvider from "../../../Sp-home/alert Provider/AlertProvider";
 
-import ProviderContext from "./../../../../context/ProviderContext";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  updateAlertProvider,
+  updateAlertMessage,
+} from "../../../../features/providerSlice";
 
 function SalonpagetwoBodyTop(props) {
+  const dispatch = useDispatch();
   const salon = useSelector((state) => state.salon.salon);
   const shopOpen = useSelector((state) => state.main.shopOpen);
-  const providercontext = useContext(ProviderContext);
 
   const [shopButtonText, setShopButtonText] = useState();
 
@@ -55,11 +58,11 @@ function SalonpagetwoBodyTop(props) {
             {shopOpen ? (
               <button
                 onClick={(e) => {
-                  providercontext.setAlertProvider(true);
-                  setShopButtonText(e.target.textContent);
-                  providercontext.setAlertMessage(
-                    "are you sure you want to close shop?"
+                  dispatch(updateAlertProvider(true));
+                  dispatch(
+                    updateAlertMessage("are you sure you want to close shop?")
                   );
+                  setShopButtonText(e.target.textContent);
                 }}
               >
                 shop is open
@@ -67,10 +70,10 @@ function SalonpagetwoBodyTop(props) {
             ) : (
               <button
                 onClick={(e) => {
-                  providercontext.setAlertProvider(true);
+                  dispatch(updateAlertProvider(true));
                   setShopButtonText(e.target.textContent);
-                  providercontext.setAlertMessage(
-                    "are you sure you want to Open shop?"
+                  dispatch(
+                    updateAlertMessage("are you sure you want to Open shop?")
                   );
                 }}
               >
