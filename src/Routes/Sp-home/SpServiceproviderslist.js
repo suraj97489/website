@@ -6,10 +6,13 @@ import { doc, setDoc } from "@firebase/firestore";
 import { db } from "../../firebaseproduction";
 
 import ProviderContext from "./../../context/ProviderContext";
-import UserContext from "./../../context/UserContext";
+
 import ProviderBefore from "./../../components/CommonComponent/ProviderBefore";
 import { useSelector, useDispatch } from "react-redux";
-import { updateSalon } from "../../features/salonSlice";
+import {
+  updateSalon,
+  updateSalonProvidersfordisplay,
+} from "../../features/salonSlice";
 
 function SpServiceproviderslist(props) {
   const salon = useSelector((state) => state.salon.salon);
@@ -19,7 +22,6 @@ function SpServiceproviderslist(props) {
     (state) => state.salon.salonProvidersfordisplay
   );
   const dispatch = useDispatch();
-  const usercontext = useContext(UserContext);
 
   const providercontext = useContext(ProviderContext);
 
@@ -27,8 +29,10 @@ function SpServiceproviderslist(props) {
     let cancel = false;
     function dataAfterRefreshAndsetSp() {
       if (cancel) return;
-
-      usercontext.updateSalonProvidersforDisplay();
+      let arr = serviceproviders?.map((provider) => {
+        return { ...provider, display: "none" };
+      });
+      dispatch(updateSalonProvidersfordisplay(arr));
     }
     dataAfterRefreshAndsetSp();
     return () => {
