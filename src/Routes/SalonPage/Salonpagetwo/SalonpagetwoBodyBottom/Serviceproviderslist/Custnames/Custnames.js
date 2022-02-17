@@ -10,6 +10,7 @@ import ProviderContext from "./../../../../../../context/ProviderContext";
 import { useDispatch, useSelector } from "react-redux";
 import { updateSalon } from "./../../../../../../features/salonSlice";
 import {
+  updateGrahak,
   updateIdOfProvider,
   updateIsOpen,
 } from "../../../../../../features/mainSlice";
@@ -25,8 +26,8 @@ function Custnames(props) {
 
   function editServices(refer, customerIndex) {
     dispatch(updateIsOpen(true));
+    dispatch(updateGrahak({ ...grahak, service: [] }));
 
-    grahak.service = [];
     dispatch(updateIdOfProvider(refer));
 
     providercontext.setCustIndex(customerIndex);
@@ -39,8 +40,11 @@ function Custnames(props) {
       const cancelFunc = (salonValue) => {
         return salonValue.serviceproviders.map((provider) => {
           if (provider.id === refer) {
-            provider.customers.splice(customerIndex, 1);
-            return provider;
+            let newcustArray = provider.customers.filter(
+              (cust, i) => i !== customerIndex
+            );
+            // provider.customers.splice(customerIndex, 1);
+            return { ...provider, customers: newcustArray };
           } else {
             return provider;
           }
