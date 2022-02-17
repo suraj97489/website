@@ -2,7 +2,7 @@ import { doc, runTransaction } from "@firebase/firestore";
 import React, { useContext } from "react";
 
 import ProviderContext from "../../../context/ProviderContext";
-import UserContext from "../../../context/UserContext";
+
 import "./Modal.css";
 import { db } from "../../../firebaseproduction";
 
@@ -11,6 +11,7 @@ import { styled } from "@mui/system";
 import Services from "./../../../components/Services/Services";
 import { useDispatch, useSelector } from "react-redux";
 import { updateSalon } from "../../../features/salonSlice";
+import { updateUserBooked } from "../../../features/userSlice";
 import { updateGrahak, updateIsOpen } from "../../../features/mainSlice";
 
 const StyledModal = styled(ModalUnstyled)`
@@ -55,7 +56,7 @@ function Modal() {
   const isOpen = useSelector((state) => state.main.isOpen);
   const dispatch = useDispatch();
 
-  const usercontext = useContext(UserContext);
+  const customer = useSelector((state) => state.userstate.customer);
   const providercontext = useContext(ProviderContext);
 
   const closeCustomerModal = () => {
@@ -67,8 +68,8 @@ function Modal() {
     dispatch(updateGrahak(grahakValue));
 
     providercontext.addingcustomer
-      ? usercontext.setUserBooked(false)
-      : usercontext.setUserBooked(true);
+      ? dispatch(updateUserBooked(false))
+      : dispatch(updateUserBooked(true));
 
     dispatch(updateIsOpen(false));
   };
@@ -84,11 +85,11 @@ function Modal() {
   }
 
   async function changeModalState() {
-    usercontext.setUserBooked(true);
+    dispatch(updateUserBooked(true));
     const docRef = doc(db, "salon", salon.id);
 
     let newCustomer = {
-      name: usercontext.customer.displayName,
+      name: customer.displayName,
       mobile: grahak.mobile,
       service: grahak.service,
       email: grahak.email,
