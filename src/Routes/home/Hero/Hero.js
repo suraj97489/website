@@ -5,7 +5,6 @@ import CircularProgress from "@mui/material/CircularProgress";
 import "./Hero.css";
 import { useHistory } from "react-router";
 
-import UserContext from "./../../../context/UserContext";
 import { db } from "../../../firebaseproduction";
 import Button from "@mui/material/Button";
 
@@ -22,10 +21,9 @@ function Hero() {
   const user = useSelector((state) => state.main.user);
   const salonCode = useSelector((state) => state.main.salonCode);
   const salonCodeValue = useSelector((state) => state.main.salonCodeValue);
-
+  const customer = useSelector((state) => state.userstate.customer);
   const dispatch = useDispatch();
 
-  let usercontext = useContext(UserContext);
   let salonCodeArray = JSON.parse(localStorage.getItem("salonHistory"));
   const [loading, setLoading] = useState(false);
 
@@ -83,13 +81,13 @@ function Hero() {
       let grahakEmail = localStorage.getItem("grahak").email;
 
       if (grahakEmail === undefined) {
-        if (usercontext.customer) {
+        if (customer) {
           let setGrahakInLocal = {
-            fname: usercontext.customer.displayName?.split(" ")[0],
-            lname: usercontext.customer.displayName?.split(" ")[1],
+            fname: customer.displayName?.split(" ")[0],
+            lname: customer.displayName?.split(" ")[1],
             mobile: "",
             service: [],
-            email: usercontext.customer.email,
+            email: customer.email,
           };
 
           localStorage.setItem("grahak", JSON.stringify(setGrahakInLocal));
