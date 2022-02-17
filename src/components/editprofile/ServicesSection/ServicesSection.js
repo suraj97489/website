@@ -72,8 +72,12 @@ function ServicesSection() {
 
   function ClickedOnAddService() {
     setAddingService(true);
-    providercontext.services.push({ name: "", charges: "" });
-    setServiceIndex(providercontext.services.length - 1);
+    providercontext.setServices((services) => [
+      ...services,
+      { name: "", charges: "" },
+    ]);
+
+    setServiceIndex(providercontext.services.length);
     setUpdatedService({ name: "", charges: "" });
   }
 
