@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import "./Serviceproviderslist.css";
 
 import ProviderContext from "./../../../../../context/ProviderContext";
-import UserContext from "./../../../../../context/UserContext";
+
 import ProviderBefore from "./../../../../../components/CommonComponent/ProviderBefore";
 import Custnames from "./Custnames/Custnames";
 import { secondary } from "../../../../../theme/colors";
@@ -13,24 +13,28 @@ import {
   updateIdOfProvider,
   updateIsOpen,
 } from "../../../../../features/mainSlice";
+import { updateSalonProvidersfordisplay } from "../../../../../features/salonSlice";
+import { updateUserBooked } from "../../../../../features/userSlice";
 
 function Serviceproviderslist(props) {
   const dispatch = useDispatch();
   const salon = useSelector((state) => state.salon.salon);
+  const serviceproviders = useSelector((state) => state.salon.serviceproviders);
   const grahak = useSelector((state) => state.main.grahak);
+  const overAllCustomers = useSelector((state) => state.main.overAllCustomers);
+  const customer = useSelector((state) => state.userstate.customer);
+  const userBooked = useSelector((state) => state.userstate.userBooked);
   const salonProvidersfordisplay = useSelector(
     (state) => state.salon.salonProvidersfordisplay
   );
 
-  const usercontext = useContext(UserContext);
   const providercontext = useContext(ProviderContext);
 
   useEffect(() => {
-    usercontext.updateSalonProvidersforDisplay();
-
-    return () => {
-      usercontext.updateSalonProvidersforDisplay();
-    };
+    let arr = serviceproviders?.map((provider) => {
+      return { ...provider, display: "none" };
+    });
+    dispatch(updateSalonProvidersfordisplay(arr));
   }, []);
 
   function bookname(event, providerId) {
@@ -42,10 +46,10 @@ function Serviceproviderslist(props) {
   }
 
   useEffect(() => {
-    usercontext.updateUserBookingStatus();
-    return () => {
-      usercontext.updateUserBookingStatus();
-    };
+    let boolean = overAllCustomers.some((cust) => {
+      return cust.email === customer?.email;
+    });
+    dispatch(updateUserBooked(boolean));
   }, [salon]);
 
   return (
@@ -92,7 +96,7 @@ function Serviceproviderslist(props) {
             );
           })}
 
-          {!usercontext.userBooked && props.bookingOn && (
+          {!userBooked && props.bookingOn && (
             <Button
               className="bookyourname"
               style={{
