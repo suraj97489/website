@@ -58,24 +58,6 @@ function ProviderState(props) {
   //   setProviderId(providerId);
   // };
 
-  function bookingControl(e, providerId) {
-    e.stopPropagation();
-    let newprovidersarray = serviceproviders.map((provider) => {
-      if (providerId === provider.id) {
-        return { ...provider, bookingOn: e.target.checked };
-      } else {
-        return provider;
-      }
-    });
-    const docRef = doc(db, "salon", salon.id);
-    const payLoad = {
-      ...salon,
-      serviceproviders: newprovidersarray,
-    };
-
-    setDoc(docRef, payLoad);
-  }
-
   async function firstPopUpHandler() {
     let currentTime = new Date().getTime();
     if (!salon?.popUpActivated) {
@@ -197,7 +179,6 @@ function ProviderState(props) {
         setProviderId,
         addingcustomer,
         setAddingcustomer,
-        bookingControl,
 
         firstPopUpHandler,
         secondPopUpHandler,

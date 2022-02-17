@@ -7,10 +7,31 @@ import { Switch } from "@mui/material";
 import { updateSalonProvidersfordisplay } from "../../features/salonSlice";
 import { updateUserBooked } from "../../features/userSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../../firebaseproduction";
 const label = { inputProps: { "aria-label": "Switch demo" } };
 
 function ProviderBefore(props) {
   const providercontext = useContext(ProviderContext);
+  const salon = useSelector((state) => state.salon.salon);
+  const serviceproviders = useSelector((state) => state.salon.serviceproviders);
+  function bookingControl(e, providerId) {
+    e.stopPropagation();
+    let newprovidersarray = serviceproviders.map((provider) => {
+      if (providerId === provider.id) {
+        return { ...provider, bookingOn: e.target.checked };
+      } else {
+        return provider;
+      }
+    });
+    const docRef = doc(db, "salon", salon.id);
+    const payLoad = {
+      ...salon,
+      serviceproviders: newprovidersarray,
+    };
+
+    setDoc(docRef, payLoad);
+  }
 
   const salonProvidersfordisplay = useSelector(
     (state) => state.salon.salonProvidersfordisplay
@@ -70,7 +91,7 @@ function ProviderBefore(props) {
               size="small"
               {...label}
               onClick={(e) => {
-                providercontext.bookingControl(e, props.id);
+                bookingControl(e, props.id);
               }}
               {...label}
             />
