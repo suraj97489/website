@@ -46,13 +46,16 @@ function AlertProvider(props) {
     props.function();
     providercontext.setAlertProvider(false);
   };
+  const closeAlert = (value) => {
+    providercontext.setAlertProvider(false);
+  };
 
   return (
     <StyledModal
       aria-labelledby="unstyled-modal-title"
       aria-describedby="unstyled-modal-description"
       open={providercontext.alertProvider}
-      onClose={providercontext.closeAlert}
+      onClose={closeAlert}
       BackdropComponent={Backdrop}
     >
       <div style={style}>

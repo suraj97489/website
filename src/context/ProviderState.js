@@ -231,9 +231,7 @@ function ProviderState(props) {
       setDoc(docRef, payLoad);
     }
   }
-  const closeAlert = (value) => {
-    setAlertProvider(false);
-  };
+
   return (
     <ProviderContext.Provider
       value={{
@@ -268,7 +266,7 @@ function ProviderState(props) {
         setAlertProvider,
         alertMessage,
         setAlertMessage,
-        closeAlert,
+
         photoUploadingProgress,
         setPhotoUploadingProgress,
       }}
