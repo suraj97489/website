@@ -98,11 +98,17 @@ function ProviderInfoLogic() {
   function saveChanges() {
     providercontext.setButtonDisabled(true);
     if (showAddButton) {
-      serviceproviders.push({
+      let providerValue = {
         ...provider,
 
         id: provider.fname + provider.lname + salon.id + provider.mobile,
-      });
+      };
+
+      let salonValue = {
+        ...salon,
+        serviceproviders: [...salon.serviceproviders, providerValue],
+      };
+      dispatch(updateSalon(salonValue));
 
       const docRef = doc(db, "salon", salon.id);
       const payLoad = {
