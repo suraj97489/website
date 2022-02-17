@@ -22,6 +22,21 @@ export const providerSlice = createSlice({
   name: "providerstate",
   initialState,
   reducers: {
+    updateSp: (state, action) => {
+      state.sp = action.payload;
+    },
+    updateCustomerName: (state, action) => {
+      state.customerName = action.payload;
+    },
+    updateCustomerMobile: (state, action) => {
+      state.customerMobile = action.payload;
+    },
+    updateAddingcustomer: (state, action) => {
+      state.addingcustomer = action.payload;
+    },
+    updateProviderIdproviderId: (state, action) => {
+      state.providerIdproviderId = action.payload;
+    },
     updateServices: (state, action) => {
       state.services = action.payload;
     },
@@ -60,6 +75,11 @@ export const providerSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const {
+  updateSp,
+  updateCustomerName,
+  updateCustomerMobile,
+  updateAddingcustomer,
+  updateProviderIdproviderId,
   updateServices,
   updateSelectedServices,
   updateOpen,

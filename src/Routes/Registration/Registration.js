@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
 import "./Registration.css";
-import ProviderContext from "../../context/ProviderContext";
 
 import { useHistory } from "react-router";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
@@ -8,14 +7,14 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { db } from "../../firebaseproduction";
 import { collection, getDocs } from "firebase/firestore";
 import { Helmet } from "react-helmet-async";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateSalon } from "../../features/salonSlice";
+import { updateNotify, updateUser } from "../../features/mainSlice";
 import { updateNotify, updateUser } from "../../features/mainSlice";
 
 function Registration() {
   const dispatch = useDispatch();
-  const providercontext = useContext(ProviderContext);
-
+  const sp = useSelector((state) => state.providerstate.sp);
   const [clickedOnSubmit, setClickedOnSubmit] = useState(false);
   let history = useHistory();
   const auth = getAuth();
