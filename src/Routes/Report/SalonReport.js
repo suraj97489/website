@@ -3,15 +3,15 @@ import InfiniteScroll from "react-infinite-scroll-component";
 
 import "./SalonReport.css";
 import SearchIcon from "@material-ui/icons/Search";
-import UserContext from "../../context/UserContext";
+
 import CircularProgress from "@mui/material/CircularProgress";
 import { Helmet } from "react-helmet-async";
 import { useSelector } from "react-redux";
 
 function SalonReport() {
   const salon = useSelector((state) => state.salon.salon);
+  const customer = useSelector((state) => state.userstate.customer);
 
-  const usercontext = useContext(UserContext);
   const [items, setItems] = useState();
   const [searchTerm, setSearchTerm] = useState("");
   let report = salon?.salonReport;
@@ -63,7 +63,7 @@ function SalonReport() {
     }
   });
 
-  if (items && salon.salonUsername === usercontext.customer?.email) {
+  if (items && salon.salonUsername === customer?.email) {
     return (
       <>
         <Helmet>
