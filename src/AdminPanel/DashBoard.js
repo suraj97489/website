@@ -4,12 +4,12 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebaseproduction";
 import "./DashBoard.css";
 import { Link, Redirect } from "react-router-dom";
-import UserContext from "../context/UserContext";
+
 import { Helmet } from "react-helmet-async";
 import { useSelector } from "react-redux";
 function DashBoard() {
   const overAllCustomers = useSelector((state) => state.main.overAllCustomers);
-  const usercontext = useContext(UserContext);
+  const customer = useSelector((state) => state.userstate.customer);
   const [salonsLength, setSalonsLength] = useState();
 
   async function findLength() {
@@ -25,7 +25,7 @@ function DashBoard() {
       cancel = true;
     };
   }, []);
-  if (usercontext.customer?.email === process.env.REACT_APP_ADMIN_USERNAME) {
+  if (customer?.email === process.env.REACT_APP_ADMIN_USERNAME) {
     return (
       <div className="DashBoard">
         <Helmet>
