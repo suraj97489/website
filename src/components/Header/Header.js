@@ -4,7 +4,6 @@ import "./Header.css";
 import DrawerComponent from "./DrawerComponent/DrawerComponent";
 import MenuIcon from "@material-ui/icons/Menu";
 
-import UserContext from "./../../context/UserContext";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebaseproduction";
 import { useSelector, useDispatch } from "react-redux";
@@ -12,17 +11,18 @@ import { updateSalon } from "../../features/salonSlice";
 import { updateOpenDrawer } from "../../features/mainSlice";
 
 function Header() {
-  const usercontext = useContext(UserContext);
+  const customer = useSelector((state) => state.userstate.customer);
+
   const salon = useSelector((state) => state.salon.salon);
   const user = useSelector((state) => state.main.user);
   const dispatch = useDispatch();
 
   async function updateSaloninLocalandcontext() {
-    if (usercontext.customer.email !== salon.salonUsername) {
+    if (customer.email !== salon.salonUsername) {
       const querySnapshot = await getDocs(collection(db, "salon"));
       querySnapshot.forEach((doc) => {
         let salonUsername = doc.data().salonUsername;
-        if (salonUsername === usercontext.customer.email) {
+        if (salonUsername === customer.email) {
           dispatch(updateSalon({ ...doc.data(), id: doc.id }));
 
           localStorage.setItem("salon", doc.data().salonCode);

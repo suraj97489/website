@@ -6,7 +6,6 @@ import { db, storage } from "../../../firebaseproduction.js";
 import { doc, setDoc } from "@firebase/firestore";
 import { useDispatch, useSelector } from "react-redux";
 
-// import UserContext from "../../../context/UserContext";
 import ProviderContext from "../../../context/ProviderContext";
 
 import { updateSalon } from "../../../features/salonSlice";
