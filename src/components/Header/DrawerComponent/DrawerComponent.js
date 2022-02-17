@@ -3,7 +3,7 @@ import Drawer from "@mui/material/Drawer";
 import { List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 
 import { Link } from "react-router-dom";
-import UserContext from "./../../../context/UserContext";
+
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../../firebaseproduction";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,7 +11,7 @@ import { updateSalon } from "../../../features/salonSlice";
 import { updateOpenDrawer } from "../../../features/mainSlice";
 
 function DrawerComponent() {
-  const usercontext = useContext(UserContext);
+  const customer = useSelector((state) => state.userstate.customer);
   const user = useSelector((state) => state.main.user);
   const openDrawer = useSelector((state) => state.main.openDrawer);
   const dispatch = useDispatch();
@@ -44,11 +44,11 @@ function DrawerComponent() {
 
   async function updateSaloninLocalandcontext() {
     closeDrawer();
-    if (usercontext.customer.email !== salon.salonUsername) {
+    if (customer.email !== salon.salonUsername) {
       const querySnapshot = await getDocs(collection(db, "salon"));
       querySnapshot.forEach((doc) => {
         let salonUsername = doc.data().salonUsername;
-        if (salonUsername === usercontext.customer.email) {
+        if (salonUsername === customer.email) {
           dispatch(updateSalon({ ...doc.data(), id: doc.id }));
           localStorage.setItem("salon", doc.data().salonCode);
         }
