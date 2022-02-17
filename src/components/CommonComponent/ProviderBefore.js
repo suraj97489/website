@@ -2,18 +2,21 @@ import React, { useContext } from "react";
 import "./ProviderBefore.css";
 
 import ProviderContext from "./../../context/ProviderContext";
-import UserContext from "./../../context/UserContext";
+
 import { Switch } from "@mui/material";
 import { updateSalonProvidersfordisplay } from "../../features/salonSlice";
+import { updateUserBooked } from "../../features/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 const label = { inputProps: { "aria-label": "Switch demo" } };
 
 function ProviderBefore(props) {
   const providercontext = useContext(ProviderContext);
-  const usercontext = useContext(UserContext);
+
   const salonProvidersfordisplay = useSelector(
     (state) => state.salon.salonProvidersfordisplay
   );
+  const customer = useSelector((state) => state.userstate.customer);
+  const overAllCustomers = useSelector((state) => state.main.overAllCustomers);
   const dispatch = useDispatch();
 
   function providerdropdown(e, id) {
@@ -30,7 +33,11 @@ function ProviderBefore(props) {
       }
     });
     dispatch(updateSalonProvidersfordisplay(array));
-    usercontext.updateUserBookingStatus();
+    let booleanValue = overAllCustomers.some((cust) => {
+      return cust.email === customer?.email;
+    });
+    dispatch(updateUserBooked(booleanValue));
+
     providercontext.firstPopUpHandler();
     providercontext.secondPopUpHandler();
   }
