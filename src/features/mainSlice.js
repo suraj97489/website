@@ -14,7 +14,7 @@ let notifyValue = {
   },
 };
 const initialState = {
-  user: "customer",
+  user: null,
   milliSeconds: null,
   salonCode: "",
   allSalon: [],
