@@ -13,6 +13,7 @@ import {
   updateSalon,
   updateSalonProvidersfordisplay,
 } from "../../features/salonSlice";
+import { handleOpen } from "../../features/providerSlice";
 
 function SpServiceproviderslist(props) {
   const salon = useSelector((state) => state.salon.salon);
@@ -135,7 +136,7 @@ function SpServiceproviderslist(props) {
           {shopOpen && (
             <button
               id={props.id + props.fname + props.lname}
-              onClick={() => providercontext.handleOpen(props.id)}
+              onClick={() => dispatch(handleOpen(props.id))}
               className="bookyourname"
             >
               ADD CUSTOMER
