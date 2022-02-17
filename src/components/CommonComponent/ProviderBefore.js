@@ -28,8 +28,7 @@ function ProviderBefore(props) {
           return { ...each, display: "none" };
         }
       } else {
-        each.display = "none";
-        return each;
+        return { ...each, display: "none" };
       }
     });
     dispatch(updateSalonProvidersfordisplay(array));
