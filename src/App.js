@@ -26,11 +26,12 @@ import DashBoard from "./AdminPanel/DashBoard";
 import AddSalon from "./AdminPanel/AddSalon/AddSalon";
 import AdminLogin from "./AdminPanel/AdminLogin";
 import SalonDetails from "./AdminPanel/SalonDetails/SalonDetails";
-
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { db } from "./firebaseproduction";
 import { collection, onSnapshot } from "@firebase/firestore";
 import { useSelector, useDispatch } from "react-redux";
 import { updateSalon, updateServiceproviders } from "./features/salonSlice";
+import { updateUser } from "./features/mainSlice";
 import {
   updateAllSalon,
   updateOverAllCustomers,
@@ -38,10 +39,13 @@ import {
   updateShopOpen,
   updateSalonCode,
 } from "./features/mainSlice";
+import { updateCustomer } from "./features/userSlice";
 
 function App() {
   const salon = useSelector((state) => state.salon.salon);
+  const auth = getAuth();
 
+  const allSalon = useSelector((state) => state.main.allSalon);
   const dispatch = useDispatch();
   useEffect(() => {
     dataAfterRefresh();
@@ -159,6 +163,40 @@ function App() {
     let removedSpaces = e.target.value.replace(/ /g, "");
     dispatch(updateSalonCode(removedSpaces));
   };
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      let thisIsprovider = allSalon?.some(
+        (salon) => salon.salonUsername === user.email
+      );
+
+      if (thisIsprovider) {
+        dispatch(updateUser("provider"));
+        updateCustomer({
+          email: user.email,
+          uid: user.uid,
+          displayName: user.displayName,
+        });
+      } else if (user.email === process.env.REACT_APP_ADMIN_USERNAME) {
+        dispatch(updateUser("admin"));
+        updateCustomer({
+          email: user.email,
+          uid: user.uid,
+          displayName: user.displayName,
+        });
+      } else {
+        dispatch(updateUser("customer"));
+        updateCustomer({
+          email: user.email,
+          uid: user.uid,
+          displayName: user.displayName,
+        });
+      }
+    } else {
+      dispatch(updateUser("customer"));
+      updateCustomer(null);
+    }
+  });
   return (
     <>
       <MainState>
