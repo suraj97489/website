@@ -49,6 +49,12 @@ export const providerSlice = createSlice({
     updatePhotoUploadingProgress: (state, action) => {
       state.photoUploadingProgress = action.payload;
     },
+    handleOpen: (state, action) => {
+      state.selectedServices = [];
+      state.addingcustomer = true;
+      state.open = true;
+      state.providerId(action.payload);
+    },
   },
 });
 
@@ -63,6 +69,7 @@ export const {
   updateAlertProvider,
   updateAlertMessage,
   updatePhotoUploadingProgress,
+  handleOpen,
 } = providerSlice.actions;
 
 export default providerSlice.reducer;
