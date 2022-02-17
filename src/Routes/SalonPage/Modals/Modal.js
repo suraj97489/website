@@ -103,9 +103,9 @@ function Modal() {
         return receivedSalon.serviceproviders.map((each) => {
           if (each.id === idOfProvider) {
             if (providercontext.addingcustomer) {
-              each.customers.push(newCustomer);
+              let newCustomersArray = [...each.customers, newCustomer];
 
-              return each;
+              return { ...each, customers: newCustomersArray };
             } else {
               let updatedCustomers = each.customers.map((cust, i) => {
                 if (providercontext.custIndex === i) {
