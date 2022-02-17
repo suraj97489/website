@@ -1,12 +1,18 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import "./SpCustnames.css";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
 import { doc, runTransaction, setDoc } from "@firebase/firestore";
 import { db } from "../../firebaseproduction";
 
-import ProviderContext from "./../../context/ProviderContext";
 import { updateSalon } from "./../../features/salonSlice";
+import {
+  updateAddingcustomer,
+  updateSelectedServices,
+  updateOpen,
+  updateCustIndex,
+  updateProviderId,
+} from "./../../features/providerSlice";
 
 import CallIcon from "@material-ui/icons/Call";
 import { useSelector, useDispatch } from "react-redux";
@@ -14,8 +20,8 @@ import { useSelector, useDispatch } from "react-redux";
 function SpCustnames(props) {
   const salon = useSelector((state) => state.salon.salon);
   const serviceproviders = useSelector((state) => state.salon.serviceproviders);
+  const services = useSelector((state) => state.providerstate.services);
   const dispatch = useDispatch();
-  const providercontext = useContext(ProviderContext);
 
   const [custDisplay, setCustDisplay] = useState("none");
   function done(idOfProvider, e, cust, providerName) {
@@ -44,9 +50,7 @@ function SpCustnames(props) {
     let date = new Date().toDateString();
     let time = new Date().toLocaleTimeString();
     let serviceWithCharges = cust.service.map((eachServiceName) => {
-      return providercontext.services.find(
-        (service) => service.name === eachServiceName
-      );
+      return services.find((service) => service.name === eachServiceName);
     });
 
     let customerPaid = serviceWithCharges.reduce((accumulte, service) => {
@@ -79,11 +83,11 @@ function SpCustnames(props) {
   }
 
   function editServices(customerIndex, providerId) {
-    providercontext.setSelectedServices([]);
-    providercontext.setOpen(true);
-    providercontext.setAddingcustomer(false);
-    providercontext.setCustIndex(customerIndex);
-    providercontext.setProviderId(providerId);
+    dispatch(updateSelectedServices([]));
+    dispatch(updateOpen(true));
+    dispatch(updateAddingcustomer(false));
+    dispatch(updateCustIndex(customerIndex));
+    dispatch(updateProviderId(providerId));
   }
 
   async function cancelBooking(providerId, customerIndex) {

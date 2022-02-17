@@ -5,7 +5,7 @@ const initialState = {
   customerName: "",
   customerMobile: "",
   addingcustomer: true,
-  providerIdproviderId: null,
+  providerId: null,
 
   services: [{ name: "", charges: "" }],
   selectedServices: [],
@@ -34,8 +34,8 @@ export const providerSlice = createSlice({
     updateAddingcustomer: (state, action) => {
       state.addingcustomer = action.payload;
     },
-    updateProviderIdproviderId: (state, action) => {
-      state.providerIdproviderId = action.payload;
+    updateProviderId: (state, action) => {
+      state.providerId = action.payload;
     },
     updateServices: (state, action) => {
       state.services = action.payload;
