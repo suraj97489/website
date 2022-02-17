@@ -2,13 +2,12 @@ import React, { Fragment, useContext, useEffect } from "react";
 import "./AddSalon.css";
 import AddSalonLogic from "./AddSalonLogic";
 
-import UserContext from "../../context/UserContext";
 import { Redirect } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { useSelector } from "react-redux";
 function AddSalon() {
   const allSalon = useSelector((state) => state.main.allSalon);
-  const usercontext = useContext(UserContext);
+  const customer = useSelector((state) => state.userstate.customer);
 
   const {
     addSalon,
@@ -41,7 +40,7 @@ function AddSalon() {
       setButtonDisabled(true);
     }
   }, [addSalon, salonLoginData]);
-  if (usercontext.customer?.email === process.env.REACT_APP_ADMIN_USERNAME) {
+  if (customer?.email === process.env.REACT_APP_ADMIN_USERNAME) {
     return (
       <div className="AddSalon">
         <Helmet>
