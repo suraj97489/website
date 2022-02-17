@@ -4,6 +4,7 @@ import UserContext from "./UserContext";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useSelector, useDispatch } from "react-redux";
 import { updateUser } from "../features/mainSlice";
+import { updateSalonProvidersfordisplay } from "../features/salonSlice";
 function UserState(props) {
   const dispatch = useDispatch();
   const [customer, setCustomer] = useState(null);
@@ -15,11 +16,10 @@ function UserState(props) {
   const overAllCustomers = useSelector((state) => state.main.overAllCustomers);
 
   function updateSalonProvidersforDisplay() {
-    setSalonProvidersfordisplay(() =>
-      serviceproviders?.map((provider) => {
-        return { ...provider, display: "none" };
-      })
-    );
+    let arr = serviceproviders?.map((provider) => {
+      return { ...provider, display: "none" };
+    });
+    dispatch(updateSalonProvidersfordisplay(arr));
   }
 
   onAuthStateChanged(auth, (user) => {
