@@ -94,12 +94,18 @@ function ProviderState(props) {
     let newprovidersarray = serviceproviders.map((provider) => {
       if (provider.id === idOfProvider) {
         let time = new Date().getTime();
-        provider.customers = provider.customers.filter((cust, i) => i !== 0);
-        provider.checkingTime = time + 1000 * 150;
-        provider.customerResponded = false;
-        provider.popUpTime = time + 1000 * 60;
+        let customers = provider.customers.filter((cust, i) => i !== 0);
+        let checkingTime = time + 1000 * 150;
+        let customerResponded = false;
+        let popUpTime = time + 1000 * 60;
 
-        return provider;
+        return {
+          ...provider,
+          checkingTime,
+          customerResponded,
+          popUpTime,
+          customers,
+        };
       } else {
         return provider;
       }
