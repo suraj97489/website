@@ -9,6 +9,7 @@ import { secondary } from "../../../../../theme/colors";
 import { Button } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import {
+  updateGrahak,
   updateIdOfProvider,
   updateIsOpen,
 } from "../../../../../features/mainSlice";
@@ -37,8 +38,7 @@ function Serviceproviderslist(props) {
     dispatch(updateIdOfProvider(providerId));
 
     providercontext.setAddingcustomer(true);
-    grahak.service = [];
-    grahak.mobile = "";
+    dispatch(updateGrahak({ ...grahak, service: [], mobile: "" }));
   }
 
   useEffect(() => {
