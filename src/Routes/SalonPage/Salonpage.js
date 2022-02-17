@@ -4,17 +4,18 @@ import Salonpagetwo from "./Salonpagetwo/Salonpagetwo";
 import SalonpageOne from "../../components/CommonComponent/SalonpageOne";
 
 import CircularProgress from "@mui/material/CircularProgress";
-import UserContext from "./../../context/UserContext";
 
 import ProviderContext from "./../../context/ProviderContext";
 import { Helmet } from "react-helmet-async";
 import { useDispatch, useSelector } from "react-redux";
 import { updateCheckStatus } from "../../features/mainSlice";
+import { updateSalonProvidersfordisplay } from "../../features/salonSlice";
 
 function Salonpage() {
   const salon = useSelector((state) => state.salon.salon);
-  const overAllCustomers = useSelector((state) => state.salon.overAllCustomers);
-  const usercontext = useContext(UserContext);
+  const overAllCustomers = useSelector((state) => state.main.overAllCustomers);
+  const serviceproviders = useSelector((state) => state.salon.serviceproviders);
+  const customer = useSelector((state) => state.userstate.customer);
   const dispatch = useDispatch();
   const providercontext = useContext(ProviderContext);
 
@@ -23,7 +24,7 @@ function Salonpage() {
     if (cancel) return;
 
     overAllCustomers?.map((cust) => {
-      if (cust.email === usercontext.customer?.email) {
+      if (cust.email === customer?.email) {
         dispatch(updateCheckStatus(cust.checkStatus));
       }
     });
@@ -38,7 +39,11 @@ function Salonpage() {
     function func() {
       if (cancel) return;
       providercontext.setServices(salon.services);
-      usercontext.updateSalonProvidersforDisplay();
+
+      let arr = serviceproviders?.map((provider) => {
+        return { ...provider, display: "none" };
+      });
+      dispatch(updateSalonProvidersfordisplay(arr));
     }
 
     func();
@@ -61,7 +66,7 @@ function Salonpage() {
     };
   }, []);
 
-  if (usercontext.customer) {
+  if (customer) {
     return (
       <>
         <Helmet>
