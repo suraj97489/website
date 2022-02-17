@@ -10,7 +10,7 @@ import { Helmet } from "react-helmet-async";
 import { useDispatch, useSelector } from "react-redux";
 import { updateSalon } from "../../features/salonSlice";
 import { updateNotify, updateUser } from "../../features/mainSlice";
-import { updateNotify, updateUser } from "../../features/mainSlice";
+import { updateSp } from "../../features/providerSlice";
 
 function Registration() {
   const dispatch = useDispatch();
@@ -23,21 +23,15 @@ function Registration() {
     let name = e.target.name;
     let value = e.target.value;
     let removedSpaces = value.replace(/ /g, "");
-
-    providercontext.setSp((old) => {
-      return { ...old, [name]: removedSpaces };
-    });
+    let spValue = { ...sp, [name]: removedSpaces };
+    dispatch(updateSp(spValue));
   }
 
   function providerLoginHandler(e) {
     setClickedOnSubmit(true);
     e.preventDefault();
     // ==========================================================new==================
-    signInWithEmailAndPassword(
-      auth,
-      providercontext.sp.salonUsername,
-      providercontext.sp.salonPassword
-    )
+    signInWithEmailAndPassword(auth, sp.salonUsername, sp.salonPassword)
       .then((userCredential) => {
         setClickedOnSubmit(false);
         const user = userCredential.user;
@@ -135,7 +129,7 @@ function Registration() {
             <label>Username</label>
             <input
               name="salonUsername"
-              value={providercontext.sp?.salonUsername}
+              value={sp?.salonUsername}
               onChange={spUpdateHandler}
               className="registration_input "
               type="text"
@@ -148,7 +142,7 @@ function Registration() {
             <input
               type="password"
               name="salonPassword"
-              value={providercontext.sp?.salonPassword}
+              value={sp?.salonPassword}
               onChange={spUpdateHandler}
               className="registration_input "
               required
