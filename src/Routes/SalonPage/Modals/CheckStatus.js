@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import ModalUnstyled from "@mui/core/ModalUnstyled";
 import { styled } from "@mui/system";
 
-import Usercontext from "../../../context/UserContext";
 import { db } from "../../../firebaseproduction";
 import { doc, runTransaction } from "@firebase/firestore";
 
@@ -51,7 +50,7 @@ const style = {
 function CheckStatusModal() {
   const overAllCustomers = useSelector((state) => state.main.overAllCustomers);
   const dispatch = useDispatch();
-  const usercontext = useContext(Usercontext);
+  const customer = useSelector((state) => state.userstate.customer);
 
   const checkStatus = useSelector((state) => state.main.checkStatus);
   const custResponce = useSelector((state) => state.main.custResponce);
@@ -76,7 +75,7 @@ function CheckStatusModal() {
     try {
       await runTransaction(db, async (transaction) => {
         let thisCustomer = overAllCustomers.find(
-          (currentCust) => usercontext.customer?.email === currentCust.email
+          (currentCust) => customer?.email === currentCust.email
         );
 
         let salonId = thisCustomer?.salonId;
@@ -89,7 +88,7 @@ function CheckStatusModal() {
         }
 
         overAllCustomers.map((activecust) => {
-          if (usercontext.customer?.email === activecust.email) {
+          if (customer?.email === activecust.email) {
             let thisSalon = thisDoc.data();
 
             let newprovidersarray = thisSalon.serviceproviders.map(
@@ -202,7 +201,7 @@ function CheckStatusModal() {
               }}
             >
               hey
-              {usercontext.customer ? usercontext.customer.displayName : "user"}
+              {customer ? customer.displayName : "user"}
               ,your appointment is after 5 minutes, please update your responce
             </p>
             {responceArr.map((each, i) => (
