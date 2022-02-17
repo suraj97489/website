@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, {  useState } from "react";
 
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
 import "./Custnames.css";
@@ -11,7 +11,7 @@ import { updateSalon } from "./../../../../../../features/salonSlice";
 import {
   updateCustIndex,
   updateAddingcustomer,
-} from "./../../../../../../features/salonSlice";
+} from "./../../../../../../features/providerSlice";
 import {
   updateGrahak,
   updateIdOfProvider,
