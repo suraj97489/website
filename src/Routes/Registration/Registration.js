@@ -131,7 +131,7 @@ function Registration() {
               name="salonUsername"
               value={sp?.salonUsername}
               onChange={spUpdateHandler}
-              className="registration_input "
+              className="registration_input"
               type="text"
               required
             />
@@ -144,7 +144,7 @@ function Registration() {
               name="salonPassword"
               value={sp?.salonPassword}
               onChange={spUpdateHandler}
-              className="registration_input "
+              className="registration_input"
               required
             />
           </div>

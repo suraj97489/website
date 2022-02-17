@@ -1,7 +1,5 @@
 import { doc, runTransaction } from "@firebase/firestore";
-import React, { useContext } from "react";
-
-import ProviderContext from "../../../context/ProviderContext";
+import React from "react";
 
 import "./Modal.css";
 import { db } from "../../../firebaseproduction";
@@ -54,10 +52,13 @@ function Modal() {
   const grahak = useSelector((state) => state.main.grahak);
   const idOfProvider = useSelector((state) => state.main.idOfProvider);
   const isOpen = useSelector((state) => state.main.isOpen);
+  const addingcustomer = useSelector(
+    (state) => state.providerstate.addingcustomer
+  );
+  const custIndex = useSelector((state) => state.providerstate.custIndex);
   const dispatch = useDispatch();
 
   const customer = useSelector((state) => state.userstate.customer);
-  const providercontext = useContext(ProviderContext);
 
   const closeCustomerModal = () => {
     let grahakValue = {
@@ -67,7 +68,7 @@ function Modal() {
     };
     dispatch(updateGrahak(grahakValue));
 
-    providercontext.addingcustomer
+    addingcustomer
       ? dispatch(updateUserBooked(false))
       : dispatch(updateUserBooked(true));
 
@@ -103,13 +104,13 @@ function Modal() {
       const addOrEditCustomer = (receivedSalon) => {
         return receivedSalon.serviceproviders.map((each) => {
           if (each.id === idOfProvider) {
-            if (providercontext.addingcustomer) {
+            if (addingcustomer) {
               let newCustomersArray = [...each.customers, newCustomer];
 
               return { ...each, customers: newCustomersArray };
             } else {
               let updatedCustomers = each.customers.map((cust, i) => {
-                if (providercontext.custIndex === i) {
+                if (custIndex === i) {
                   return { ...cust, service: grahak.service };
                 } else {
                   return cust;
@@ -157,7 +158,7 @@ function Modal() {
           <div className="closeModal" onClick={closeCustomerModal}>
             X
           </div>
-          {providercontext.addingcustomer && (
+          {addingcustomer && (
             <>
               <label style={{ fontSize: "2rem" }}>MOBILE</label>
               <input
@@ -172,7 +173,7 @@ function Modal() {
           <Services />
           <button
             disabled={
-              providercontext.addingcustomer
+              addingcustomer
                 ? grahak.service.length === 0 || grahak.mobile?.length !== 10
                 : grahak.service.length === 0
             }
