@@ -6,7 +6,7 @@ const initialState = {
 };
 
 export const userSlice = createSlice({
-  name: "usercontext",
+  name: "userstate",
   initialState,
   reducers: {
     updateCustomer: (state, action) => {
