@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import Maincontext from "../../context/MainContext";
+import React from "react";
+
 import "./SalonDetails.css";
 import { Redirect } from "react-router-dom";
 
@@ -7,14 +7,14 @@ import SalonInformation from "./Salon Information/SalonInformation";
 import SalonStatistics from "./Salon Statistics/SalonStatistics";
 import ServiceProviders from "./Service Providers/ServiceProviders";
 import LoginCredentials from "./Login Credentials/LoginCredentials";
-import UserContext from "../../context/UserContext";
+import { useSelector } from "react-redux";
 import { Helmet } from "react-helmet-async";
 
 function SalonDetails() {
-  const { salon } = useContext(Maincontext);
-  const usercontext = useContext(UserContext);
+  const customer = useSelector((state) => state.userstate.customer);
+  const salon = useSelector((state) => state.salon.salon);
 
-  if (usercontext.customer?.email === process.env.REACT_APP_ADMIN_USERNAME) {
+  if (customer?.email === process.env.REACT_APP_ADMIN_USERNAME) {
     return (
       <div className="SalonDetails">
         <Helmet>
