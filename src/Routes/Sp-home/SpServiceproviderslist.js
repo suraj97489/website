@@ -41,9 +41,17 @@ function SpServiceproviderslist(props) {
 
     let newprovidersarray = serviceproviders.map((provider) => {
       if (provider.id === providerId) {
-        const [removed] = provider.customers.splice(e.source.index, 1);
-        provider.customers.splice(e.destination.index, 0, removed);
-        return provider;
+        let thatCust = provider.customers.find(
+          (cust, i) => i === e.source.index
+        );
+        let removedcustomerArray = provider.customers.filter(
+          (cust, i) => i !== e.source.index
+        );
+        removedcustomerArray.splice(e.destination.index, 0, thatCust);
+
+        // const [removed] = provider.customers.splice(e.source.index, 1);
+        // provider.customers.splice(e.destination.index, 0, removed);
+        return { ...provider, customers: removedcustomerArray };
       } else {
         return provider;
       }
