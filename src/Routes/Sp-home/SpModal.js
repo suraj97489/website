@@ -118,6 +118,20 @@ function SpModal(props) {
       console.error("something went wrong");
     }
   }
+  function spCollectcheckvalue(e) {
+    if (e.target.checked) {
+      providercontext.setSelectedServices(() => [
+        ...providercontext.selectedServices,
+        e.target.value,
+      ]);
+    } else {
+      providercontext.setSelectedServices((selectedServices) => {
+        return selectedServices.filter((service) => {
+          return service !== e.target.value;
+        });
+      });
+    }
+  }
 
   return (
     <>
@@ -169,7 +183,7 @@ function SpModal(props) {
                 return (
                   <div key={i} className="service">
                     <input
-                      onChange={providercontext.spCollectcheckvalue}
+                      onChange={spCollectcheckvalue}
                       value={service.name}
                       className="service__input"
                       type="checkbox"

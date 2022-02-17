@@ -51,24 +51,12 @@ function ProviderState(props) {
     };
   }, [photoUploadingProgress]);
 
-  const handleOpen = (providerId) => {
-    setSelectedServices([]);
-    setAddingcustomer(true);
-    setOpen(true);
-    setProviderId(providerId);
-  };
-
-  function spCollectcheckvalue(e) {
-    if (e.target.checked) {
-      setSelectedServices(() => [...selectedServices, e.target.value]);
-    } else {
-      setSelectedServices(() => {
-        return selectedServices.filter((service) => {
-          return service !== e.target.value;
-        });
-      });
-    }
-  }
+  // const handleOpen = (providerId) => {
+  //   setSelectedServices([]);
+  //   setAddingcustomer(true);
+  //   setOpen(true);
+  //   setProviderId(providerId);
+  // };
 
   function bookingControl(e, providerId) {
     e.stopPropagation();
@@ -255,10 +243,10 @@ function ProviderState(props) {
         setServices,
         open,
         setOpen,
-        handleOpen,
+        // handleOpen,
         custIndex,
         setCustIndex,
-        spCollectcheckvalue,
+
         selectedServices,
         setSelectedServices,
         customerName,
