@@ -1,11 +1,9 @@
-import React, { useContext } from "react";
+import React from "react";
 
 import SpServiceproviderslist from "./SpServiceproviderslist";
 import SpModal from "./SpModal";
 import CircularProgress from "@mui/material/CircularProgress";
 
-
-import UserContext from "./../../context/UserContext";
 import SalonpageOne from "./../../components/CommonComponent/SalonpageOne";
 import SalonpagetwoBodyTop from "./../SalonPage/Salonpagetwo/SalonpagetwoBodyTop/SalonpagetwoBodyTop";
 import { Helmet } from "react-helmet-async";
@@ -14,10 +12,10 @@ import { useSelector } from "react-redux";
 function SpPage() {
   const salon = useSelector((state) => state.salon.salon);
   const serviceproviders = useSelector((state) => state.salon.serviceproviders);
- 
-  const usercontext = useContext(UserContext);
 
-  if (salon.salonUsername === usercontext.customer?.email) {
+  const customer = useSelector((state) => state.userstate.customer);
+
+  if (salon.salonUsername === customer?.email) {
     return (
       <>
         <Helmet>
