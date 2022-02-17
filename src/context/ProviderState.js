@@ -74,8 +74,7 @@ function ProviderState(props) {
     e.stopPropagation();
     let newprovidersarray = serviceproviders.map((provider) => {
       if (providerId === provider.id) {
-        provider.bookingOn = e.target.checked;
-        return provider;
+        return { ...provider, bookingOn: e.target.checked };
       } else {
         return provider;
       }
