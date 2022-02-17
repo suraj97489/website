@@ -5,8 +5,6 @@ import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { doc, setDoc } from "@firebase/firestore";
 import { db } from "../../firebaseproduction";
 
-import ProviderContext from "./../../context/ProviderContext";
-
 import ProviderBefore from "./../../components/CommonComponent/ProviderBefore";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -23,8 +21,6 @@ function SpServiceproviderslist(props) {
     (state) => state.salon.salonProvidersfordisplay
   );
   const dispatch = useDispatch();
-
-  const providercontext = useContext(ProviderContext);
 
   useEffect(() => {
     let cancel = false;

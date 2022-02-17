@@ -8,21 +8,10 @@ import { db } from "../../firebaseproduction";
 
 import { useSelector, useDispatch } from "react-redux";
 import {
-  updateSp,
   updateCustomerName,
   updateCustomerMobile,
-  updateAddingcustomer,
-  updateProviderId,
-  updateServices,
   updateSelectedServices,
   updateOpen,
-  updateCustIndex,
-  updateSalonUsername,
-  updateButtonDisabled,
-  updateAlertProvider,
-  updateAlertMessage,
-  updatePhotoUploadingProgress,
-  handleOpen,
 } from "../../features/providerSlice";
 
 const StyledModal = styled(ModalUnstyled)`
