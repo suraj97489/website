@@ -1,18 +1,18 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { doc, setDoc } from "@firebase/firestore";
 import { db, storage } from "../../../firebaseproduction";
 import { getDownloadURL, ref, uploadBytesResumable } from "@firebase/storage";
 
-import ProviderContext from "./../../../context/ProviderContext";
-
 import { useDispatch, useSelector } from "react-redux";
 import { updateSalon } from "../../../features/salonSlice";
 import { updateNotify } from "../../../features/mainSlice";
-
+import {
+  updateButtonDisabled,
+  updatePhotoUploadingProgress,
+} from "../../../features/providerSlice";
 function ProviderInfoLogic() {
   const dispatch = useDispatch();
 
-  const providercontext = useContext(ProviderContext);
   const [showAddButton, setShowAddButton] = useState(false);
 
   const salon = useSelector((state) => state.salon.salon);
@@ -40,7 +40,7 @@ function ProviderInfoLogic() {
 
   function uploadfile(file) {
     if (!file) return;
-    providercontext.setButtonDisabled(false);
+    dispatch(updateButtonDisabled(false));
     const storageRef = ref(
       storage,
       `/salonImages/${salon.id}/${provider.fname}-${provider.lname}-${provider.mobile}/${provider.id}`
@@ -53,7 +53,7 @@ function ProviderInfoLogic() {
         const progress = Math.round(
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         );
-        providercontext.setPhotoUploadingProgress(progress);
+        dispatch(updatePhotoUploadingProgress(progress));
       },
       (err) => setFile(err),
       () => {
@@ -92,11 +92,11 @@ function ProviderInfoLogic() {
     let name = e.target.name;
     let value = e.target.value;
     setProvider({ ...provider, [name]: value });
-    providercontext.setButtonDisabled(false);
+    dispatch(updateButtonDisabled(false));
   }
 
   function saveChanges() {
-    providercontext.setButtonDisabled(true);
+    dispatch(updateButtonDisabled(false));
     if (showAddButton) {
       let providerValue = {
         ...provider,
