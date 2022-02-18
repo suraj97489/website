@@ -68,7 +68,7 @@ export const providerSlice = createSlice({
       state.selectedServices = [];
       state.addingcustomer = true;
       state.open = true;
-      state.providerId(action.payload);
+      state.providerId = action.payload;
     },
   },
 });
