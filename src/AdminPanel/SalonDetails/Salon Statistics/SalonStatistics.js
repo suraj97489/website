@@ -1,10 +1,11 @@
-import React, { useContext } from "react";
-import Maincontext from "../../../context/MainContext";
+import React from "react";
+
 import SalonDetailsHeading from "../SalonDetailsHeading";
 import "./SalonStatistics.css";
+import { useSelector } from "react-redux";
 function SalonStatistics() {
-  const { salon, detailsHeading } = useContext(Maincontext);
-
+  const salon = useSelector((state) => state.salon.salon);
+  const detailsHeading = useSelector((state) => state.main.detailsHeading);
   let addedBySalonLength = salon?.salonReport?.filter(
     (each) => each.addedBy === "provider"
   ).length;
