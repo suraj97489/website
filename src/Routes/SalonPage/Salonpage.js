@@ -10,6 +10,7 @@ import { Helmet } from "react-helmet-async";
 import { useDispatch, useSelector } from "react-redux";
 import { updateCheckStatus } from "../../features/mainSlice";
 import { updateSalonProvidersfordisplay } from "../../features/salonSlice";
+import { updateServices } from "../../features/providerSlice";
 
 function Salonpage() {
   const salon = useSelector((state) => state.salon.salon);
@@ -38,8 +39,8 @@ function Salonpage() {
 
     function func() {
       if (cancel) return;
-      providercontext.setServices(salon.services);
-
+      // providercontext.setServices(salon.services);
+      dispatch(updateServices(salon.services));
       let arr = serviceproviders?.map((provider) => {
         return { ...provider, display: "none" };
       });
