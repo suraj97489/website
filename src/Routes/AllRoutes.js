@@ -37,6 +37,7 @@ import {
   updateUser,
 } from "../features/mainSlice";
 import { updateCustomer } from "../features/userSlice";
+import { updateServices } from "../features/providerSlice";
 
 function AllRoutes() {
   const salon = useSelector((state) => state.salon.salon);
@@ -97,6 +98,7 @@ function AllRoutes() {
           })[0];
 
         dispatch(updateSalon(foundsalon));
+        dispatch(updateServices(foundsalon.services));
       } else {
         localSalon = localStorage.setItem("salon", "temporarySalonCode");
       }
