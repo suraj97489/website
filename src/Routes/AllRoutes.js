@@ -175,10 +175,13 @@ function AllRoutes() {
         );
 
         if (thisIsprovider) {
+          console.log("this is provider");
           dispatch(updateUser("provider"));
         } else if (user.email === process.env.REACT_APP_ADMIN_USERNAME) {
+          console.log("this is admin");
           dispatch(updateUser("admin"));
         } else {
+          console.log("this is customer");
           dispatch(updateUser("customer"));
         }
       } else {

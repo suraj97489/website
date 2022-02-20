@@ -1,13 +1,14 @@
-import React, { useEffect, useContext, useState } from "react";
+import React, { useEffect, useState } from "react";
 import SalonDetailsHeading from "../SalonDetailsHeading";
 import "./LoginCredentials.css";
 import { collection, query, where, getDocs } from "firebase/firestore";
-import MainContext from "./../../../context/MainContext";
 import { db } from "../../../firebaseproduction";
-
+import { useSelector } from "react-redux";
 function LoginCredentials() {
-  const { salon, detailsHeading } = useContext(MainContext);
+  const salon = useSelector((state) => state.salon.salon);
+  const detailsHeading = useSelector((state) => state.main.detailsHeading);
   const [LoginCredentials, setLoginCredentials] = useState();
+
   useEffect(() => {
     async function getLoginCredential() {
       const q = query(
