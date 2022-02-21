@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import ProviderState from "./context/ProviderState";
 import "./css/index.css";
@@ -32,7 +32,6 @@ function App() {
         };
       });
       dispatch(updateAllSalon(allSalonValue));
-      console.log(allSalonValue);
 
       //======================================Active list=======================================
 
