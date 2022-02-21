@@ -74,19 +74,19 @@ function AllRoutes() {
           displayName: user.displayName,
         };
         dispatch(updateCustomer(customerValue));
-        console.log(allSalon);
+        // console.log(allSalon);
         let thisIsprovider = allSalon?.some((salon) => {
           return salon.salonUsername === user.email;
         });
 
         if (thisIsprovider) {
-          console.log("this is provider");
+          // console.log("this is provider");
           dispatch(updateUser("provider"));
         } else if (user.email === process.env.REACT_APP_ADMIN_USERNAME) {
-          console.log("this is admin");
+          // console.log("this is admin");
           dispatch(updateUser("admin"));
         } else {
-          console.log("this is customer");
+          // console.log("this is customer");
           dispatch(updateUser("customer"));
         }
       } else {
