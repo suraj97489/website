@@ -74,6 +74,7 @@ function AllRoutes() {
           displayName: user.displayName,
         };
         dispatch(updateCustomer(customerValue));
+        console.log(allSalon);
         let thisIsprovider = allSalon?.some((salon) => {
           console.log(salon.salonUsername === user.email);
           return salon.salonUsername === user.email;
@@ -95,7 +96,7 @@ function AllRoutes() {
       }
     });
     return unsubscribe;
-  }, []);
+  }, [allSalon]);
 
   return (
     <>
