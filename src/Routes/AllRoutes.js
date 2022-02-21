@@ -87,7 +87,9 @@ function AllRoutes() {
           dispatch(updateUser("admin"));
         } else {
           // console.log("this is customer");
-          dispatch(updateUser("customer"));
+          allSalon.length === 0
+            ? dispatch(updateUser(null))
+            : dispatch(updateUser("customer"));
         }
       } else {
         dispatch(updateUser(null));
@@ -95,7 +97,7 @@ function AllRoutes() {
       }
     });
     return unsubscribe;
-  }, [allSalon]);
+  }, [salon]);
 
   return (
     <>
