@@ -37,6 +37,7 @@ import {
 } from "../features/mainSlice";
 import { updateCustomer } from "../features/userSlice";
 import { updateServices } from "../features/providerSlice";
+import Policy from "./Policy";
 
 function AllRoutes() {
   const salon = useSelector((state) => state.salon.salon);
@@ -156,6 +157,9 @@ function AllRoutes() {
 
           <Route exact path="/contactus">
             <Contactus />
+          </Route>
+          <Route exact path="/privacy-policy">
+            <Policy />
           </Route>
 
           <Redirect to="/" />
