@@ -1,14 +1,13 @@
-import React, { useContext } from "react";
+import React from "react";
 import "./Services.css";
 import { useDispatch, useSelector } from "react-redux";
 
-import ProviderContext from "./../../context/ProviderContext";
 import { updateGrahak } from "../../features/mainSlice";
 
 function Services() {
   const dispatch = useDispatch();
   const grahak = useSelector((state) => state.main.grahak);
-  const providercontext = useContext(ProviderContext);
+  const services = useSelector((state) => state.providerstate.services);
 
   function collectcheckvalue(e) {
     let grahakValue;
@@ -28,7 +27,7 @@ function Services() {
   return (
     <>
       <div className="Services__container">
-        {providercontext.services.map((service, i) => {
+        {services.map((service, i) => {
           return (
             <div key={i} className="service">
               <input

@@ -1,7 +1,5 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import "./Serviceproviderslist.css";
-
-import ProviderContext from "./../../../../../context/ProviderContext";
 
 import ProviderBefore from "./../../../../../components/CommonComponent/ProviderBefore";
 import Custnames from "./Custnames/Custnames";
@@ -15,6 +13,7 @@ import {
 } from "../../../../../features/mainSlice";
 import { updateSalonProvidersfordisplay } from "../../../../../features/salonSlice";
 import { updateUserBooked } from "../../../../../features/userSlice";
+import { updateAddingcustomer } from "../../../../../features/providerSlice";
 
 function Serviceproviderslist(props) {
   const dispatch = useDispatch();
@@ -28,8 +27,6 @@ function Serviceproviderslist(props) {
     (state) => state.salon.salonProvidersfordisplay
   );
 
-  const providercontext = useContext(ProviderContext);
-
   useEffect(() => {
     let arr = serviceproviders?.map((provider) => {
       return { ...provider, display: "none" };
@@ -40,8 +37,8 @@ function Serviceproviderslist(props) {
   function bookname(event, providerId) {
     dispatch(updateIsOpen(true));
     dispatch(updateIdOfProvider(providerId));
+    dispatch(updateAddingcustomer(true));
 
-    providercontext.setAddingcustomer(true);
     dispatch(updateGrahak({ ...grahak, service: [], mobile: "" }));
   }
 

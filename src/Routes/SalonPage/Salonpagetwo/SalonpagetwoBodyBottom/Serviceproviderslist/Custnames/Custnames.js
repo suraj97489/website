@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, {  useState } from "react";
 
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
 import "./Custnames.css";
@@ -6,9 +6,12 @@ import scissor from "./../../../../../../images/scissor.png";
 import { doc, runTransaction } from "@firebase/firestore";
 import { db } from "../../../../../../firebaseproduction";
 
-import ProviderContext from "./../../../../../../context/ProviderContext";
 import { useDispatch, useSelector } from "react-redux";
 import { updateSalon } from "./../../../../../../features/salonSlice";
+import {
+  updateCustIndex,
+  updateAddingcustomer,
+} from "./../../../../../../features/providerSlice";
 import {
   updateGrahak,
   updateIdOfProvider,
@@ -20,8 +23,6 @@ function Custnames(props) {
   const grahak = useSelector((state) => state.main.grahak);
   const dispatch = useDispatch();
 
-  const providercontext = useContext(ProviderContext);
-
   const [custDisplay, setCustDisplay] = useState("none");
 
   function editServices(refer, customerIndex) {
@@ -29,9 +30,8 @@ function Custnames(props) {
     dispatch(updateGrahak({ ...grahak, service: [] }));
 
     dispatch(updateIdOfProvider(refer));
-
-    providercontext.setCustIndex(customerIndex);
-    providercontext.setAddingcustomer(false);
+    dispatch(updateCustIndex(customerIndex));
+    dispatch(updateAddingcustomer(false));
   }
 
   async function cancelBooking(refer, customerIndex) {

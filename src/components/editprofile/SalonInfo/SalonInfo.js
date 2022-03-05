@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 
 import "./SalonInfo.css";
 import { getDownloadURL, ref, uploadBytesResumable } from "@firebase/storage";
@@ -6,16 +6,23 @@ import { db, storage } from "../../../firebaseproduction.js";
 import { doc, setDoc } from "@firebase/firestore";
 import { useDispatch, useSelector } from "react-redux";
 
-import ProviderContext from "../../../context/ProviderContext";
-
 import { updateSalon } from "../../../features/salonSlice";
 import { updateNotify } from "../../../features/mainSlice";
+import {
+  updatePhotoUploadingProgress,
+  updateButtonDisabled,
+} from "../../../features/providerSlice";
 
 function SalonInfo() {
   const dispatch = useDispatch();
 
-  const providercontext = useContext(ProviderContext);
   const salon = useSelector((state) => state.salon.salon);
+  const photoUploadingProgress = useSelector(
+    (state) => state.providerstate.photoUploadingProgress
+  );
+  const buttonDisabled = useSelector(
+    (state) => state.providerstate.buttonDisabled
+  );
   const dataInfo = [
     {
       label: "Salon Name",
@@ -57,7 +64,7 @@ function SalonInfo() {
 
   function uploadPhoto(file) {
     if (!file) return;
-    providercontext.setButtonDisabled(false);
+    dispatch(updateButtonDisabled(false));
     const storageRef = ref(storage, `/salonImages/${salon.id}/${salon.id}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
 
@@ -68,7 +75,7 @@ function SalonInfo() {
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         );
 
-        providercontext.setPhotoUploadingProgress(progress);
+        dispatch(updatePhotoUploadingProgress(progress));
       },
       (err) => console.error(err),
       () => {
@@ -83,12 +90,12 @@ function SalonInfo() {
   function dataHandle(e) {
     let name = e.target.name;
     let value = e.target.value;
-    providercontext.setButtonDisabled(false);
+    dispatch(updateButtonDisabled(false));
     dispatch(updateSalon({ ...salon, [name]: value }));
   }
 
   function SalonInfoHandler() {
-    providercontext.setButtonDisabled(true);
+    dispatch(updateButtonDisabled(true));
 
     const docRef = doc(db, "salon", salon.id);
 
@@ -143,11 +150,11 @@ function SalonInfo() {
             accept="image/*"
           ></input>
           <p style={{ fontSize: "2rem", color: "orange" }}>
-            {providercontext.photoUploadingProgress === 100
+            {photoUploadingProgress === 100
               ? "Uploaded Successfully"
-              : providercontext.photoUploadingProgress === 0
+              : photoUploadingProgress === 0
               ? null
-              : providercontext.photoUploadingProgress}
+              : photoUploadingProgress}
           </p>
 
           <button type="submit" className="SalonInfo__change__photo">
@@ -174,9 +181,7 @@ function SalonInfo() {
           onClick={SalonInfoHandler}
           style={{ width: "40%" }}
           className="SalonInfo__change__photo"
-          disabled={
-            providercontext.buttonDisabled || salon?.mobile.length !== 10
-          }
+          disabled={buttonDisabled || salon?.mobile.length !== 10}
         >
           Save Changes
         </button>

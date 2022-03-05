@@ -1,7 +1,8 @@
-import React, { useContext } from "react";
-import ProviderContext from "./../../../context/ProviderContext";
+import React from "react";
 import ModalUnstyled from "@mui/core/ModalUnstyled";
 import { styled } from "@mui/system";
+import { updateAlertProvider } from "../../../features/providerSlice";
+import { useSelector, useDispatch } from "react-redux";
 
 const StyledModal = styled(ModalUnstyled)`
   position: fixed;
@@ -40,23 +41,29 @@ const style = {
   fontSize: "2rem",
 };
 function AlertProvider(props) {
-  const providercontext = useContext(ProviderContext);
-
+  const dispatch = useDispatch();
+  const alertProvider = useSelector(
+    (state) => state.providerstate.alertProvider
+  );
+  const alertMessage = useSelector((state) => state.providerstate.alertMessage);
   const updateAlertResponse = () => {
     props.function();
-    providercontext.setAlertProvider(false);
+    dispatch(updateAlertProvider(false));
+  };
+  const closeAlert = (value) => {
+    dispatch(updateAlertProvider(false));
   };
 
   return (
     <StyledModal
       aria-labelledby="unstyled-modal-title"
       aria-describedby="unstyled-modal-description"
-      open={providercontext.alertProvider}
-      onClose={providercontext.closeAlert}
+      open={alertProvider}
+      onClose={closeAlert}
       BackdropComponent={Backdrop}
     >
       <div style={style}>
-        <p>{providercontext.alertMessage}</p>
+        <p>{alertMessage}</p>
 
         <div
           style={{
@@ -73,7 +80,9 @@ function AlertProvider(props) {
           </button>
           <button
             style={{ padding: "0.5rem 1rem" }}
-            onClick={() => providercontext.setAlertProvider(false)}
+            onClick={() => {
+              dispatch(updateAlertProvider(false));
+            }}
           >
             cancel
           </button>

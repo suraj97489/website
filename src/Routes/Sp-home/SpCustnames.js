@@ -1,29 +1,93 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import "./SpCustnames.css";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
-import { doc, runTransaction } from "@firebase/firestore";
+import { doc, runTransaction, setDoc } from "@firebase/firestore";
 import { db } from "../../firebaseproduction";
 
-import ProviderContext from "./../../context/ProviderContext";
 import { updateSalon } from "./../../features/salonSlice";
+import {
+  updateAddingcustomer,
+  updateSelectedServices,
+  updateOpen,
+  updateCustIndex,
+  updateProviderId,
+} from "./../../features/providerSlice";
 
 import CallIcon from "@material-ui/icons/Call";
 import { useSelector, useDispatch } from "react-redux";
 
 function SpCustnames(props) {
   const salon = useSelector((state) => state.salon.salon);
+  const serviceproviders = useSelector((state) => state.salon.serviceproviders);
+  const services = useSelector((state) => state.providerstate.services);
   const dispatch = useDispatch();
-  const providercontext = useContext(ProviderContext);
 
   const [custDisplay, setCustDisplay] = useState("none");
+  function done(idOfProvider, e, cust, providerName) {
+    e.stopPropagation();
+
+    let newprovidersarray = serviceproviders.map((provider) => {
+      if (provider.id === idOfProvider) {
+        let time = new Date().getTime();
+        let customers = provider.customers.filter((cust, i) => i !== 0);
+        let checkingTime = time + 1000 * 150;
+        let customerResponded = false;
+        let popUpTime = time + 1000 * 60;
+
+        return {
+          ...provider,
+          checkingTime,
+          customerResponded,
+          popUpTime,
+          customers,
+        };
+      } else {
+        return provider;
+      }
+    });
+
+    let date = new Date().toDateString();
+    let time = new Date().toLocaleTimeString();
+    let serviceWithCharges = cust.service.map((eachServiceName) => {
+      return services.find((service) => service.name === eachServiceName);
+    });
+
+    let customerPaid = serviceWithCharges.reduce((accumulte, service) => {
+      return accumulte + Number(service.charges);
+    }, 0);
+
+    let report = {
+      custName: cust.name,
+      custMobile: cust.mobile,
+      providerName: providerName,
+      date: date,
+      time: time,
+      services: serviceWithCharges,
+      providerId: idOfProvider,
+      customerPaid: customerPaid,
+      addedBy: cust.addedBy,
+    };
+
+    let salonReportUpdatedArray = [report, ...salon.salonReport];
+
+    const docRef = doc(db, "salon", salon.id);
+
+    const payLoad = {
+      ...salon,
+      serviceproviders: newprovidersarray,
+      salonReport: salonReportUpdatedArray,
+    };
+
+    setDoc(docRef, payLoad);
+  }
 
   function editServices(customerIndex, providerId) {
-    providercontext.setSelectedServices([]);
-    providercontext.setOpen(true);
-    providercontext.setAddingcustomer(false);
-    providercontext.setCustIndex(customerIndex);
-    providercontext.setProviderId(providerId);
+    dispatch(updateSelectedServices([]));
+    dispatch(updateOpen(true));
+    dispatch(updateAddingcustomer(false));
+    dispatch(updateCustIndex(customerIndex));
+    dispatch(updateProviderId(providerId));
   }
 
   async function cancelBooking(providerId, customerIndex) {
@@ -82,12 +146,7 @@ function SpCustnames(props) {
             {props.index === 0 ? (
               <button
                 onClick={(e) => {
-                  providercontext.done(
-                    props.refer,
-                    e,
-                    props.cust,
-                    props.providerName
-                  );
+                  done(props.refer, e, props.cust, props.providerName);
                 }}
                 className="completed__button"
               >

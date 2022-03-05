@@ -6,14 +6,15 @@ import ServicesSection from "./ServicesSection/ServicesSection";
 
 import CircularProgress from "@mui/material/CircularProgress";
 
-import ProviderContext from "./../../context/ProviderContext";
 import { Helmet } from "react-helmet-async";
 import { useSelector } from "react-redux";
 
 function EditProfile() {
   document.title = "Edit Profile";
   const customer = useSelector((state) => state.userstate.customer);
-  const providerContext = useContext(ProviderContext);
+  const salonUsername = useSelector(
+    (state) => state.providerstate.salonUsername
+  );
   const [buttonText, setButtonText] = useState("Salon Info");
 
   function buttonsClick(e) {
@@ -27,7 +28,7 @@ function EditProfile() {
     setButtonText(e.target.textContent);
   }
 
-  if (providerContext.salonUsername === customer?.email) {
+  if (salonUsername === customer?.email) {
     return (
       <>
         <div className="EditProfile__container">

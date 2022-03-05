@@ -1,15 +1,14 @@
 import { doc, setDoc } from "@firebase/firestore";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 
 import { db } from "../../../firebaseproduction";
 import "./ServicesSection.css";
 
-import ProviderContext from "../../../context/ProviderContext";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { updateServices } from "../../../features/providerSlice";
 
 function ServicesSection() {
-  const providercontext = useContext(ProviderContext);
-
+  const dispatch = useDispatch();
   const [serviceIndex, setServiceIndex] = useState();
   const [updatedService, setUpdatedService] = useState({
     name: "",
@@ -17,6 +16,7 @@ function ServicesSection() {
   });
   const [addingService, setAddingService] = useState(false);
   const salon = useSelector((state) => state.salon.salon);
+  const services = useSelector((state) => state.providerstate.services);
 
   function serviceUpdateHandler(e) {
     let name = e.target.name;
@@ -33,57 +33,48 @@ function ServicesSection() {
   function ClickedOnDeleteService(i) {
     setAddingService(false);
 
-    providercontext.setServices((services) => {
-      let newServicesarr = services.filter((service, index) => index !== i);
-
-      const docRef = doc(db, "salon", salon.id);
-      const payLoad = { ...salon, services: newServicesarr };
-      setDoc(docRef, payLoad);
-
-      return newServicesarr;
-    });
+    let newServicesarr = services.filter((service, index) => index !== i);
+    dispatch(updateServices(newServicesarr));
+    const docRef = doc(db, "salon", salon.id);
+    const payLoad = { ...salon, services: newServicesarr };
+    setDoc(docRef, payLoad);
   }
 
   function ClickedOnCancelUpdating() {
     setServiceIndex(null);
     if (addingService) {
-      providercontext.services.pop();
+      services.pop();
       setAddingService(false);
     }
   }
   function ClickedOnSaveService(i, service) {
     setAddingService(false);
-
-    providercontext.setServices((services) => {
-      let newServicesArray = services.map((service, index) => {
-        if (index === i) {
-          return updatedService;
-        } else {
-          return service;
-        }
-      });
-      const docRef = doc(db, "salon", salon.id);
-      const payLoad = { ...salon, services: newServicesArray };
-      setDoc(docRef, payLoad);
-      return newServicesArray;
+    let newServicesArray = services.map((service, index) => {
+      if (index === i) {
+        return updatedService;
+      } else {
+        return service;
+      }
     });
+    dispatch(updateServices(newServicesArray));
+    const docRef = doc(db, "salon", salon.id);
+    const payLoad = { ...salon, services: newServicesArray };
+    setDoc(docRef, payLoad);
+
     setServiceIndex(null);
   }
 
   function ClickedOnAddService() {
     setAddingService(true);
-    providercontext.setServices((services) => [
-      ...services,
-      { name: "", charges: "" },
-    ]);
-
-    setServiceIndex(providercontext.services.length);
+    let newArr = [...services, { name: "", charges: "" }];
+    dispatch(updateServices(newArr));
+    setServiceIndex(services.length);
     setUpdatedService({ name: "", charges: "" });
   }
 
   return (
     <div className="ServicesSection">
-      {providercontext.services?.map((service, i) => {
+      {services?.map((service, i) => {
         return (
           <div key={i} className="ServicesSection__serviceDiv">
             {serviceIndex === i ? (

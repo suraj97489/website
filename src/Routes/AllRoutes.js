@@ -23,8 +23,7 @@ import AddSalon from "../AdminPanel/AddSalon/AddSalon";
 import AdminLogin from "../AdminPanel/AdminLogin";
 import SalonDetails from "../AdminPanel/SalonDetails/SalonDetails";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { db } from "../firebaseproduction";
-import { collection, onSnapshot } from "@firebase/firestore";
+
 import { useSelector, useDispatch } from "react-redux";
 import { updateSalon, updateServiceproviders } from "../features/salonSlice";
 
@@ -37,6 +36,8 @@ import {
   updateUser,
 } from "../features/mainSlice";
 import { updateCustomer } from "../features/userSlice";
+import { updateServices } from "../features/providerSlice";
+import Policy from "./Policy";
 
 function AllRoutes() {
   const salon = useSelector((state) => state.salon.salon);
@@ -44,102 +45,6 @@ function AllRoutes() {
 
   const allSalon = useSelector((state) => state.main.allSalon);
   const dispatch = useDispatch();
-  useEffect(() => {
-    dataAfterRefresh();
-    return () => {
-      dataAfterRefresh();
-    };
-  }, []);
-
-  function dataAfterRefresh() {
-    onSnapshot(collection(db, "salon"), (snapshot) => {
-      // ==================================update all salon====================================
-      let allSalonValue = snapshot.docs.map((doc) => {
-        return {
-          salonUsername: doc.data().salonUsername,
-          salonCode: doc.data().salonCode,
-        };
-      });
-      dispatch(updateAllSalon(allSalonValue));
-
-      //======================================Active list=======================================
-
-      let arr = snapshot.docs
-        .map((doc) => {
-          return { ...doc.data(), id: doc.id };
-        })
-        // allSalon
-        .map((salon) => {
-          // let trying;
-
-          let saloncustomers = salon.serviceproviders.map((provider) => {
-            if (provider.customers.length > 0) {
-              return provider.customers;
-            }
-          });
-          return saloncustomers;
-        });
-
-      let flatarray = arr.flat(3).filter((elem) => elem !== undefined);
-      dispatch(updateOverAllCustomers(flatarray));
-
-      //  ======================updating salon from local storage===================================
-
-      let localSalon = localStorage.getItem("salon");
-
-      if (localSalon && localSalon !== "temporarySalonCode") {
-        let foundsalon = snapshot.docs
-          .filter((doc) => {
-            return doc.data().salonCode === localSalon;
-          })
-          .map((onedoc) => {
-            return { ...onedoc.data(), id: onedoc.id };
-          })[0];
-
-        dispatch(updateSalon(foundsalon));
-      } else {
-        localSalon = localStorage.setItem("salon", "temporarySalonCode");
-      }
-    });
-
-    // ======================updating grahak from local storage====================================
-    updateGrahkfromlocalstorage();
-    OnlyFourSalonHistoryLength();
-  }
-  function OnlyFourSalonHistoryLength() {
-    let salonHistory = JSON.parse(localStorage.getItem("salonHistory"));
-    if (salonHistory && salonHistory.length > 4) {
-      let updatedSalonHistory = salonHistory.filter((each, i) => i < 4);
-      localStorage.setItem("salonHistory", JSON.stringify(updatedSalonHistory));
-    }
-  }
-
-  function updateGrahkfromlocalstorage() {
-    let grahakavailable = localStorage.getItem("grahak");
-    if (grahakavailable) {
-      let grahakValue = JSON.parse(grahakavailable);
-      dispatch(updateGrahak(grahakValue));
-    } else {
-      grahakavailable = localStorage.setItem(
-        "grahak",
-        JSON.stringify({
-          fname: " ",
-          lname: " ",
-          mobile: "",
-          service: [],
-          email: " ",
-        })
-      );
-      let grahakValue = {
-        fname: " ",
-        lname: " ",
-        mobile: "",
-        service: [],
-        email: " ",
-      };
-      dispatch(updateGrahak(grahakValue));
-    }
-  }
 
   useEffect(() => {
     function updatesetServiceProviders() {
@@ -170,16 +75,22 @@ function AllRoutes() {
           displayName: user.displayName,
         };
         dispatch(updateCustomer(customerValue));
-        let thisIsprovider = allSalon?.some(
-          (salon) => salon.salonUsername === user.email
-        );
+        // console.log(allSalon);
+        let thisIsprovider = allSalon?.some((salon) => {
+          return salon.salonUsername === user.email;
+        });
 
         if (thisIsprovider) {
+          // console.log("this is provider");
           dispatch(updateUser("provider"));
         } else if (user.email === process.env.REACT_APP_ADMIN_USERNAME) {
+          // console.log("this is admin");
           dispatch(updateUser("admin"));
         } else {
-          dispatch(updateUser("customer"));
+          // console.log("this is customer");
+          allSalon.length === 0
+            ? dispatch(updateUser(null))
+            : dispatch(updateUser("customer"));
         }
       } else {
         dispatch(updateUser(null));
@@ -187,7 +98,7 @@ function AllRoutes() {
       }
     });
     return unsubscribe;
-  }, []);
+  }, [salon]);
 
   return (
     <>
@@ -246,6 +157,9 @@ function AllRoutes() {
 
           <Route exact path="/contactus">
             <Contactus />
+          </Route>
+          <Route exact path="/privacy-policy">
+            <Policy />
           </Route>
 
           <Redirect to="/" />

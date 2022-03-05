@@ -1,16 +1,21 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 
 import "./ProviderInfo.css";
 
 import { Delete } from "@material-ui/icons";
 
 import ProviderInfoLogic from "./ProviderInfoLogic";
-import ProviderContext from "./../../../context/ProviderContext";
 import { useSelector } from "react-redux";
 
 function ProviderInfo() {
-  const providercontext = useContext(ProviderContext);
   const serviceproviders = useSelector((state) => state.salon.serviceproviders);
+  const photoUploadingProgress = useSelector(
+    (state) => state.providerstate.photoUploadingProgress
+  );
+  const buttonDisabled = useSelector(
+    (state) => state.providerstate.buttonDisabled
+  );
+
   const {
     setProvider,
 
@@ -78,11 +83,11 @@ function ProviderInfo() {
             ></img>
           </div>
           <p style={{ fontSize: "2rem", color: "orange" }}>
-            {providercontext.photoUploadingProgress === 100
+            {photoUploadingProgress === 100
               ? "Uploaded Successfully"
-              : providercontext.photoUploadingProgress === 0
+              : photoUploadingProgress === 0
               ? null
-              : providercontext.photoUploadingProgress}
+              : photoUploadingProgress}
           </p>
           <h2 style={{ color: "white" }}>{file}</h2>
 
@@ -160,10 +165,7 @@ function ProviderInfo() {
                 <button
                   onClick={saveChanges}
                   className="ProviderInfo__SaveChanges"
-                  disabled={
-                    providercontext.buttonDisabled ||
-                    provider.mobile.length !== 10
-                  }
+                  disabled={buttonDisabled || provider.mobile.length !== 10}
                 >
                   Save changes
                 </button>

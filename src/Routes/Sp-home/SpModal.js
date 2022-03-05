@@ -5,9 +5,14 @@ import { styled } from "@mui/system";
 import "./SpModal.css";
 import { doc, runTransaction } from "@firebase/firestore";
 import { db } from "../../firebaseproduction";
-import ProviderContext from "./../../context/ProviderContext";
-import Maincontext from "./../../context/MainContext";
-import { useSelector } from "react-redux";
+
+import { useSelector, useDispatch } from "react-redux";
+import {
+  updateCustomerName,
+  updateCustomerMobile,
+  updateSelectedServices,
+  updateOpen,
+} from "../../features/providerSlice";
 
 const StyledModal = styled(ModalUnstyled)`
   position: fixed;
@@ -45,14 +50,28 @@ const style = {
 };
 
 function SpModal(props) {
+  const dispatch = useDispatch();
   const salon = useSelector((state) => state.salon.salon);
-  const providercontext = useContext(ProviderContext);
+  const addingcustomer = useSelector(
+    (state) => state.providerstate.addingcustomer
+  );
+  const providerId = useSelector((state) => state.providerstate.providerId);
+  const customerName = useSelector((state) => state.providerstate.customerName);
+  const customerMobile = useSelector(
+    (state) => state.providerstate.customerMobile
+  );
+  const selectedServices = useSelector(
+    (state) => state.providerstate.selectedServices
+  );
+  const custIndex = useSelector((state) => state.providerstate.custIndex);
+  const open = useSelector((state) => state.providerstate.open);
+  const services = useSelector((state) => state.providerstate.services);
 
   const handleClose = () => {
-    providercontext.setOpen(false);
-    providercontext.setSelectedServices = [];
-    providercontext.setCustomerName("");
-    providercontext.setCustomerMobile("");
+    dispatch(updateOpen(false));
+    dispatch(updateSelectedServices([]));
+    dispatch(updateCustomerName(""));
+    dispatch(updateCustomerMobile(""));
   };
 
   async function addCustomer() {
@@ -67,16 +86,16 @@ function SpModal(props) {
           throw "Document does not exist!";
         }
 
-        if (providercontext.addingcustomer) {
+        if (addingcustomer) {
           newprovidersarray = thisDoc
             .data()
             .serviceproviders.map((provider) => {
-              if (provider.id === providercontext.providerId) {
+              if (provider.id === providerId) {
                 provider.customers.push({
                   email: "",
-                  mobile: providercontext.customerMobile,
-                  name: providercontext.customerName,
-                  service: providercontext.selectedServices,
+                  mobile: customerMobile,
+                  name: customerName,
+                  service: selectedServices,
                   checkStatus: false,
                   addedBy: "provider",
                 });
@@ -92,11 +111,11 @@ function SpModal(props) {
           newprovidersarray = thisDoc
             .data()
             .serviceproviders.map((provider) => {
-              if (provider.id === providercontext.providerId) {
+              if (provider.id === providerId) {
                 provider.customers = provider.customers.map(
                   (eachcust, index) => {
-                    if (index === providercontext.custIndex) {
-                      eachcust.service = providercontext.selectedServices;
+                    if (index === custIndex) {
+                      eachcust.service = selectedServices;
                       return eachcust;
                     } else {
                       return eachcust;
@@ -118,6 +137,17 @@ function SpModal(props) {
       console.error("something went wrong");
     }
   }
+  function spCollectcheckvalue(e) {
+    if (e.target.checked) {
+      let selectedServicesValue = [...selectedServices, e.target.value];
+      dispatch(updateSelectedServices(selectedServicesValue));
+    } else {
+      let selectedServicesValue = selectedServices.filter((service) => {
+        return service !== e.target.value;
+      });
+      dispatch(updateSelectedServices(selectedServicesValue));
+    }
+  }
 
   return (
     <>
@@ -125,7 +155,7 @@ function SpModal(props) {
         <StyledModal
           aria-labelledby="unstyled-modal-title"
           aria-describedby="unstyled-modal-description"
-          open={providercontext.open}
+          open={open}
           onClose={handleClose}
           BackdropComponent={Backdrop}
         >
@@ -134,7 +164,7 @@ function SpModal(props) {
               X
             </div>
 
-            {providercontext.addingcustomer && (
+            {addingcustomer && (
               <div className="SpModal__label__input">
                 <label className="SpModal__label" htmlFor="customerName">
                   Customer Name
@@ -142,10 +172,10 @@ function SpModal(props) {
                 <input
                   className="SpModal__input"
                   type="text"
-                  value={providercontext.customerName}
+                  value={customerName}
                   name="customerName"
                   onChange={(e) => {
-                    providercontext.setCustomerName(e.target.value);
+                    dispatch(updateCustomerName(e.target.value));
                   }}
                 />
 
@@ -155,21 +185,21 @@ function SpModal(props) {
                 <input
                   className="SpModal__input"
                   type="number"
-                  value={providercontext.customerMobile}
+                  value={customerMobile}
                   name="customerMobile"
                   onChange={(e) => {
-                    providercontext.setCustomerMobile(e.target.value);
+                    dispatch(updateCustomerMobile(e.target.value));
                   }}
                 />
               </div>
             )}
 
             <div className="Services__container">
-              {providercontext.services?.map((service, i) => {
+              {services?.map((service, i) => {
                 return (
                   <div key={i} className="service">
                     <input
-                      onChange={providercontext.spCollectcheckvalue}
+                      onChange={spCollectcheckvalue}
                       value={service.name}
                       className="service__input"
                       type="checkbox"
@@ -181,10 +211,9 @@ function SpModal(props) {
             </div>
             <button
               disabled={
-                providercontext.addingcustomer
-                  ? providercontext.selectedServices.length === 0 ||
-                    providercontext.customerName === ""
-                  : providercontext.selectedServices.length === 0
+                addingcustomer
+                  ? selectedServices.length === 0 || customerName === ""
+                  : selectedServices.length === 0
               }
               onClick={addCustomer}
               className="Modal__submit"

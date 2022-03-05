@@ -51,100 +51,12 @@ function ProviderState(props) {
     };
   }, [photoUploadingProgress]);
 
-  const handleOpen = (providerId) => {
-    setSelectedServices([]);
-    setAddingcustomer(true);
-    setOpen(true);
-    setProviderId(providerId);
-  };
-
-  function spCollectcheckvalue(e) {
-    if (e.target.checked) {
-      setSelectedServices(() => [...selectedServices, e.target.value]);
-    } else {
-      setSelectedServices(() => {
-        return selectedServices.filter((service) => {
-          return service !== e.target.value;
-        });
-      });
-    }
-  }
-
-  function bookingControl(e, providerId) {
-    e.stopPropagation();
-    let newprovidersarray = serviceproviders.map((provider) => {
-      if (providerId === provider.id) {
-        return { ...provider, bookingOn: e.target.checked };
-      } else {
-        return provider;
-      }
-    });
-    const docRef = doc(db, "salon", salon.id);
-    const payLoad = {
-      ...salon,
-      serviceproviders: newprovidersarray,
-    };
-
-    setDoc(docRef, payLoad);
-  }
-
-  function done(idOfProvider, e, cust, providerName) {
-    e.stopPropagation();
-
-    let newprovidersarray = serviceproviders.map((provider) => {
-      if (provider.id === idOfProvider) {
-        let time = new Date().getTime();
-        let customers = provider.customers.filter((cust, i) => i !== 0);
-        let checkingTime = time + 1000 * 150;
-        let customerResponded = false;
-        let popUpTime = time + 1000 * 60;
-
-        return {
-          ...provider,
-          checkingTime,
-          customerResponded,
-          popUpTime,
-          customers,
-        };
-      } else {
-        return provider;
-      }
-    });
-
-    let date = new Date().toDateString();
-    let time = new Date().toLocaleTimeString();
-    let serviceWithCharges = cust.service.map((eachServiceName) => {
-      return services.find((service) => service.name === eachServiceName);
-    });
-
-    let customerPaid = serviceWithCharges.reduce((accumulte, service) => {
-      return accumulte + Number(service.charges);
-    }, 0);
-
-    let report = {
-      custName: cust.name,
-      custMobile: cust.mobile,
-      providerName: providerName,
-      date: date,
-      time: time,
-      services: serviceWithCharges,
-      providerId: idOfProvider,
-      customerPaid: customerPaid,
-      addedBy: cust.addedBy,
-    };
-
-    let salonReportUpdatedArray = [report, ...salon.salonReport];
-
-    const docRef = doc(db, "salon", salon.id);
-
-    const payLoad = {
-      ...salon,
-      serviceproviders: newprovidersarray,
-      salonReport: salonReportUpdatedArray,
-    };
-
-    setDoc(docRef, payLoad);
-  }
+  // const handleOpen = (providerId) => {
+  //   setSelectedServices([]);
+  //   setAddingcustomer(true);
+  //   setOpen(true);
+  //   setProviderId(providerId);
+  // };
 
   async function firstPopUpHandler() {
     let currentTime = new Date().getTime();
@@ -243,9 +155,7 @@ function ProviderState(props) {
       setDoc(docRef, payLoad);
     }
   }
-  const closeAlert = (value) => {
-    setAlertProvider(false);
-  };
+
   return (
     <ProviderContext.Provider
       value={{
@@ -255,10 +165,10 @@ function ProviderState(props) {
         setServices,
         open,
         setOpen,
-        handleOpen,
+        // handleOpen,
         custIndex,
         setCustIndex,
-        spCollectcheckvalue,
+
         selectedServices,
         setSelectedServices,
         customerName,
@@ -269,8 +179,7 @@ function ProviderState(props) {
         setProviderId,
         addingcustomer,
         setAddingcustomer,
-        bookingControl,
-        done,
+
         firstPopUpHandler,
         secondPopUpHandler,
         salonUsername,
@@ -280,7 +189,7 @@ function ProviderState(props) {
         setAlertProvider,
         alertMessage,
         setAlertMessage,
-        closeAlert,
+
         photoUploadingProgress,
         setPhotoUploadingProgress,
       }}

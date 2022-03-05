@@ -5,14 +5,13 @@ import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { doc, setDoc } from "@firebase/firestore";
 import { db } from "../../firebaseproduction";
 
-import ProviderContext from "./../../context/ProviderContext";
-
 import ProviderBefore from "./../../components/CommonComponent/ProviderBefore";
 import { useSelector, useDispatch } from "react-redux";
 import {
   updateSalon,
   updateSalonProvidersfordisplay,
 } from "../../features/salonSlice";
+import { handleOpen } from "../../features/providerSlice";
 
 function SpServiceproviderslist(props) {
   const salon = useSelector((state) => state.salon.salon);
@@ -22,8 +21,6 @@ function SpServiceproviderslist(props) {
     (state) => state.salon.salonProvidersfordisplay
   );
   const dispatch = useDispatch();
-
-  const providercontext = useContext(ProviderContext);
 
   useEffect(() => {
     let cancel = false;
@@ -135,7 +132,7 @@ function SpServiceproviderslist(props) {
           {shopOpen && (
             <button
               id={props.id + props.fname + props.lname}
-              onClick={() => providercontext.handleOpen(props.id)}
+              onClick={() => dispatch(handleOpen(props.id))}
               className="bookyourname"
             >
               ADD CUSTOMER
