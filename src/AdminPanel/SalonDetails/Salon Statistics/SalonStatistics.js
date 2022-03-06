@@ -1,18 +1,10 @@
 import React from "react";
-<<<<<<< HEAD
-
-=======
->>>>>>> procontext
 import SalonDetailsHeading from "../SalonDetailsHeading";
 import "./SalonStatistics.css";
 import { useSelector } from "react-redux";
 function SalonStatistics() {
   const salon = useSelector((state) => state.salon.salon);
   const detailsHeading = useSelector((state) => state.main.detailsHeading);
-<<<<<<< HEAD
-=======
-
->>>>>>> procontext
   let addedBySalonLength = salon?.salonReport?.filter(
     (each) => each.addedBy === "provider"
   ).length;
